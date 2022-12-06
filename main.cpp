@@ -2,6 +2,7 @@
 // Lors de l'ajout d'un fichier .cpp, modifier l'emplacement du fichier vers le dossier "src
 
 #include <iostream>
+#include "functions.h"
 
 int main()
 {
