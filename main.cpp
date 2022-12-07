@@ -6,5 +6,11 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    int minutes = 60; //Le nombre de minutes passé sur le jeu
+	int energy = 50; //Le taux d'énergie actuellement possédé par le joueur (database)
+
+	while (minutes != 0) { //Sera remplacé while game is open
+		setTimer(energy);
+		minutes - 5; //Temp
+	}
 }
