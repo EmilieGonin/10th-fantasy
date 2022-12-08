@@ -34,6 +34,7 @@ void pull(int num) {
 		int pull = rand(database[rarity - 1].size());
 		std::cout << "Item pulled : " << database[rarity - 1][pull] << std::endl;
 	}
+}
 
 //Lancée au démarrage de l'application pour setup le timer
 void setTimer(int& energy) {
