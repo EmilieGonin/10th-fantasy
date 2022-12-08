@@ -1,16 +1,51 @@
 #include "functions.h"
 
-//Lancée au démarrage de l'application pour setup le timer
+int rand(int range) {
+	int random = rand() % range;
+	return random;
+}
+
+void pull(int num) {
+	for (size_t i = 0; i < num; i++)
+	{
+		int rarity = rand(1000);
+		std::cout << "random : " << rarity << std::endl;
+
+		if (rarity >= 0 && rarity < 5) {
+			rarity = 3; //Legendary (0,5%)
+		}
+		else if (rarity >= 5 && rarity < 95) {
+			rarity = 2; //Epic (9,5%)
+		}
+		else {
+			rarity = 1; //Rare (90%)
+		}
+
+		//Vecteurs temporaires pour reprÃ©senter la database
+		//SELECT * FROM SUPPORTS WHERE RARITIES = (rarity)
+		std::vector< std::vector<std::string>> database;
+		std::vector<std::string> rare = { "first rare object","second rare object" ,"third rare object" ,"fourth rare object" ,"fifth rare object" };
+		std::vector<std::string> epic = { "first epic object","second epic object" ,"third epic object" ,"fourth epic object" ,"fifth epic object" ,"sixth epic object" };
+		std::vector<std::string> legendary = { "first legendary item", "second legendary item", "third legendary item" };
+		database.push_back(rare); //0
+		database.push_back(epic); //1
+		database.push_back(legendary); //2
+
+		int pull = rand(database[rarity - 1].size());
+		std::cout << "Item pulled : " << database[rarity - 1][pull] << std::endl;
+	}
+
+//LancÃ©e au dÃ©marrage de l'application pour setup le timer
 void setTimer(int& energy) {
 	clock_t start, now, timePassed;
 	start = clock();
-	timePassed = 0; //Le temps du timer précédent si on a pu le stocker à la fermeture du jeu
-	int duration = 3000 - timePassed; //en ms, à remplacer par 300000 (5min)
+	timePassed = 0; //Le temps du timer prÃ©cÃ©dent si on a pu le stocker Ã  la fermeture du jeu
+	int duration = 3000 - timePassed; //en ms, Ã  remplacer par 300000 (5min)
 
 	do {
 		now = clock();
 
-		//Données à stocker si on peut lancer une fonction lors de la fermeture du jeu
+		//DonnÃ©es Ã  stocker si on peut lancer une fonction lors de la fermeture du jeu
 		timePassed = now - start;
 	} while (timePassed < duration);
 
