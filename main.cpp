@@ -1,14 +1,12 @@
 
 #include <iostream>
-
 #include <vector>
+#include <thread>
+
 #include "Enemy.h"
 #include "Player.h"
 #include "Battle.h"
 #include "Entity.h"
-
-
-#include <thread>
 #include "functions.h" //Temporary functions outside classes
 
 Enemy enemy;
@@ -20,7 +18,6 @@ Player player;
 
 int main()
 {
-
     std::vector<Enemy*> myVector;
     myVector.push_back(&enemy);
     myVector.push_back(&enemy2);
@@ -43,16 +40,12 @@ int main()
     std::cout << "Pulling 10 items..." << std::endl;
     pull(10);
 
-    while (true) {
-    
-
     while (battle.getBattleState()) {
         battle.turn();
         battle.battleCheck();
     }
 
     std::cout << "battle end";
-    }; //Game loop
 
     return 0;
 }

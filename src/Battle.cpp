@@ -45,11 +45,8 @@ void Battle::turn() {
 void Battle::battleCheck() {
 
 	std::cout << "Player HP : " <<  this->player->getHp() << std::endl;
-	std::cout << "Number of enemies : " << this->enemies.size() << std::endl;
 
-	if (this->player->getHp() && this->enemies.size()) {
-		this->battle = true;
-
+	if (this->enemies.size()) {
 		for (int i = 1; i < this->battleOrder.size(); i++) {
 			if (this->battleOrder[i]->getHp() <= 0) {
 				std::cout << "Enemy dead" << std::endl;
@@ -57,6 +54,12 @@ void Battle::battleCheck() {
 				this->enemies.erase(this->enemies.begin() + i - 1);
 			}
 		}
+	}
+
+	std::cout << "Number of enemies : " << this->enemies.size() << std::endl;
+
+	if (this->player->getHp() && this->enemies.size() > 0) {
+		this->battle = true;
 	}
 	else if (!this->player->getHp()) {
 		this->battle = false;
