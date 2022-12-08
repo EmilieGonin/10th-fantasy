@@ -136,10 +136,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\Battle.cpp" />
+    <ClCompile Include="src\Enemy.cpp" />
+    <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\functions.cpp" />
+    <ClCompile Include="src\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Battle.h" />
+    <ClInclude Include="include\Enemy.h" />
+    <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\functions.h" />
+    <ClInclude Include="include\Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
