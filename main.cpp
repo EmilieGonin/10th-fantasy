@@ -26,7 +26,6 @@ int main()
 
     while (battle.getBattleState()) {
         battle.turn();
-
         battle.battleCheck();
     }
 

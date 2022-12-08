@@ -17,10 +17,10 @@ Battle::~Battle() {};
 
 void Battle::attack(Entity* bully, Entity* target) {
 
-	std::cout << "My hp " << target->getHp() << std::endl;
-	std::cout << (bully->getAtk() - (target->getDef() / 2)) << std::endl;
+	std::cout << "HP before attack : " << target->getHp() << std::endl;
+	std::cout << "Damage dealt : " << (bully->getAtk() - (target->getDef() / 2)) << std::endl;
 	target->looseHp((bully->getAtk() - (target->getDef() / 2)));
-	std::cout << "My hp " << target->getHp() << std::endl;
+	std::cout << "HP after attack : " << target->getHp() << std::endl << std::endl;
 
 	
 }
@@ -29,34 +29,40 @@ void Battle::attack(Entity* bully, Entity* target) {
 void Battle::turn() {
 	int target;
 	std::cout << "Choose an enemy : " << std::endl;
+	for (int i = 1; i < this->battleOrder.size(); i++) {
+		std::cout << "Enemy " << i << " - hp status : " << this->battleOrder[i]->getHp() << std::endl;
+	}
 	std::cin >> target;
+
 
 	this->attack(this->player, enemies[target-1]);
 	for (int i = 1; i < this->battleOrder.size(); i++) {
-		std::cout << "Je me fiait attaquer";
+		std::cout << "Enemy " << i << " attack" << std::endl;
 		this->attack(battleOrder[i], this->player);
 	}
 
 }
 void Battle::battleCheck() {
 
-	std::cout << "My hp : " <<  this->player->getHp() << std::endl;
-	for (int i = 1; i < this->battleOrder.size(); i++) {
-		if (this->battleOrder[i]->getHp() <= 0) {
-			this->battleOrder.erase(this->battleOrder.begin() + i);
-		}
-		std::cout << "Enemy n° " << i << "hp status : " <<  this->battleOrder[i]->getHp() << std::endl;
-	}
+	std::cout << "Player HP : " <<  this->player->getHp() << std::endl;
+	std::cout << "Number of enemies : " << this->enemies.size() << std::endl;
 
-
-	if (this->player->getHp() && this->battleOrder.size() > 1) {
+	if (this->player->getHp() && this->enemies.size()) {
 		this->battle = true;
+
+		for (int i = 1; i < this->battleOrder.size(); i++) {
+			if (this->battleOrder[i]->getHp() <= 0) {
+				std::cout << "Enemy dead" << std::endl;
+				this->battleOrder.erase(this->battleOrder.begin() + i);
+				this->enemies.erase(this->enemies.begin() + i - 1);
+			}
+		}
 	}
-	else if (this->player->getHp() <= 0) {
+	else if (!this->player->getHp()) {
 		this->battle = false;
 		this->win = false;
 	}
-	else if (this->battleOrder.size() == 1) {
+	else if (!this->enemies.size()) {
 		this->battle = false;
 		this->win = true;
 		}
