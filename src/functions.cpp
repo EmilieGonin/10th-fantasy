@@ -37,20 +37,28 @@ void pull(int num) {
 }
 
 //Lancée au démarrage de l'application pour setup le timer
-void setTimer(int& energy) {
+void setTimer(int& energy, bool& ready) {
+	std::cout << "Starting timer..." << std::endl;
+	ready = true;
+	int limit = 50; //La limite d'énergie en fonction du niveau du joueur (database)
 	clock_t start, now, timePassed;
-	start = clock();
-	timePassed = 0; //Le temps du timer précédent si on a pu le stocker à la fermeture du jeu
-	int duration = 3000 - timePassed; //en ms, à remplacer par 300000 (5min)
 
-	do {
-		now = clock();
+	while (energy < limit) { //Sera remplacé par while game is open
+		if (energy < limit) {
+			start = clock();
+			timePassed = 0; //Le temps du timer précédent si on a pu le stocker à la fermeture du jeu
+			int duration = 3000 - timePassed; //en ms, à remplacer par 300000 (5min)
 
-		//Données à stocker si on peut lancer une fonction lors de la fermeture du jeu
-		timePassed = now - start;
-	} while (timePassed < duration);
+			do {
+				now = clock();
 
-	energy++;
-	std::cout << "energy : " << energy << std::endl;
-	std::cout << "time passed : " << timePassed / 1000 << "s" << std::endl;
+				//Données à stocker si on peut lancer une fonction lors de la fermeture du jeu
+				timePassed = now - start;
+			} while (timePassed < duration);
+
+			energy++;
+			std::cout << "energy : " << energy << std::endl;
+			std::cout << "time passed : " << timePassed / 1000 << "s" << std::endl;
+		}
+	}
 }

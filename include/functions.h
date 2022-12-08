@@ -8,4 +8,4 @@
 int rand(int);
 //Pull the number of item wanted
 void pull(int);
-void setTimer(int&);
+void setTimer(int&, bool&);
