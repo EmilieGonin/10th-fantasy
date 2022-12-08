@@ -6,5 +6,10 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    srand(time(0)); //Initialize rand seed once
+    std::cout << "Pulling 1 item..." << std::endl;
+    pull(1);
+    std::cout << std::endl;
+    std::cout << "Pulling 10 items..." << std::endl;
+    pull(10);
 }
