@@ -32,18 +32,20 @@ void Battle::turn() {
 	std::cin >> target;
 
 	this->attack(this->player, enemies[target-1]);
-	for (int i = 1; i < this->enemies.size(); i++) {
+	for (int i = 1; i < this->battleOrder.size(); i++) {
 		std::cout << "Je me fiait attaquer";
-		this->attack(enemies[i], this->player);
+		this->attack(battleOrder[i], this->player);
 	}
 
 }
 void Battle::battleCheck() {
 
 	std::cout << "My hp : " <<  this->player->getHp() << std::endl;
-	for (int i = 0; i < this->enemies.size(); i++) {
-		
-		std::cout << "Enemy n° " << i << "hp status : " <<  this->enemies[i]->getHp() << std::endl;
+	for (int i = 1; i < this->battleOrder.size(); i++) {
+		if (this->battleOrder[i]->getHp() <= 0) {
+			this->battleOrder.erase(this->battleOrder.begin() + i);
+		}
+		std::cout << "Enemy n° " << i << "hp status : " <<  this->battleOrder[i]->getHp() << std::endl;
 	}
 
 
