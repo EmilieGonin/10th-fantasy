@@ -21,7 +21,7 @@ void pull(int num) {
 			rarity = 1; //Rare (90%)
 		}
 
-		//Vecteurs temporaires pour repr�senter la database
+		//Vecteurs temporaires pour représenter la database
 		//SELECT * FROM SUPPORTS WHERE RARITIES = (rarity)
 		std::vector< std::vector<std::string>> database;
 		std::vector<std::string> rare = { "first rare object","second rare object" ,"third rare object" ,"fourth rare object" ,"fifth rare object" };
@@ -34,4 +34,22 @@ void pull(int num) {
 		int pull = rand(database[rarity - 1].size());
 		std::cout << "Item pulled : " << database[rarity - 1][pull] << std::endl;
 	}
+
+//Lancée au démarrage de l'application pour setup le timer
+void setTimer(int& energy) {
+	clock_t start, now, timePassed;
+	start = clock();
+	timePassed = 0; //Le temps du timer précédent si on a pu le stocker à la fermeture du jeu
+	int duration = 3000 - timePassed; //en ms, à remplacer par 300000 (5min)
+
+	do {
+		now = clock();
+
+		//Données à stocker si on peut lancer une fonction lors de la fermeture du jeu
+		timePassed = now - start;
+	} while (timePassed < duration);
+
+	energy++;
+	std::cout << "energy : " << energy << std::endl;
+	std::cout << "time passed : " << timePassed / 1000 << "s" << std::endl;
 }

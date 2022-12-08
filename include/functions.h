@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <ctime>
 #include <vector>
 #include <string>
 
@@ -7,3 +8,4 @@
 int rand(int);
 //Pull the number of item wanted
 void pull(int);
+void setTimer(int&);
