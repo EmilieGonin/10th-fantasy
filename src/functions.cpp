@@ -16,5 +16,5 @@ void setTimer(int& energy) {
 
 	energy++;
 	std::cout << "energy : " << energy << std::endl;
-	std::cout << "time passed : " << timePassed << std::endl;
+	std::cout << "time passed : " << timePassed / 1000 << "s" << std::endl;
 }
