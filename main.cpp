@@ -39,6 +39,7 @@ int main()
     std::cout << std::endl;
     std::cout << "Pulling 10 items..." << std::endl;
     pull(10);
+    std::cout << std::endl;
 
     while (battle.getBattleState()) {
         battle.turn();
