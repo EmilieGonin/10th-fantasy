@@ -7,10 +7,13 @@
 int main()
 {
     int minutes = 60; //Le nombre de minutes passé sur le jeu
-	int energy = 50; //Le taux d'énergie actuellement possédé par le joueur (database)
+	int energy = 30; //Le taux d'énergie actuellement possédé par le joueur (database)
+	int limit = 50; //La limite d'énergie en fonction du niveau du joueur (database)
 
-	while (minutes != 0) { //Sera remplacé while game is open
-		setTimer(energy);
+	while (energy < limit) { //Sera remplacé while game is open
+		if (energy < limit) {
+			setTimer(energy);
+		}
 		minutes - 5; //Temp
 	}
 }
