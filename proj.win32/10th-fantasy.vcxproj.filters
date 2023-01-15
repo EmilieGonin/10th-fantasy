@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Z:\Classes\AppDelegate.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\Classes\MainScene.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\proj.win32\main.cpp">
+      <Filter>Source Files\proj.win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\cocos2d\cocos\precheader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\Battle.cpp">
+      <Filter>Source Files\Classes\include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\Enemy.cpp">
+      <Filter>Source Files\Classes\include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\Entity.cpp">
+      <Filter>Source Files\Classes\include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\Gear.cpp">
+      <Filter>Source Files\Classes\include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\Player.cpp">
+      <Filter>Source Files\Classes\include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\TitleScreen.cpp">
+      <Filter>Source Files\Classes\include</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Z:\Classes\AppDelegate.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Classes\MainScene.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\proj.win32\main.h">
+      <Filter>Source Files\proj.win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\proj.win32\resource.h">
+      <Filter>Source Files\proj.win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\CloseNormal.png">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\CloseSelected.png">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\HelloWorld.png">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\fonts\Marker Felt.ttf">
+      <Filter>Resources\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\fonts\arial.ttf">
+      <Filter>Resources\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\res\.gitkeep">
+      <Filter>Resources\res</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Battle.h">
+      <Filter>Source Files\Classes\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Enemy.h">
+      <Filter>Source Files\Classes\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Entity.h">
+      <Filter>Source Files\Classes\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Gear.h">
+      <Filter>Source Files\Classes\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Player.h">
+      <Filter>Source Files\Classes\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\TitleScreen.h">
+      <Filter>Source Files\Classes\src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Z:\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Z:\proj.win32\game.rc">
+      <Filter>Source Files\proj.win32</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{1ADB2AF6-0A17-3091-B52A-EE0EE38FF6A9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\fonts">
+      <UniqueIdentifier>{9634AF4B-7AE6-3DE9-80EA-1F4823210ED1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\res">
+      <UniqueIdentifier>{755084FD-0325-3FB5-87B4-ED44C4136F8C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{8942DD0A-CDEA-3ADA-B461-F71B2E5F5FB8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes">
+      <UniqueIdentifier>{B754C423-5FD5-3999-9BBD-0AE6BD9A9101}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\proj.win32">
+      <UniqueIdentifier>{82E2383D-3395-31D5-BE38-8DBE05348D3D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\src">
+      <UniqueIdentifier>{c5e0be07-27cc-48dd-9f1d-5aa504df4a12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Classes\include">
+      <UniqueIdentifier>{3f30072d-1af2-4785-8818-2a9cd635987d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="Z:\proj.win32\CMakeFiles\4d33d50b5defcf8e67cc797a25021d5b\SYNC_RESOURCE-10th-fantasy.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Z:\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Z:\proj.win32\CMakeFiles\SYNC_RESOURCE-10th-fantasy" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{B102BDF9-74FD-3F27-A1B9-E524B02A09B9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
