@@ -14,22 +14,25 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\src\Battle.cpp">
-      <Filter>Source Files\Classes\include</Filter>
+      <Filter>Source Files\Classes\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\Database.cpp">
+      <Filter>Source Files\Classes\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\src\Enemy.cpp">
-      <Filter>Source Files\Classes\include</Filter>
+      <Filter>Source Files\Classes\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\src\Entity.cpp">
-      <Filter>Source Files\Classes\include</Filter>
+      <Filter>Source Files\Classes\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\src\Gear.cpp">
-      <Filter>Source Files\Classes\include</Filter>
+      <Filter>Source Files\Classes\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\src\Player.cpp">
-      <Filter>Source Files\Classes\include</Filter>
+      <Filter>Source Files\Classes\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\src\TitleScreen.cpp">
-      <Filter>Source Files\Classes\include</Filter>
+      <Filter>Source Files\Classes\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,22 +67,25 @@
       <Filter>Resources\res</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\Battle.h">
-      <Filter>Source Files\Classes\src</Filter>
+      <Filter>Source Files\Classes\include</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\Enemy.h">
-      <Filter>Source Files\Classes\src</Filter>
+      <Filter>Source Files\Classes\include</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\Entity.h">
-      <Filter>Source Files\Classes\src</Filter>
+      <Filter>Source Files\Classes\include</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\Gear.h">
-      <Filter>Source Files\Classes\src</Filter>
+      <Filter>Source Files\Classes\include</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\Player.h">
-      <Filter>Source Files\Classes\src</Filter>
+      <Filter>Source Files\Classes\include</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\TitleScreen.h">
-      <Filter>Source Files\Classes\src</Filter>
+      <Filter>Source Files\Classes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Database.h">
+      <Filter>Source Files\Classes\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

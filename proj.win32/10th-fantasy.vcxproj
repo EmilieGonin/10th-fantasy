@@ -830,6 +830,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\include\Battle.h" />
+    <ClInclude Include="..\Classes\include\Database.h" />
     <ClInclude Include="..\Classes\include\Enemy.h" />
     <ClInclude Include="..\Classes\include\Entity.h" />
     <ClInclude Include="..\Classes\include\Gear.h" />
@@ -840,6 +841,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="Z:\proj.win32\main.h" />
     <ClInclude Include="Z:\proj.win32\resource.h" />
     <ClCompile Include="..\Classes\src\Battle.cpp" />
+    <ClCompile Include="..\Classes\src\Database.cpp" />
     <ClCompile Include="..\Classes\src\Enemy.cpp" />
     <ClCompile Include="..\Classes\src\Entity.cpp" />
     <ClCompile Include="..\Classes\src\Gear.cpp" />
