@@ -5,6 +5,8 @@
 
 MainScene::MainScene() {
 	srand(time(0)); //Initialize rand seed once
+	_database = new Database;
+	_database->getUser();
 
 	_energy = 30;
 	_ready = false;

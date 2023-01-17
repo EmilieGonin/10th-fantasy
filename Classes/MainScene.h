@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include <vector>
+#include "database.h"
 
 class MainScene : public cocos2d::Scene
 {
@@ -10,6 +11,7 @@ protected:
 	bool _ready; //Quand l'appli est prête (loadings, testing)
 	cocos2d::Director* _director;
 	cocos2d::Scheduler* _scheduler;
+	Database* _database;
 
 public:
 	MainScene();
