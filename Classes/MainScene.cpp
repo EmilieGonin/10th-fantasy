@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Battle.h"
+#include <cpr/cpr.h> //Testing only
 
 MainScene::MainScene() {
 	srand(time(0)); //Initialize rand seed once
@@ -16,6 +17,8 @@ MainScene::MainScene() {
 	//timer.detach();
 
 	//while (!_ready) {};
+	cpr::Response r = cpr::Get(cpr::Url{ "http://www.httpbin.org/get" }); //Testing only
+	cocos2d::log(r.url.c_str()); //Testing only
 }
 
 void MainScene::testing() { //Debug only
