@@ -85,9 +85,9 @@
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>Z:\packages\include;Z:\Classes\include;$(IncludePath)</IncludePath>
+    <IncludePath>Z:\libs\include;Z:\Classes\include;$(IncludePath)</IncludePath>
     <SourcePath>Z:\Classes\src;$(SourcePath)</SourcePath>
-    <LibraryPath>Z:\packages\lib\debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>Z:\libs\lib-debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
     <IncludePath>Z:\packages\include;Z:\Classes\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
@@ -95,9 +95,9 @@
     <LibraryPath>Z:\packages\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>Z:\packages\include;Z:\Classes\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>Z:\libs\include;Z:\Classes\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <SourcePath>Z:\Classes\src;$(VC_SourcePath);</SourcePath>
-    <LibraryPath>Z:\packages\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>Z:\libs\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
     <IncludePath>Z:\packages\include;Z:\Classes\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
