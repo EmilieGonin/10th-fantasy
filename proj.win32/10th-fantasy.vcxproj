@@ -258,7 +258,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>LIBCMT.lib;msvcrt.lib;LIBCMTD.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>Z:/proj.win32/Debug/10th-fantasy.lib</ImportLibrary>
       <ProgramDataBaseFile>Z:/proj.win32/bin/10th-fantasy/Debug/10th-fantasy.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
@@ -425,7 +425,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>LIBCMT.lib;LIBCMTD.lib;msvcrtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>Z:/proj.win32/Release/10th-fantasy.lib</ImportLibrary>
       <ProgramDataBaseFile>Z:/proj.win32/bin/10th-fantasy/Release/10th-fantasy.pdb</ProgramDataBaseFile>
       <SubSystem>Windows</SubSystem>
