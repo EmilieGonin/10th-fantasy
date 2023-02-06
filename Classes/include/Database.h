@@ -23,11 +23,12 @@ public:
 	bool handleRequest(cpr::Response);
 	std::vector<std::string> split(std::string, std::string);
 	bool checkSave();
-
+	void createSave();
 
 	//GET requests
 	bool getUser();
 
 	//POST requests
 	bool createUser();
+	void setEmail(std::string);
 };

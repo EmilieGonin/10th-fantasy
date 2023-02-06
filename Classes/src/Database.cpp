@@ -13,15 +13,6 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 
 Database::Database() {
 	_url = "https://49g5s1t0.directus.app"; //To encrypt
-
-	if (!checkSave()) {
-		if (!createUser()) { //À remplacer par un while avec saisie utilisateur
-			cocos2d::log("User already exist !");
-		}
-	}
-	else {
-		getUser();
-	}
 }
 
 bool Database::checkSave() {
@@ -99,15 +90,18 @@ bool Database::getUser() {
 
 bool Database::createUser() {
 	cocos2d::log("creating user");
-	_email = "test@test.com";
-
-	//Creating user
-	std::ofstream file("user.txt");
-	file << "User=" + _email << std::endl;
-	file.close();
-
 	std::string url = std::string(_url + "/items/users");
 	db::user user = { std::string(_email) }; //Création de la struct
 	json payload = user; //On convertis la struct en JSON
 	return request(url, payload);
+}
+
+void Database::createSave() {
+	std::ofstream file("user.txt");
+	file << "User=" + _email << std::endl;
+	file.close();
+}
+
+void Database::setEmail(std::string email) {
+	_email = email;
 }

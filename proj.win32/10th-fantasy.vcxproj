@@ -837,10 +837,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\include\Gear.h" />
     <ClInclude Include="..\Classes\include\Player.h" />
     <ClInclude Include="..\Classes\include\TitleScreen.h" />
+    <ClInclude Include="..\Classes\Interface.h" />
+    <ClInclude Include="..\Classes\MainMenuScene.h" />
     <ClInclude Include="Z:\Classes\AppDelegate.h" />
     <ClInclude Include="Z:\Classes\MainScene.h" />
     <ClInclude Include="Z:\proj.win32\main.h" />
     <ClInclude Include="Z:\proj.win32\resource.h" />
+    <ClCompile Include="..\Classes\Interface.cpp" />
+    <ClCompile Include="..\Classes\MainMenuScene.cpp" />
     <ClCompile Include="..\Classes\src\Battle.cpp" />
     <ClCompile Include="..\Classes\src\Database.cpp" />
     <ClCompile Include="..\Classes\src\Enemy.cpp" />
