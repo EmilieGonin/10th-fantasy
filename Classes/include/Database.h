@@ -30,4 +30,5 @@ public:
 
 	//POST requests
 	bool createUser();
+	void setEmail(std::string);
 };

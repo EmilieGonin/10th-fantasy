@@ -140,3 +140,39 @@ void MainScene::setTimer() {
 		}
 	}
 }
+
+void MainScene::update(float delta) {
+	//
+}
+
+void MainScene::login() {
+	cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
+
+	if (!_database->checkSave()) {
+		_textField = newTextField("Enter your mail");
+		_textField->setPosition(center());
+		Button* button = newButton("OK");
+		button->setPosition(cocos2d::Vec2(centerWidth(), centerHeight()-50));
+		this->addChild(_textField);
+		this->addChild(button);
+
+		button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED) {
+					cocos2d::log("ended");
+					std::string input = _textField->getString();
+					_database->setEmail(input);
+					if (!_database->createUser()) { //À remplacer par un while avec saisie utilisateur
+						cocos2d::log("User already exist !");
+					}
+					else {
+						//change scene
+					}
+				}
+			}
+		);
+	}
+	else {
+		_database->getUser();
+	}
+}
