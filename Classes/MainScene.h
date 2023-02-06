@@ -18,6 +18,7 @@ protected:
 public:
 	MainScene();
 	void update(float) override;
+	void signup();
 	void login();
 	void testing();
 

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Battle.h"
+#include "MainMenuScene.h"
 
 MainScene::MainScene() {
 	srand(time(0)); //Initialize rand seed once
@@ -145,16 +146,20 @@ void MainScene::update(float delta) {
 	//
 }
 
-void MainScene::login() {
-	cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
-
+void MainScene::signup() {
 	if (!_database->checkSave()) {
+		//Ajouter label créer un compte
 		_textField = newTextField("Enter your mail");
 		_textField->setPosition(center());
+		this->addChild(_textField);
+
 		Button* button = newButton("OK");
 		button->setPosition(cocos2d::Vec2(centerWidth(), centerHeight()-50));
-		this->addChild(_textField);
 		this->addChild(button);
+
+		Button* buttonLogin = newButton("I already have an account !");
+		buttonLogin->setPosition(cocos2d::Vec2(centerWidth(), centerHeight() - 100));
+		this->addChild(buttonLogin);
 
 		button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
 			{
@@ -162,12 +167,26 @@ void MainScene::login() {
 					cocos2d::log("ended");
 					std::string input = _textField->getString();
 					_database->setEmail(input);
-					if (!_database->createUser()) { //À remplacer par un while avec saisie utilisateur
-						cocos2d::log("User already exist !");
+					if (_database->createUser()) {
+						_database->createSave();
+						cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 					}
 					else {
-						//change scene
+						this->removeChild(_textField);
+						//Ajouter autres children
+						signup();
 					}
+				}
+			}
+		);
+
+		buttonLogin->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED) {
+					cocos2d::log("ended");
+					this->removeChild(_textField);
+					//Ajouter autres children
+					login();
 				}
 			}
 		);
@@ -175,4 +194,34 @@ void MainScene::login() {
 	else {
 		_database->getUser();
 	}
+}
+
+void MainScene::login() {
+	//Ajouter label connexion
+	_textField = newTextField("Enter your mail");
+	_textField->setPosition(center());
+	this->addChild(_textField);
+
+	Button* button = newButton("OK");
+	button->setPosition(cocos2d::Vec2(centerWidth(), centerHeight() - 50));
+	this->addChild(button);
+
+	button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+		{
+			if (type == Widget::TouchEventType::ENDED) {
+				cocos2d::log("ended");
+				std::string input = _textField->getString();
+				_database->setEmail(input);
+				if (_database->getUser()) {
+					_database->createSave();
+					cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+				}
+				else {
+					this->removeChild(_textField);
+					//Ajouter autres children
+					login();
+				}
+			}
+		}
+	);
 }
