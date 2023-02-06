@@ -28,10 +28,13 @@
     <ClCompile Include="..\Classes\src\Gear.cpp">
       <Filter>Source Files\Classes\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\src\Player.cpp">
+    <ClCompile Include="..\Classes\src\TitleScreen.cpp">
       <Filter>Source Files\Classes\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\src\TitleScreen.cpp">
+    <ClCompile Include="Z:\Classes\BattleScene.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\Player.cpp">
       <Filter>Source Files\Classes\src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\include\Database.h">
       <Filter>Source Files\Classes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BattleScene.h">
+      <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

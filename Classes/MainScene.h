@@ -4,6 +4,7 @@
 #include <vector>
 #include "database.h"
 
+
 class MainScene : public cocos2d::Scene
 {
 protected:
@@ -12,6 +13,7 @@ protected:
 	cocos2d::Director* _director;
 	cocos2d::Scheduler* _scheduler;
 	Database* _database;
+	
 
 public:
 	MainScene();

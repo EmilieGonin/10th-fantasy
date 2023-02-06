@@ -1,5 +1,7 @@
 #include "Player.h"
 
+#include "cocos2d.h"
+
 Player::Player() {
 	_basehp = _totalHp = 300; // 75hp per lvl
 	_basedef = _totalDef = 76; // 8 def per lvl
@@ -7,9 +9,15 @@ Player::Player() {
 	_baseatk = _totalAtk = 75; // 12 atk per lvl
 	_lvl = 1;// 50 lvl
 	_dmgType = 0;
+
+	mySprite = cocos2d::Sprite::create("sprite/player.png");
+	mySprite->setPosition(50, 400);
 }	
 
 Player::~Player() {};
+
+
+cocos2d::Sprite* Player::getSprite() { return mySprite; }
 
 void Player::levelup() {
 	_lvl += 1;
