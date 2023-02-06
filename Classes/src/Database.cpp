@@ -90,16 +90,16 @@ bool Database::getUser() {
 
 bool Database::createUser() {
 	cocos2d::log("creating user");
-
-	//Creating user
-	std::ofstream file("user.txt");
-	file << "User=" + _email << std::endl;
-	file.close();
-
 	std::string url = std::string(_url + "/items/users");
 	db::user user = { std::string(_email) }; //Création de la struct
 	json payload = user; //On convertis la struct en JSON
 	return request(url, payload);
+}
+
+void Database::createSave() {
+	std::ofstream file("user.txt");
+	file << "User=" + _email << std::endl;
+	file.close();
 }
 
 void Database::setEmail(std::string email) {

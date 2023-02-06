@@ -1,9 +1,9 @@
-#include "TitleScreen.h"
+#include "MainMenuScene.h"
 USING_NS_CC;
 
-Scene* TitleScreen::createScene()
+Scene* MainMenuScene::createScene()
 {
-    return TitleScreen::create();
+    return MainMenuScene::create();
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -14,7 +14,7 @@ static void problemLoading(const char* filename)
 }
 
 // on "init" you need to initialize your instance
-bool TitleScreen::init()
+bool MainMenuScene::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -34,7 +34,7 @@ bool TitleScreen::init()
     auto closeItem = MenuItemImage::create(
         "CloseNormal.png",
         "CloseSelected.png",
-        CC_CALLBACK_1(TitleScreen::menuCloseCallback, this));
+        CC_CALLBACK_1(MainMenuScene::menuCloseCallback, this));
 
     if (closeItem == nullptr ||
         closeItem->getContentSize().width <= 0 ||
@@ -49,12 +49,11 @@ bool TitleScreen::init()
         closeItem->setPosition(Vec2(x, y));
     }
 
-    signup();
     return true;
 }
 
 
-void TitleScreen::menuCloseCallback(Ref* pSender)
+void MainMenuScene::menuCloseCallback(Ref* pSender)
 {
     //Close the cocos2d-x game scene and quit the application
     Director::getInstance()->end();
