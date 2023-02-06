@@ -5,15 +5,17 @@
 #include "database.h"
 #include "Interface.h"
 
+
 class MainScene : public cocos2d::Scene
 {
 protected:
-	int _energy; //Le taux d'énergie actuellement possédé par le joueur (database)
-	bool _ready; //Quand l'appli est prête (loadings, testing)
+	int _energy; //Le taux d'Ã©nergie actuellement possÃ©dÃ© par le joueur (database)
+	bool _ready; //Quand l'appli est prÃªte (loadings, testing)
 	cocos2d::Director* _director;
 	cocos2d::Scheduler* _scheduler;
 	Database* _database;
 	TextField* _textField;
+
 
 public:
 	MainScene();
