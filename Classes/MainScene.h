@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include <vector>
 #include "database.h"
+#include "Interface.h"
 
 class MainScene : public cocos2d::Scene
 {
@@ -12,9 +13,12 @@ protected:
 	cocos2d::Director* _director;
 	cocos2d::Scheduler* _scheduler;
 	Database* _database;
+	TextField* _textField;
 
 public:
 	MainScene();
+	void update(float) override;
+	void login();
 	void testing();
 
 	//Wrappers for cocos2d::log() function
