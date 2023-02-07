@@ -20,11 +20,10 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 
 	struct character {
 		int userId;
-		int level;
 	};
 
 	void to_json(json& j, const character& character) { //Fonction appelée pour convertir
-		j = json{ {"user", character.userId}, {"level", character.level} };
+		j = json{ {"user_id", character.userId} };
 	}
 }
 
@@ -84,19 +83,21 @@ bool Database::handleRequest(cpr::Response r) {
 
 	if (r.status_code == 0) { //Si la requête n'a pas pu être lancée
 		cocos2d::log(r.error.message.c_str());
+		cocos2d::log("**********"); //Help to see logs
 		return false;
 	}
 	else if (r.status_code >= 400) { //Si la requête a échoué
 		std::string message = std::string("Error [" + std::to_string(r.status_code) + "] making request.");
 		cocos2d::log(message.c_str());
+		cocos2d::log(r.text.c_str());
+		cocos2d::log("**********"); //Help to see logs
 		return false;
 	}
 	else { //On affiche le résultat dans la console (debug only)
 		cocos2d::log(r.text.c_str());
+		cocos2d::log("**********"); //Help to see logs
 		return true;
 	}
-
-	cocos2d::log("**********"); //Help to see logs
 }
 
 bool Database::getUser() {
@@ -112,11 +113,12 @@ bool Database::createUser() {
 	json payload = user; //On convertis la struct en JSON
 
 	if (request(url, payload)) {
-		user = json::parse(_request.text).get<db::user>();
-		_userId = user.id;
+		db::user user2 = json::parse(_request.text)["data"].get<db::user>();
+		_userId = user2.id;
 		url = std::string(_url + "/items/characters");
 		db::character character = { _userId }; //Création de la struct
 		payload = character;
+		//Delete user if character isn't created
 		return request(url, payload);
 	}
 	else {
