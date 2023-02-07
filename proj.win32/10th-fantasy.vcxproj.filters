@@ -96,10 +96,10 @@
     <ClInclude Include="..\Classes\include\Database.h">
       <Filter>Source Files\Classes\include</Filter>
     </ClInclude>
-
     <ClInclude Include="..\Classes\BattleScene.h">
+    <Filter>Source Files\Classes</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\MainMenuScene.h">
-
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>
