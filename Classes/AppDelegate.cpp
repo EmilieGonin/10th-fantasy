@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "BattleScene.h"
+#include "TitleScreen.h"
 
 // #define USE_AUDIO_ENGINE 1
 
@@ -70,7 +70,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = BattleScene::createScene();
+    auto scene = TitleScreen::createScene();
 
     // run
     director->runWithScene(scene);

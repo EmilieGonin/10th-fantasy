@@ -3,11 +3,28 @@
 using json = nlohmann::json; //On raccourcis le namespace
 namespace db { //Les structures et fonctions utilisées pour le JSON
 	struct user {
+		int id;
 		std::string mail;
+		std::string name;
 	};
 
+	void from_json(const json& j, user& user) {
+		j.at("id").get_to(user.id);
+		j.at("mail").get_to(user.mail);
+		j.at("name").get_to(user.name);
+	}
+
 	void to_json(json& j, const user& user) { //Fonction appelée pour convertir
-		j = json{ {"mail", user.mail } };
+		j = json{ {"mail", user.mail }, {"name", user.name } };
+	}
+
+	struct character {
+		int userId;
+		int level;
+	};
+
+	void to_json(json& j, const character& character) { //Fonction appelée pour convertir
+		j = json{ {"user", character.userId}, {"level", character.level} };
 	}
 }
 
@@ -91,9 +108,20 @@ bool Database::getUser() {
 bool Database::createUser() {
 	cocos2d::log("creating user");
 	std::string url = std::string(_url + "/items/users");
-	db::user user = { std::string(_email) }; //Création de la struct
+	db::user user = { NULL, std::string(_email), std::string("User#" + split(_email, "@")[0])}; //Création de la struct
 	json payload = user; //On convertis la struct en JSON
-	return request(url, payload);
+
+	if (request(url, payload)) {
+		user = json::parse(_request.text).get<db::user>();
+		_userId = user.id;
+		url = std::string(_url + "/items/characters");
+		db::character character = { _userId }; //Création de la struct
+		payload = character;
+		return request(url, payload);
+	}
+	else {
+		return false;
+	}
 }
 
 void Database::createSave() {
