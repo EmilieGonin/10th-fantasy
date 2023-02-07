@@ -97,9 +97,12 @@
       <Filter>Source Files\Classes\include</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BattleScene.h">
-    <Filter>Source Files\Classes</Filter>
+      <Filter>Source Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MainMenuScene.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Interface.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>

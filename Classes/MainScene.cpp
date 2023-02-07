@@ -195,6 +195,12 @@ void MainScene::signup() {
 	}
 	else {
 		_database->getUser();
+		cocos2d::Label* label = newLabel("Touch the screen to start");
+		label->setPosition(center());
+		this->addChild(label);
+		//rajouter touch event on screen puis replace scene
+		//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+		//cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
 	}
 }
 
