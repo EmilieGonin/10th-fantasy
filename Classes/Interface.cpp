@@ -2,10 +2,10 @@
 
 TextField* newTextField(std::string string) {
 	TextField* textField = TextField::create(string, "Arial", 30);
-	textField->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+	textField->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 		{
 			if (type == Widget::TouchEventType::BEGAN) {
-				cocos2d::log("began");
+				log("began");
 			}
 		}
 	);
@@ -20,20 +20,25 @@ Button* newButton(std::string string) {
 	return button;
 }
 
-cocos2d::Vec2 center() {
-	cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
+Label* newLabel(std::string string) {
+	Label* label = Label::createWithTTF(string, "fonts/arial.ttf", 25);
+	return label;
+}
+
+Vec2 center() {
+	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	return cocos2d::Vec2(visibleSize.width / 2, visibleSize.height / 2);
 }
 
 float centerWidth() {
-	cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
+	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	return visibleSize.width / 2;
 }
 
 float centerHeight() {
-	cocos2d::Size visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
+	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	return visibleSize.height / 2;
 }
