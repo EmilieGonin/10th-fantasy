@@ -3,11 +3,27 @@
 using json = nlohmann::json; //On raccourcis le namespace
 namespace db { //Les structures et fonctions utilisées pour le JSON
 	struct user {
+		int id;
 		std::string mail;
+		std::string name;
 	};
 
+	void from_json(const json& j, user& user) {
+		j.at("id").get_to(user.id);
+		j.at("mail").get_to(user.mail);
+		j.at("name").get_to(user.name);
+	}
+
 	void to_json(json& j, const user& user) { //Fonction appelée pour convertir
-		j = json{ {"mail", user.mail } };
+		j = json{ {"mail", user.mail }, {"name", user.name } };
+	}
+
+	struct character {
+		int userId;
+	};
+
+	void to_json(json& j, const character& character) { //Fonction appelée pour convertir
+		j = json{ {"user_id", character.userId} };
 	}
 }
 
@@ -67,19 +83,21 @@ bool Database::handleRequest(cpr::Response r) {
 
 	if (r.status_code == 0) { //Si la requête n'a pas pu être lancée
 		cocos2d::log(r.error.message.c_str());
+		cocos2d::log("**********"); //Help to see logs
 		return false;
 	}
 	else if (r.status_code >= 400) { //Si la requête a échoué
 		std::string message = std::string("Error [" + std::to_string(r.status_code) + "] making request.");
 		cocos2d::log(message.c_str());
+		cocos2d::log(r.text.c_str());
+		cocos2d::log("**********"); //Help to see logs
 		return false;
 	}
 	else { //On affiche le résultat dans la console (debug only)
 		cocos2d::log(r.text.c_str());
+		cocos2d::log("**********"); //Help to see logs
 		return true;
 	}
-
-	cocos2d::log("**********"); //Help to see logs
 }
 
 bool Database::getUser() {
@@ -91,9 +109,21 @@ bool Database::getUser() {
 bool Database::createUser() {
 	cocos2d::log("creating user");
 	std::string url = std::string(_url + "/items/users");
-	db::user user = { std::string(_email) }; //Création de la struct
+	db::user user = { NULL, std::string(_email), std::string("User#" + split(_email, "@")[0])}; //Création de la struct
 	json payload = user; //On convertis la struct en JSON
-	return request(url, payload);
+
+	if (request(url, payload)) {
+		db::user user2 = json::parse(_request.text)["data"].get<db::user>();
+		_userId = user2.id;
+		url = std::string(_url + "/items/characters");
+		db::character character = { _userId }; //Création de la struct
+		payload = character;
+		//Delete user if character isn't created
+		return request(url, payload);
+	}
+	else {
+		return false;
+	}
 }
 
 void Database::createSave() {
