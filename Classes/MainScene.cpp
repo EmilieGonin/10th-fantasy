@@ -3,6 +3,7 @@
 #include "Enemy.h"
 #include "Battle.h"
 #include "MainMenuScene.h"
+#include "BattleScene.h"
 
 MainScene::MainScene() {
 	srand(time(0)); //Initialize rand seed once
@@ -169,7 +170,8 @@ void MainScene::signup() {
 					_database->setEmail(input);
 					if (_database->createUser()) {
 						_database->createSave();
-						cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+						//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+						cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
 					}
 					else {
 						this->removeChild(_textField);
@@ -214,7 +216,8 @@ void MainScene::login() {
 				_database->setEmail(input);
 				if (_database->getUser()) {
 					_database->createSave();
-					cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+					//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+					cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
 				}
 				else {
 					this->removeChild(_textField);
