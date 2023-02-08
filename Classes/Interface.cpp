@@ -1,6 +1,11 @@
 #include "Interface.h"
 
-TextField* newTextField(std::string string) {
+Interface::Interface() {
+	//_scene = Director::getInstance()->getRunningScene();
+	_scene = nullptr;
+}
+
+TextField* Interface::newTextField(std::string string) {
 	TextField* textField = TextField::create(string, "Arial", 30);
 	textField->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
 		{
@@ -9,36 +14,74 @@ TextField* newTextField(std::string string) {
 			}
 		}
 	);
-	
+	_textFields.push_back(textField);
+
+	if (_scene != nullptr) {
+		_scene->addChild(textField);
+	}
+
 	return textField;
 }
 
-Button* newButton(std::string string) {
+Button* Interface::newButton(std::string string) {
 	Button* button = Button::create();
 	button->setTitleText(string);
+	_buttons.push_back(button);
+
+	if (_scene != nullptr) {
+		_scene->addChild(button);
+	}
 
 	return button;
 }
 
-Label* newLabel(std::string string) {
+Label* Interface::newLabel(std::string string) {
 	Label* label = Label::createWithTTF(string, "fonts/arial.ttf", 25);
+	_labels.push_back(label);
+
+	if (_scene != nullptr) {
+		_scene->addChild(label);
+	}
+
 	return label;
 }
 
-Vec2 center() {
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-
-	return cocos2d::Vec2(visibleSize.width / 2, visibleSize.height / 2);
+Vec2 Interface::center() {
+	//Taille de la fenêtre de jeu
+	Size size = Director::getInstance()->getVisibleSize();
+	return cocos2d::Vec2(size.width / 2, size.height / 2);
 }
 
-float centerWidth() {
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-
-	return visibleSize.width / 2;
+float Interface::centerWidth() {
+	//Taille de la fenêtre de jeu
+	Size size = Director::getInstance()->getVisibleSize();
+	return size.width / 2;
 }
 
-float centerHeight() {
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-
-	return visibleSize.height / 2;
+float Interface::centerHeight() {
+	//Taille de la fenêtre de jeu
+	Size size = Director::getInstance()->getVisibleSize();
+	return size.height / 2;
 }
+
+void Interface::clean() {
+	if (!_textFields.empty()) {
+		for (TextField* item : _textFields) {
+			_scene->removeChild(item);
+		}
+	}
+
+	if (!_buttons.empty()) {
+		for (Button* item : _buttons) {
+			_scene->removeChild(item);
+		}
+	}
+
+	if (!_labels.empty()) {
+		for (Label* item : _labels) {
+			_scene->removeChild(item);
+		}
+	}
+}
+
+void Interface::setScene(Scene* scene) { _scene = scene; }

@@ -1,4 +1,7 @@
 #include "Database.h"
+#include "BattleScene.h"
+
+Database* Database::_instance = new Database();
 
 using json = nlohmann::json; //On raccourcis le namespace
 namespace db { //Les structures et fonctions utilisées pour le JSON
@@ -29,6 +32,94 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 
 Database::Database() {
 	_url = "https://49g5s1t0.directus.app"; //To encrypt
+}
+
+Database* Database::Instance() {
+	return _instance;
+}
+
+void Database::init(cocos2d::Scene* scene) {
+	setScene(scene);
+
+	if (!checkSave()) {
+		signup();
+	}
+	else {
+		getUser();
+		cocos2d::Label* label = newLabel("Touch the screen to start");
+		label->setPosition(center());
+
+		cocos2d::Label* userLabel = newLabel("username"); //getter from database
+		userLabel->setPosition(Vec2(0, 0)); //set position top
+
+		//rajouter touch event on screen puis replace scene
+		//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+		//cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
+	}
+}
+
+void Database::signup() {
+	//Ajouter label créer un compte
+	TextField* textField = newTextField("Enter your mail");
+	textField->setPosition(center());
+
+	Button* button = newButton("OK");
+	button->setPosition(cocos2d::Vec2(centerWidth(), centerHeight() - 50));
+
+	Button* buttonLogin = newButton("I already have an account !");
+	buttonLogin->setPosition(cocos2d::Vec2(centerWidth(), centerHeight() - 100));
+
+	button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+		{
+			if (type == Widget::TouchEventType::ENDED) {
+				_email = _textFields[0]->getString();
+				if (createUser()) {
+					createSave();
+					//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+					cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
+				}
+				else {
+					clean();
+					signup();
+				}
+			}
+		}
+	);
+
+	buttonLogin->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+		{
+			if (type == Widget::TouchEventType::ENDED) {
+				clean();
+				login();
+			}
+		}
+	);
+}
+
+void Database::login() {
+	//Ajouter label connexion
+	TextField* textField = newTextField("Enter your mail");
+	textField->setPosition(center());
+
+	Button* button = newButton("OK");
+	button->setPosition(cocos2d::Vec2(centerWidth(), centerHeight() - 50));
+
+	button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+		{
+			if (type == Widget::TouchEventType::ENDED) {
+				_email = textField->getString();
+				if (getUser()) {
+					createSave();
+					//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+					cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
+				}
+				else {
+					clean();
+					login();
+				}
+			}
+		}
+	);
 }
 
 bool Database::checkSave() {
