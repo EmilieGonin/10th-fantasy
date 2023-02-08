@@ -15,9 +15,13 @@ protected:
 
 public:
 	Interface();
+
+	//Création d'éléments automatiquement ajoutés dans la scène définie
 	TextField* newTextField(std::string);
 	Button* newButton(std::string);
 	Label* newLabel(std::string);
+
+	//Des wrappers pour set les positions
 	Vec2 center();
 	float centerWidth();
 	float centerHeight();

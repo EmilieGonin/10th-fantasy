@@ -199,7 +199,7 @@ bool Database::getUser() {
 bool Database::createUser() {
 	cocos2d::log("creating user");
 	std::string url = std::string(_url + "/items/users");
-	db::user user = { NULL, std::string(_email), std::string("User#" + split(_email, "@")[0])}; //Création de la struct
+	db::user user = { std::string(_email), std::string("User#" + split(_email, "@")[0])}; //Création de la struct
 	json payload = user; //On convertis la struct en JSON
 
 	if (request(url, payload)) {
@@ -220,6 +220,7 @@ bool Database::createUser() {
 	else {
 		return false;
 	}
+	//Clean even if true
 }
 
 void Database::createSave() {

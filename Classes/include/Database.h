@@ -12,9 +12,9 @@ using namespace cocos2d::ui;
 
 namespace db { //Les structures et fonctions utilisées pour le JSON
 	struct user {
-		int id;
 		std::string mail;
 		std::string name;
+		int id;
 	};
 
 	struct character {
