@@ -188,7 +188,7 @@ bool Database::getUser() {
 	std::string url = std::string(_url + "/items/users?filter[mail][_eq]=" + _email);
 
 	if (request(url)) {
-		_user = json::parse(_request.text)["data"].get<db::user>();
+		_user = json::parse(_request.text)["data"][0].get<db::user>();
 		return true;
 	}
 	else {
