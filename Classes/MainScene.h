@@ -20,8 +20,6 @@ protected:
 public:
 	MainScene();
 	void update(float) override;
-	void signup();
-	void login();
 	void testing();
 
 	//Wrappers for cocos2d::log() function

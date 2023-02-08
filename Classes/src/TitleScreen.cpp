@@ -23,7 +23,7 @@ bool TitleScreen::init()
         return false;
     }
 
-    signup();
+    _database->init(this);
     return true;
 }
 

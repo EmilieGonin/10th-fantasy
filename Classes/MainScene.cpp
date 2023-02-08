@@ -7,7 +7,7 @@
 
 MainScene::MainScene() {
 	srand(time(0)); //Initialize rand seed once
-	_database = new Database;
+	_database = Database::Instance();
 	
 	_energy = 30;
 	_ready = false;
@@ -145,97 +145,4 @@ void MainScene::setTimer() {
 
 void MainScene::update(float delta) {
 	//
-}
-
-void MainScene::signup() {
-	if (!_database->checkSave()) {
-		//Ajouter label créer un compte
-		_textField = newTextField("Enter your mail");
-		_textField->setPosition(center());
-		this->addChild(_textField);
-
-		Button* button = newButton("OK");
-		button->setPosition(cocos2d::Vec2(centerWidth(), centerHeight()-50));
-		this->addChild(button);
-
-		Button* buttonLogin = newButton("I already have an account !");
-		buttonLogin->setPosition(cocos2d::Vec2(centerWidth(), centerHeight() - 100));
-		this->addChild(buttonLogin);
-
-		button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
-			{
-				if (type == Widget::TouchEventType::ENDED) {
-					cocos2d::log("ended");
-					std::string input = _textField->getString();
-					_database->setEmail(input);
-					if (_database->createUser()) {
-						_database->createSave();
-						//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-						cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
-					}
-					else {
-						this->removeChild(_textField);
-						//Ajouter autres children
-						signup();
-					}
-				}
-			}
-		);
-
-		buttonLogin->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
-			{
-				if (type == Widget::TouchEventType::ENDED) {
-					cocos2d::log("ended");
-					this->removeChild(_textField);
-					//Ajouter autres children
-					login();
-				}
-			}
-		);
-	}
-	else {
-		_database->getUser();
-		cocos2d::Label* label = newLabel("Touch the screen to start");
-		label->setPosition(center());
-		this->addChild(label);
-
-		cocos2d::Label* userLabel = newLabel("username"); //getter from database
-		userLabel->setPosition(Vec2(0, 0)); //set position top
-		this->addChild(userLabel);
-
-		//rajouter touch event on screen puis replace scene
-		//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-		//cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
-	}
-}
-
-void MainScene::login() {
-	//Ajouter label connexion
-	_textField = newTextField("Enter your mail");
-	_textField->setPosition(center());
-	this->addChild(_textField);
-
-	Button* button = newButton("OK");
-	button->setPosition(cocos2d::Vec2(centerWidth(), centerHeight() - 50));
-	this->addChild(button);
-
-	button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
-		{
-			if (type == Widget::TouchEventType::ENDED) {
-				cocos2d::log("ended");
-				std::string input = _textField->getString();
-				_database->setEmail(input);
-				if (_database->getUser()) {
-					_database->createSave();
-					//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-					cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
-				}
-				else {
-					this->removeChild(_textField);
-					//Ajouter autres children
-					login();
-				}
-			}
-		}
-	);
 }
