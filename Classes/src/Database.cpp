@@ -18,7 +18,13 @@ void db::from_json(const json& j, user& user) {
 void db::from_json(const json& j, character& character) {
 	j.at("user_id").get_to(character.userId);
 	j.at("level").get_to(character.level);
-	j.at("id").get_to(character.id);
+	j.at("head").get_to(character.head);
+	j.at("chest").get_to(character.chest);
+	j.at("gloves").get_to(character.gloves);
+	j.at("necklace").get_to(character.necklace);
+	j.at("earring").get_to(character.earring);
+	j.at("ring").get_to(character.ring);
+	j.at("weapon").get_to(character.weapon);
 }
 void db::to_json(json& j, const user& user) {
 	j = json{
@@ -30,7 +36,17 @@ void db::to_json(json& j, const user& user) {
 }
 void db::to_json(json& j, const character& character) {
 	j = json{
-		{"user_id", character.userId}, {"level", character.level}
+		{"user_id", character.userId}, {"level", character.level},
+		{"head", character.head}, {"chest", character.chest},
+		{"gloves", character.gloves}, {"necklace", character.necklace},
+		{"earring", character.earring}, {"ring", character.ring},
+		{"weapon", character.weapon}
+	};
+}
+void db::to_json(json& j, const error& error) {
+	j = json{
+		{"code", error.code}, {"message", error.message},
+		{"user_id", error.userId}
 	};
 }
 
@@ -154,6 +170,12 @@ bool Database::checkSave() {
 	return dataFound;
 }
 
+void Database::createSave() {
+	std::ofstream file("user.txt");
+	file << "User=" + _email << std::endl;
+	file.close();
+}
+
 std::vector<std::string> Database::split(std::string string, std::string delim) {
 	std::size_t delimIndex = string.find(delim);
 	std::string setting = string.substr(0, delimIndex);
@@ -183,6 +205,7 @@ bool Database::handleRequest(cpr::Response r) {
 	if (r.status_code == 0) { //Si la requête n'a pas pu être lancée
 		cocos2d::log(r.error.message.c_str());
 		cocos2d::log("**********"); //Help to see logs
+		createError();
 		return false;
 	}
 	else if (r.status_code >= 400) { //Si la requête a échoué
@@ -190,6 +213,7 @@ bool Database::handleRequest(cpr::Response r) {
 		cocos2d::log(message.c_str());
 		cocos2d::log(r.text.c_str());
 		cocos2d::log("**********"); //Help to see logs
+		createError();
 		return false;
 	}
 	else { //On affiche le résultat dans la console (debug only)
@@ -239,10 +263,12 @@ bool Database::createUser() {
 	//Clean even if true
 }
 
-void Database::createSave() {
-	std::ofstream file("user.txt");
-	file << "User=" + _email << std::endl;
-	file.close();
+void Database::createError() {
+	cocos2d::log("creating error");
+	std::string url = std::string(_url + "/items/errors");
+	db::error error = { _request.status_code, _request.error.message };
+	json payload = error;
+	request(url, payload);
 }
 
 void Database::setEmail(std::string email) {
