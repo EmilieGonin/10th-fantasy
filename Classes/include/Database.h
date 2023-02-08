@@ -1,15 +1,36 @@
 #pragma once
-#include <string>
-#include <cpr/cpr.h>
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include <string>
+#include <cpr/cpr.h>
 #include <nlohmann/json.hpp>
 #include <fstream>
-#include <string>
 #include "Interface.h"
 
 using json = nlohmann::json; //On raccourcis le namespace
 using namespace cocos2d::ui;
+
+namespace db { //Les structures et fonctions utilisées pour le JSON
+	struct user {
+		int id;
+		std::string mail;
+		std::string name;
+	};
+
+	struct character {
+		int userId;
+	};
+
+	struct inventory {
+		//
+	};
+
+	//JSON -> STRUCT
+	void from_json(const json& j, user& user);
+	//STRUCT -> JSON
+	void to_json(json& j, const user& user);
+	void to_json(json& j, const character& character);
+}
 
 class Database : Interface
 {
@@ -17,9 +38,9 @@ private:
 	Database();
 	static Database* _instance;
 	cocos2d::Scene* _scene;
-	json _user;
-	json _character;
-	json _inventory;
+	db::user _user;
+	db::character _character;
+	db::inventory _inventory;
 	std::string _url; //Testing only - to encrypt
 	cpr::Response _request;
 	std::string _email;
