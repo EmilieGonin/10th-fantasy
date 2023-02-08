@@ -4,18 +4,34 @@ using namespace db;
 
 //Database Structs Functions
 void db::from_json(const json& j, user& user) {
-	j.at("id").get_to(user.id);
 	j.at("mail").get_to(user.mail);
 	j.at("name").get_to(user.name);
+	j.at("account_lvl").get_to(user.level);
+	j.at("energy").get_to(user.energy);
+	j.at("cristals").get_to(user.cristals);
+	j.at("leafs").get_to(user.leafs);
+	j.at("wishes").get_to(user.wishes);
+	j.at("tickets").get_to(user.tickets);
+	j.at("timer").get_to(user.timer);
+	j.at("id").get_to(user.id);
 }
 void db::from_json(const json& j, character& character) {
 	j.at("user_id").get_to(character.userId);
+	j.at("level").get_to(character.level);
+	j.at("id").get_to(character.id);
 }
 void db::to_json(json& j, const user& user) {
-	j = json{ {"mail", user.mail }, {"name", user.name } };
+	j = json{
+		{"mail", user.mail}, {"name", user.name}, {"account_lvl", user.level},
+		{"energy", user.energy}, {"cristals", user.cristals},
+		{"leafs", user.leafs}, {"wishes", user.wishes},
+		{"tickets", user.tickets}, {"timer", user.timer}
+	};
 }
 void db::to_json(json& j, const character& character) {
-	j = json{ {"user_id", character.userId} };
+	j = json{
+		{"user_id", character.userId}, {"level", character.level}
+	};
 }
 
 //Database Class Functions
@@ -199,7 +215,7 @@ bool Database::getUser() {
 bool Database::createUser() {
 	cocos2d::log("creating user");
 	std::string url = std::string(_url + "/items/users");
-	db::user user = { std::string(_email), std::string("User#" + split(_email, "@")[0])}; //Création de la struct
+	db::user user = { std::string(_email), std::string("User#" + split(_email, "@")[0]), 1, 50}; //Création de la struct
 	json payload = user; //On convertis la struct en JSON
 
 	if (request(url, payload)) {

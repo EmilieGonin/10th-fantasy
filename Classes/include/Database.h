@@ -4,6 +4,7 @@
 #include <string>
 #include <cpr/cpr.h>
 #include <nlohmann/json.hpp>
+#include <optional>
 #include <fstream>
 #include "Interface.h"
 
@@ -14,11 +15,20 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 	struct user {
 		std::string mail;
 		std::string name;
+		int level;
+		int energy;
+		int cristals;
+		int leafs;
+		int wishes;
+		int tickets;
+		int timer;
 		int id;
 	};
 
 	struct character {
 		int userId;
+		int level;
+		int id;
 	};
 
 	struct inventory {
