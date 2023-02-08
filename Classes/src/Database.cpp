@@ -8,6 +8,9 @@ void db::from_json(const json& j, user& user) {
 	j.at("mail").get_to(user.mail);
 	j.at("name").get_to(user.name);
 }
+void db::from_json(const json& j, character& character) {
+	j.at("user_id").get_to(character.userId);
+}
 void db::to_json(json& j, const user& user) {
 	j = json{ {"mail", user.mail }, {"name", user.name } };
 }
@@ -60,6 +63,7 @@ void Database::signup() {
 	button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
 		{
 			if (type == Widget::TouchEventType::ENDED) {
+				cocos2d::log("button endend");
 				_email = _textFields[0]->getString();
 				if (createUser()) {
 					createSave();
@@ -182,7 +186,14 @@ bool Database::handleRequest(cpr::Response r) {
 bool Database::getUser() {
 	cocos2d::log("getting user");
 	std::string url = std::string(_url + "/items/users?filter[mail][_eq]=" + _email);
-	return request(url);
+
+	if (request(url)) {
+		_user = json::parse(_request.text)["data"].get<db::user>();
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 bool Database::createUser() {
@@ -192,13 +203,19 @@ bool Database::createUser() {
 	json payload = user; //On convertis la struct en JSON
 
 	if (request(url, payload)) {
-		db::user user2 = json::parse(_request.text)["data"].get<db::user>();
-		_userId = user2.id;
+		_user = json::parse(_request.text)["data"].get<db::user>();
+		_userId = _user.id;
 		url = std::string(_url + "/items/characters");
 		db::character character = { _userId }; //Création de la struct
 		payload = character;
 		//Delete user if character isn't created
-		return request(url, payload);
+		if (request(url, payload)) {
+			_character = json::parse(_request.text)["data"].get<db::character>();
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	else {
 		return false;
@@ -214,3 +231,7 @@ void Database::createSave() {
 void Database::setEmail(std::string email) {
 	_email = email;
 }
+
+db::user Database::getUserData() { return _user; }
+db::character Database::getCharacterData() { return _character; }
+db::inventory Database::getInventoryData() { return _inventory; }
