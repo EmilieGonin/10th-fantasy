@@ -29,6 +29,19 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int userId;
 		int level;
 		int id;
+		int head;
+		int chest;
+		int gloves;
+		int necklace;
+		int earring;
+		int ring;
+		int weapon;
+	};
+
+	struct error {
+		int code;
+		std::string message;
+		int userId;
 	};
 
 	struct inventory {
@@ -41,6 +54,7 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 	//STRUCT -> JSON
 	void to_json(json& j, const user& user);
 	void to_json(json& j, const character& character);
+	void to_json(json& j, const error& error);
 }
 
 class Database : Interface
@@ -79,6 +93,9 @@ public:
 
 	//POST requests
 	bool createUser();
+	void createError();
+
+	//Setters
 	void setEmail(std::string);
 
 	//Getters
