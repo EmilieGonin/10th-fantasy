@@ -27,6 +27,7 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 
 	//JSON -> STRUCT
 	void from_json(const json& j, user& user);
+	void from_json(const json& j, character& character);
 	//STRUCT -> JSON
 	void to_json(json& j, const user& user);
 	void to_json(json& j, const character& character);
@@ -69,4 +70,9 @@ public:
 	//POST requests
 	bool createUser();
 	void setEmail(std::string);
+
+	//Getters
+	db::user getUserData();
+	db::character getCharacterData();
+	db::inventory getInventoryData();
 };
