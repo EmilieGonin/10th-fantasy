@@ -1,34 +1,22 @@
 #include "Database.h"
 #include "BattleScene.h"
+using namespace db;
 
-Database* Database::_instance = new Database();
-
-using json = nlohmann::json; //On raccourcis le namespace
-namespace db { //Les structures et fonctions utilisées pour le JSON
-	struct user {
-		int id;
-		std::string mail;
-		std::string name;
-	};
-
-	void from_json(const json& j, user& user) {
-		j.at("id").get_to(user.id);
-		j.at("mail").get_to(user.mail);
-		j.at("name").get_to(user.name);
-	}
-
-	void to_json(json& j, const user& user) { //Fonction appelée pour convertir
-		j = json{ {"mail", user.mail }, {"name", user.name } };
-	}
-
-	struct character {
-		int userId;
-	};
-
-	void to_json(json& j, const character& character) { //Fonction appelée pour convertir
-		j = json{ {"user_id", character.userId} };
-	}
+//Database Structs Functions
+void db::from_json(const json& j, user& user) {
+	j.at("id").get_to(user.id);
+	j.at("mail").get_to(user.mail);
+	j.at("name").get_to(user.name);
 }
+void db::to_json(json& j, const user& user) {
+	j = json{ {"mail", user.mail }, {"name", user.name } };
+}
+void db::to_json(json& j, const character& character) {
+	j = json{ {"user_id", character.userId} };
+}
+
+//Database Class Functions
+Database* Database::_instance = new Database();
 
 Database::Database() {
 	_url = "https://49g5s1t0.directus.app"; //To encrypt
