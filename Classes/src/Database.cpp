@@ -345,7 +345,7 @@ bool Database::createInventory() {
 void Database::createError() {
 	cocos2d::log("creating error");
 	std::string url = std::string(_url + "/items/errors");
-	db::error error = { _request.status_code, _request.text };
+	db::error error = { _request.status_code, _request.text, _user.id ? _user.id : 0 };
 	json payload = error;
 	request(url, payload);
 }
