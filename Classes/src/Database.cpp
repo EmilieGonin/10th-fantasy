@@ -253,11 +253,39 @@ bool Database::handleRequest(cpr::Response r) {
 }
 
 bool Database::getUser() {
-	cocos2d::log("getting user");
 	std::string url = std::string(_url + "/items/users?filter[mail][_eq]=" + _email);
 
 	if (request(url)) {
 		_user = json::parse(_request.text)["data"][0].get<db::user>();
+		if (getCharacter()) {
+			return getInventory();
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		return false;
+	}
+}
+
+bool Database::getCharacter() {
+	std::string url = std::string(_url + "/items/characters?filter[user_id][_eq]=" + std::to_string(_user.id));
+
+	if (request(url)) {
+		_character = json::parse(_request.text)["data"][0].get<db::character>();
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool Database::getInventory() {
+	std::string url = std::string(_url + "/items/inventories?filter[user_id][_eq]=" + std::to_string(_user.id));
+
+	if (request(url)) {
+		_inventory = json::parse(_request.text)["data"][0].get<db::inventory>();
 		return true;
 	}
 	else {
@@ -353,6 +381,6 @@ void Database::setEmail(std::string email) {
 	_email = email;
 }
 
-db::user* Database::getUserData() { return &_user; }
-db::character* Database::getCharacterData() { return &_character; }
-db::inventory* Database::getInventoryData() { return &_inventory; }
+db::user* Database::user() { return &_user; }
+db::character* Database::character() { return &_character; }
+db::inventory* Database::inventory() { return &_inventory; }

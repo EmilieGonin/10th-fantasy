@@ -100,6 +100,8 @@ public:
 
 	//GET requests
 	bool getUser();
+	bool getCharacter();
+	bool getInventory();
 
 	//POST requests
 	bool createUser();
@@ -117,7 +119,7 @@ public:
 	void setEmail(std::string);
 
 	//Getters
-	db::user* getUserData();
-	db::character* getCharacterData();
-	db::inventory* getInventoryData();
+	db::user* user();
+	db::character* character();
+	db::inventory* inventory();
 };
