@@ -4,6 +4,7 @@
 #include "Battle.h"
 #include "MainMenuScene.h"
 #include "BattleScene.h"
+#include "Interface.h"
 
 MainScene::MainScene() {
 	srand(time(0)); //Initialize rand seed once

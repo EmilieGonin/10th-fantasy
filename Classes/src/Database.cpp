@@ -1,5 +1,6 @@
 #include "Database.h"
 #include "BattleScene.h"
+#include "MainMenuScene.h"
 using namespace db;
 
 //Database Structs Functions
@@ -95,6 +96,16 @@ void Database::init(cocos2d::Scene* scene) {
 		cocos2d::Label* userLabel = newLabel("username"); //getter from database
 		userLabel->setPosition(Vec2(0, 0)); //set position top
 
+		Button* button = newButton("Next");
+		button->setPosition(cocos2d::Vec2(centerWidth(), centerHeight() - 50));
+		
+		button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+			{
+				if (type == Widget::TouchEventType::ENDED) {
+					cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+				}
+			}
+		);
 		//rajouter touch event on screen puis replace scene
 		//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 		//cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
