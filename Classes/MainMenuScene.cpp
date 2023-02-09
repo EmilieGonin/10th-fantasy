@@ -1,5 +1,6 @@
 #include "MainMenuScene.h"
 #include "BattleScene.h"
+#include "RaidMenuScene.h"
 USING_NS_CC;
 
 Scene* MainMenuScene::createScene()
@@ -45,7 +46,7 @@ bool MainMenuScene::init()
     button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                //cocos2d::Director::getInstance()->replaceScene(RaidMenuScene::create());  // Leann's raid menu
+                cocos2d::Director::getInstance()->replaceScene(RaidMenuScene::create());  // Leann's raid menu
             }
         }
     );

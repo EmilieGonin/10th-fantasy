@@ -73,8 +73,8 @@ void RaidMenuScene::Menu()
     Title->setPosition(centerWidth(),900);
     this->addChild(Title,1);
 
-    auto _firstRaid = newSprite("Rectangle.png");
-    _firstRaid->setPosition(centerWidth(), 700);
+    _firstRaid = newButton("Rectangle.png");
+    _firstRaid->setPosition(cocos2d::Vec2(centerWidth(), 700));
     _firstRaid->setScale(0.4, 0.25);
     this->addChild(_firstRaid);
 
@@ -82,7 +82,7 @@ void RaidMenuScene::Menu()
     Forest->setPosition(centerWidth(), 700);
     this->addChild(Forest, 1);*/
 
-   auto Second = newSprite("Rectangle.png");
+   Second = newSprite("Rectangle.png");
     Second->setPosition(centerWidth(), 500);
     Second->setScale(0.4, 0.25);
     this->addChild(Second);
@@ -91,7 +91,7 @@ void RaidMenuScene::Menu()
     Dungeon->setPosition(centerWidth(), 500);
     this->addChild(Dungeon, 1);
 
-    auto Third = newSprite("Rectangle.png");
+    Third = newSprite("Rectangle.png");
     Third->setPosition(centerWidth(), 300);
     Third->setScale(0.4, 0.25);
     this->addChild(Third);
@@ -100,7 +100,7 @@ void RaidMenuScene::Menu()
     Cave->setPosition(centerWidth(), 300);
     this->addChild(Cave, 1);
 
-    auto Return = newSprite("Return.png");
+    Return = newSprite("Return.png");
     Return->setPosition(50, 18);
     Return->setScale(0.25, 0.25);
     this->addChild(Return);

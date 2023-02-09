@@ -71,12 +71,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     
-    //auto scene = TitleScreen::createScene();
-    auto Raidscene = RaidMenuScene::createScene();
+    auto scene = TitleScreen::createScene();
+    //auto Raidscene = RaidMenuScene::createScene();
 
     // run
-    //director->runWithScene(scene);
-    director->runWithScene(Raidscene);
+    director->runWithScene(scene);
+    //director->runWithScene(Raidscene);
 
     return true;
 }
