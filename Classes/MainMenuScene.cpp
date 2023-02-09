@@ -30,29 +30,22 @@ bool MainMenuScene::init()
     _background->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 
     _battle = Sprite::create("Sprite/Battle.png");
-    _battle->setAnchorPoint(Vec2::ZERO);
-    _battle->setScale(0.15);
-    _battle->setPosition(440, 25);
 
-
-    //MouseEvents
-    EventListenerMouse* listener = EventListenerMouse::create();
-    listener->onMouseUp = CC_CALLBACK_1(MainMenuScene::MouseUp, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     this->addChild(_background);
-    this->addChild(_battle, 3);
+    //this->addChild(_battle, 3);
 
     setScene(this);
 
-    Button* button = newButton("next");
-    //button->loadTextureNormal("Sprite/Battle.png");
-    button->setPosition(cocos2d::Vec2(centerWidth(), centerHeight() - 100));
+    Button* button = newButton("Raid", "Sprite/Battle.png");
+    button->setPosition(cocos2d::Vec2(440,25));
+    button->setAnchorPoint(Vec2::ZERO);
+    button->setScale(0.15);
 
     button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
+                //cocos2d::Director::getInstance()->replaceScene(RaidMenuScene::create());  // Leann's raid menu
             }
         }
     );
