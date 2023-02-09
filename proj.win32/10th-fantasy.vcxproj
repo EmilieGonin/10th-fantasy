@@ -839,6 +839,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\include\TitleScreen.h" />
     <ClInclude Include="..\Classes\Interface.h" />
     <ClInclude Include="..\Classes\MainMenuScene.h" />
+    <ClInclude Include="..\Classes\SummonMenuScene.h" />
     <ClInclude Include="Z:\Classes\AppDelegate.h" />
     <ClInclude Include="Z:\Classes\MainScene.h" />
     <ClInclude Include="Z:\proj.win32\main.h" />
@@ -852,6 +853,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\src\Gear.cpp" />
     <ClCompile Include="..\Classes\src\Player.cpp" />
     <ClCompile Include="..\Classes\src\TitleScreen.cpp" />
+    <ClCompile Include="..\Classes\SummonMenuScene.cpp" />
     <ClCompile Include="Z:\Classes\AppDelegate.cpp" />
     <ClCompile Include="Z:\Classes\BattleScene.cpp" />
     <ClCompile Include="Z:\Classes\MainScene.cpp" />

@@ -43,6 +43,9 @@
     <ClCompile Include="..\Classes\MainMenuScene.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\SummonMenuScene.cpp">
+      <Filter>Source Files\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Z:\Classes\AppDelegate.h">
@@ -103,6 +106,9 @@
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Interface.h">
+      <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SummonMenuScene.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
   </ItemGroup>
