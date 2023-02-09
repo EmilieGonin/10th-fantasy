@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "TitleScreen.h"
-#include "RaidScreen.h"
+#include "RaidMenuScene.h"
 // #define USE_AUDIO_ENGINE 1
 
 #if USE_AUDIO_ENGINE
@@ -72,7 +72,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // create a scene. it's an autorelease object
     
     //auto scene = TitleScreen::createScene();
-    auto Raidscene = RaidScreen::createScene();
+    auto Raidscene = RaidMenuScene::createScene();
 
     // run
     //director->runWithScene(scene);
