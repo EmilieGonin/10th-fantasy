@@ -40,6 +40,9 @@
     <ClCompile Include="..\Classes\MainMenuScene.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\src\RaidScreen.cpp">
+      <Filter>Source Files\Classes\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Z:\Classes\AppDelegate.h">
@@ -99,6 +102,9 @@
     <ClInclude Include="..\Classes\MainMenuScene.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\include\RaidScreen.h">
+      <Filter>Source Files\Classes\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Z:\CMakeLists.txt" />
@@ -133,5 +139,16 @@
     <Filter Include="Source Files\Classes\include">
       <UniqueIdentifier>{3f30072d-1af2-4785-8818-2a9cd635987d}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bin\10th-fantasy\Debug\Resources\BattleScene.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Rectangle.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\return.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>

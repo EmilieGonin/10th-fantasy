@@ -835,6 +835,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\include\Entity.h" />
     <ClInclude Include="..\Classes\include\Gear.h" />
     <ClInclude Include="..\Classes\include\Player.h" />
+    <ClInclude Include="..\Classes\include\RaidScreen.h" />
     <ClInclude Include="..\Classes\include\TitleScreen.h" />
     <ClInclude Include="..\Classes\Interface.h" />
     <ClInclude Include="..\Classes\MainMenuScene.h" />
@@ -850,6 +851,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\src\Entity.cpp" />
     <ClCompile Include="..\Classes\src\Gear.cpp" />
     <ClCompile Include="..\Classes\src\Player.cpp" />
+    <ClCompile Include="..\Classes\src\RaidScreen.cpp" />
     <ClCompile Include="..\Classes\src\TitleScreen.cpp" />
     <ClCompile Include="Z:\Classes\AppDelegate.cpp" />
     <ClCompile Include="Z:\Classes\MainScene.cpp" />
@@ -924,6 +926,11 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{3B902DD8-0C35-3BC3-8C68-7A20FDFFDEF8}</Project>
       <Name>external</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resources\Rectangle.png" />
+    <Image Include="..\Resources\return.png" />
+    <Image Include="bin\10th-fantasy\Debug\Resources\BattleScene.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
