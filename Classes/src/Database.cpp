@@ -219,6 +219,14 @@ bool Database::request(std::string url, json payload) {
 	return handleRequest(_request);
 }
 
+bool Database::patch(std::string url, json payload) {
+	_request = cpr::Patch(
+		cpr::Url{ url }, cpr::VerifySsl{ false },
+		cpr::Body{ payload.dump() },
+		cpr::Header{ {"Content-Type", "application/json"} });
+
+	return handleRequest(_request);
+}
 
 bool Database::handleRequest(cpr::Response r) {
 	cocos2d::log("**********"); //Help to see logs
@@ -309,7 +317,7 @@ bool Database::createInventory() {
 void Database::createError() {
 	cocos2d::log("creating error");
 	std::string url = std::string(_url + "/items/errors");
-	db::error error = { _request.status_code, _request.error.message };
+	db::error error = { _request.status_code, _request.text };
 	json payload = error;
 	request(url, payload);
 }
@@ -326,19 +334,19 @@ bool Database::update() {
 bool Database::updateUser() {
 	std::string url = std::string(_url + "/items/users/" + std::to_string(_user.id));
 	json payload = _user;
-	return request(url, payload);
+	return patch(url, payload);
 }
 
 bool Database::updateCharacter() {
 	std::string url = std::string(_url + "/items/characters/" + std::to_string(_character.id));
 	json payload = _character;
-	return request(url, payload);
+	return patch(url, payload);
 }
 
 bool Database::updateInventory() {
 	std::string url = std::string(_url + "/items/inventories/" + std::to_string(_inventory.id));
 	json payload = _inventory;
-	return request(url, payload);
+	return patch(url, payload);
 }
 
 void Database::setEmail(std::string email) {

@@ -87,6 +87,7 @@ public:
 	//Peut être utilisé pour les requêtes GET et POST avec une surcharge
 	bool request(std::string); //GET
 	bool request(std::string, json); //POST
+	bool patch(std::string, json); //PATCH
 	bool handleRequest(cpr::Response);
 	std::vector<std::string> split(std::string, std::string);
 
