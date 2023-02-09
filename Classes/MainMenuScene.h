@@ -8,7 +8,7 @@ public:
     virtual bool init();
 
 
-    Sprite* _battle;
+    Sprite* _player;
     Sprite* _background;
 
     // a selector callback
