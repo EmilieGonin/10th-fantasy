@@ -27,42 +27,16 @@ bool RaidMenuScene::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 
-    EventListenerMouse* listener = EventListenerMouse::create();
-    listener->onMouseUp = CC_CALLBACK_1(RaidMenuScene::MouseUp, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
     Menu();
+    Levels();
 
-    //auto bg = newSprite("BattleScene.png");
+
+    //auto bg = newButton("BattleScene.png");
     //bg->setPosition(0, 0);
     //bg->setScale(0.5, 0.5);
     //this->addChild(bg);
 
     return true;
-}
-void RaidMenuScene::handleEvent(Event* event) {
-    EventMouse* e = (EventMouse*)event;
-    _mousePosition = e->getLocationInView();
-
-    if (isTouched(Return))
-    {
-        auto scene = RaidMenuScene::createScene();
-        Director::getInstance()->replaceScene(scene);
-    }
-    else if (isTouched(_firstRaid))
-    {
-        clean();
-    }
-    else if (isTouched(Second))
-    {
-        auto scene = RaidMenuScene::createScene();
-        Director::getInstance()->replaceScene(scene);
-    }
-    else if (isTouched(Third))
-    {
-        auto scene = RaidMenuScene::createScene();
-        Director::getInstance()->replaceScene(scene);
-    }
 }
 
 
@@ -73,17 +47,17 @@ void RaidMenuScene::Menu()
     Title->setPosition(centerWidth(),900);
     this->addChild(Title,1);
 
-    _firstRaid = newButton("Rectangle.png");
+    _firstRaid = newButton("", "Rectangle.png");
     _firstRaid->setPosition(cocos2d::Vec2(centerWidth(), 700));
     _firstRaid->setScale(0.4, 0.25);
     this->addChild(_firstRaid);
 
-   /* Forest = newLabel("Forest");
+    Forest = newLabel("Forest");
     Forest->setPosition(centerWidth(), 700);
-    this->addChild(Forest, 1);*/
+    this->addChild(Forest, 1);
 
-   Second = newSprite("Rectangle.png");
-    Second->setPosition(centerWidth(), 500);
+    Second = newButton("", "Rectangle.png");
+    Second->setPosition(cocos2d::Vec2(centerWidth(), 500));
     Second->setScale(0.4, 0.25);
     this->addChild(Second);
 
@@ -91,8 +65,8 @@ void RaidMenuScene::Menu()
     Dungeon->setPosition(centerWidth(), 500);
     this->addChild(Dungeon, 1);
 
-    Third = newSprite("Rectangle.png");
-    Third->setPosition(centerWidth(), 300);
+    Third = newButton("", "Rectangle.png");
+    Third->setPosition(cocos2d::Vec2(centerWidth(), 300));
     Third->setScale(0.4, 0.25);
     this->addChild(Third);
 
@@ -100,92 +74,45 @@ void RaidMenuScene::Menu()
     Cave->setPosition(centerWidth(), 300);
     this->addChild(Cave, 1);
 
-    Return = newSprite("Return.png");
-    Return->setPosition(50, 18);
+    Return = newButton("Return.png");
+    Return->setPosition(cocos2d::Vec2(50, 18));
     Return->setScale(0.25, 0.25);
     this->addChild(Return);
 }
 
-
-
-//void RaidMenuScene::SceneChanger()
-//{
-//    if (isTouched(Return)) 
-//    {
-//        auto scene = RaidMenuScene::createScene();
-//        Director::getInstance()->replaceScene(scene);
-//    }   
-//    else if (isTouched(_firstRaid))
-//    {
-//        clean();
-//    }
-//    else if (isTouched(Second))
-//    {
-//        auto scene = RaidMenuScene::createScene();
-//        Director::getInstance()->replaceScene(scene);
-//    } 
-//    else if (isTouched(Third))
-//    {
-//        auto scene = RaidMenuScene::createScene();
-//        Director::getInstance()->replaceScene(scene);
-//    }
-//}
-
-//void RaidMenuScene::Levels(Event* event)
-//{
-//    auto label = newLabel("RAIDS", "fonts/Marker Felt.ttf", 24);
-//    label->setPosition(240, 290);
-//    this->addChild(label, 1);
-//
-//    auto _firstRaid = newSprite("Rectangle.png");
-//    _firstRaid->setPosition(240, 230);
-//    _firstRaid->setScale(0.15, 0.1);
-//    this->addChild(_firstRaid);
-//
-//    auto Forest = newLabel("Forest", "fonts/Marker Felt.ttf", 24);
-//    Forest->setPosition(240, 230);
-//    this->addChild(Forest, 1);
-//
-//    auto Second = newSprite("Rectangle.png");
-//    Second->setPosition(240, 150);
-//    Second->setScale(0.15, 0.1);
-//    this->addChild(Second);
-//
-//    auto Dungeon = newLabel("Dungeon", "fonts/Marker Felt.ttf", 24);
-//    Dungeon->setPosition(240, 150);
-//    this->addChild(Dungeon, 1);
-//
-//    auto Third = newSprite("Rectangle.png");
-//    Third->setPosition(240, 70);
-//    Third->setScale(0.15, 0.1);
-//    this->addChild(Third);
-//
-//    auto Cave = newLabel("Cave", "fonts/Marker Felt.ttf", 24);
-//    Cave->setPosition(240, 70);
-//    this->addChild(Cave, 1);
-//
-//    auto Return = newSprite("Return.png");
-//    Return->setPosition(160, 15);
-//    Return->setScale(0.1, 0.1);
-//    this->addChild(Return);
-//}
-
-bool RaidMenuScene::isTouched(Sprite* sprite) {
-    Rect bounds = sprite->getBoundingBox();
-
-    if (bounds.containsPoint(_mousePosition)) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-void RaidMenuScene::MouseUp(cocos2d::Event* event)
+void RaidMenuScene::Levels()
 {
-    handleEvent(event);
-
+    _firstRaid->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                clean();
+            }
+        }
+    );   
+    Second->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());  // Leann's raid menu
+            }
+        }
+    );  
+    Third->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());  // Leann's raid menu
+            }
+        }
+    );  
+    Return->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());  // Leann's raid menu
+            }
+        }
+    );
 }
+
+
 
 void RaidMenuScene::menuCloseCallback(Ref* pSender)
 {
