@@ -38,22 +38,31 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int weapon;
 	};
 
+	struct inventory {
+		int userId;
+		std::vector<int> weapons;
+		std::vector<int> heads;
+		std::vector<int> chests;
+		std::vector<int> gloves;
+		std::vector<int> necklaces;
+		std::vector<int> earrings;
+		std::vector<int> rings;
+	};
+
 	struct error {
 		int code;
 		std::string message;
 		int userId;
 	};
 
-	struct inventory {
-		//
-	};
-
 	//JSON -> STRUCT
 	void from_json(const json& j, user& user);
 	void from_json(const json& j, character& character);
+	void from_json(const json& j, inventory& inventory);
 	//STRUCT -> JSON
 	void to_json(json& j, const user& user);
 	void to_json(json& j, const character& character);
+	void to_json(json& j, const inventory& inventory);
 	void to_json(json& j, const error& error);
 }
 
@@ -94,6 +103,11 @@ public:
 	//POST requests
 	bool createUser();
 	void createError();
+
+	//UPDATE requests
+	bool update(db::user);
+	bool update(db::character);
+	bool update(db::inventory);
 
 	//Setters
 	void setEmail(std::string);

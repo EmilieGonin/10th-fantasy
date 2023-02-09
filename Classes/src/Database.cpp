@@ -26,6 +26,16 @@ void db::from_json(const json& j, character& character) {
 	j.at("ring").get_to(character.ring);
 	j.at("weapon").get_to(character.weapon);
 }
+void db::from_json(const json& j, inventory& inventory) {
+	j.at("user_id").get_to(inventory.userId);
+	j.at("weapons").get_to(inventory.weapons);
+	j.at("heads").get_to(inventory.heads);
+	j.at("chests").get_to(inventory.chests);
+	j.at("gloves").get_to(inventory.gloves);
+	j.at("necklaces").get_to(inventory.necklaces);
+	j.at("earrings").get_to(inventory.earrings);
+	j.at("rings").get_to(inventory.rings);
+}
 void db::to_json(json& j, const user& user) {
 	j = json{
 		{"mail", user.mail}, {"name", user.name}, {"account_lvl", user.level},
@@ -41,6 +51,14 @@ void db::to_json(json& j, const character& character) {
 		{"gloves", character.gloves}, {"necklace", character.necklace},
 		{"earring", character.earring}, {"ring", character.ring},
 		{"weapon", character.weapon}
+	};
+}
+void db::to_json(json& j, const inventory& inventory) {
+	j = json{
+		{"user_id", inventory.userId}, {"weapons", inventory.weapons},
+		{"heads", inventory.heads}, {"chests", inventory.chests},
+		{"gloves", inventory.gloves}, {"necklaces", inventory.necklaces},
+		{"earrings", inventory.earrings}, {"rings", inventory.rings},
 	};
 }
 void db::to_json(json& j, const error& error) {
@@ -242,16 +260,25 @@ bool Database::createUser() {
 	db::user user = { std::string(_email), std::string("User#" + split(_email, "@")[0]), 1, 50}; //Création de la struct
 	json payload = user; //On convertis la struct en JSON
 
-	if (request(url, payload)) {
+	if (request(url, payload)) { //Création de l'utilisateur
 		_user = json::parse(_request.text)["data"].get<db::user>();
 		_userId = _user.id;
 		url = std::string(_url + "/items/characters");
 		db::character character = { _userId }; //Création de la struct
 		payload = character;
 		//Delete user if character isn't created
-		if (request(url, payload)) {
+		if (request(url, payload)) { //Création du personnage
 			_character = json::parse(_request.text)["data"].get<db::character>();
-			return true;
+			url = std::string(_url + "/items/inventories");
+			db::inventory inventory = { _userId }; //Création de la struct
+			payload = inventory;
+			if (request(url, payload)) { //Création de l'inventaire
+				_inventory = json::parse(_request.text)["data"].get<db::inventory>();
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 		else {
 			return false;
@@ -269,6 +296,18 @@ void Database::createError() {
 	db::error error = { _request.status_code, _request.error.message };
 	json payload = error;
 	request(url, payload);
+}
+
+bool Database::update(db::user) {
+	return true;
+}
+
+bool Database::update(db::character) {
+	return true;
+}
+
+bool Database::update(db::inventory) {
+	return true;
 }
 
 void Database::setEmail(std::string email) {
