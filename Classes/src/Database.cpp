@@ -25,6 +25,7 @@ void db::from_json(const json& j, character& character) {
 	j.at("earring").get_to(character.earring);
 	j.at("ring").get_to(character.ring);
 	j.at("weapon").get_to(character.weapon);
+	j.at("id").get_to(character.id);
 }
 void db::from_json(const json& j, inventory& inventory) {
 	j.at("user_id").get_to(inventory.userId);
@@ -35,6 +36,7 @@ void db::from_json(const json& j, inventory& inventory) {
 	j.at("necklaces").get_to(inventory.necklaces);
 	j.at("earrings").get_to(inventory.earrings);
 	j.at("rings").get_to(inventory.rings);
+	j.at("id").get_to(inventory.id);
 }
 void db::to_json(json& j, const user& user) {
 	j = json{
@@ -217,6 +219,7 @@ bool Database::request(std::string url, json payload) {
 	return handleRequest(_request);
 }
 
+
 bool Database::handleRequest(cpr::Response r) {
 	cocos2d::log("**********"); //Help to see logs
 
@@ -311,22 +314,37 @@ void Database::createError() {
 	request(url, payload);
 }
 
-bool Database::update(db::user) {
-	return true;
+bool Database::update() {
+	if (!updateUser() || !updateCharacter() || !updateInventory()) {
+		return false;
+	}
+	else {
+		return true;
+	}
 }
 
-bool Database::update(db::character) {
-	return true;
+bool Database::updateUser() {
+	std::string url = std::string(_url + "/items/users/" + std::to_string(_user.id));
+	json payload = _user;
+	return request(url, payload);
 }
 
-bool Database::update(db::inventory) {
-	return true;
+bool Database::updateCharacter() {
+	std::string url = std::string(_url + "/items/characters/" + std::to_string(_character.id));
+	json payload = _character;
+	return request(url, payload);
+}
+
+bool Database::updateInventory() {
+	std::string url = std::string(_url + "/items/inventories/" + std::to_string(_inventory.id));
+	json payload = _inventory;
+	return request(url, payload);
 }
 
 void Database::setEmail(std::string email) {
 	_email = email;
 }
 
-db::user Database::getUserData() { return _user; }
-db::character Database::getCharacterData() { return _character; }
-db::inventory Database::getInventoryData() { return _inventory; }
+db::user* Database::getUserData() { return &_user; }
+db::character* Database::getCharacterData() { return &_character; }
+db::inventory* Database::getInventoryData() { return &_inventory; }

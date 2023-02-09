@@ -28,7 +28,6 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 	struct character {
 		int userId;
 		int level;
-		int id;
 		int head;
 		int chest;
 		int gloves;
@@ -36,6 +35,7 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int earring;
 		int ring;
 		int weapon;
+		int id;
 	};
 
 	struct inventory {
@@ -47,6 +47,7 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		std::vector<int> necklaces;
 		std::vector<int> earrings;
 		std::vector<int> rings;
+		int id;
 	};
 
 	struct error {
@@ -78,7 +79,6 @@ private:
 	std::string _url; //Testing only - to encrypt
 	cpr::Response _request;
 	std::string _email;
-	//int _userId;
 
 public:
 	static Database* Instance();
@@ -107,15 +107,16 @@ public:
 	void createError();
 
 	//UPDATE requests
-	bool update(db::user);
-	bool update(db::character);
-	bool update(db::inventory);
+	bool update();
+	bool updateUser();
+	bool updateCharacter();
+	bool updateInventory();
 
 	//Setters
 	void setEmail(std::string);
 
 	//Getters
-	db::user getUserData();
-	db::character getCharacterData();
-	db::inventory getInventoryData();
+	db::user* getUserData();
+	db::character* getCharacterData();
+	db::inventory* getInventoryData();
 };
