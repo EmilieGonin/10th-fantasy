@@ -28,7 +28,6 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 	struct character {
 		int userId;
 		int level;
-		int id;
 		int head;
 		int chest;
 		int gloves;
@@ -36,6 +35,19 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int earring;
 		int ring;
 		int weapon;
+		int id;
+	};
+
+	struct inventory {
+		int userId;
+		std::vector<int> weapons;
+		std::vector<int> heads;
+		std::vector<int> chests;
+		std::vector<int> gloves;
+		std::vector<int> necklaces;
+		std::vector<int> earrings;
+		std::vector<int> rings;
+		int id;
 	};
 
 	struct error {
@@ -44,16 +56,14 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int userId;
 	};
 
-	struct inventory {
-		//
-	};
-
 	//JSON -> STRUCT
 	void from_json(const json& j, user& user);
 	void from_json(const json& j, character& character);
+	void from_json(const json& j, inventory& inventory);
 	//STRUCT -> JSON
 	void to_json(json& j, const user& user);
 	void to_json(json& j, const character& character);
+	void to_json(json& j, const inventory& inventory);
 	void to_json(json& j, const error& error);
 }
 
@@ -69,7 +79,6 @@ private:
 	std::string _url; //Testing only - to encrypt
 	cpr::Response _request;
 	std::string _email;
-	int _userId;
 
 public:
 	static Database* Instance();
@@ -78,6 +87,7 @@ public:
 	//Peut être utilisé pour les requêtes GET et POST avec une surcharge
 	bool request(std::string); //GET
 	bool request(std::string, json); //POST
+	bool patch(std::string, json); //PATCH
 	bool handleRequest(cpr::Response);
 	std::vector<std::string> split(std::string, std::string);
 
@@ -90,16 +100,26 @@ public:
 
 	//GET requests
 	bool getUser();
+	bool getCharacter();
+	bool getInventory();
 
 	//POST requests
 	bool createUser();
+	bool createCharacter();
+	bool createInventory();
 	void createError();
+
+	//UPDATE requests
+	bool update();
+	bool updateUser();
+	bool updateCharacter();
+	bool updateInventory();
 
 	//Setters
 	void setEmail(std::string);
 
 	//Getters
-	db::user getUserData();
-	db::character getCharacterData();
-	db::inventory getInventoryData();
+	db::user* user();
+	db::character* character();
+	db::inventory* inventory();
 };

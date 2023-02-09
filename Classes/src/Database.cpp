@@ -25,6 +25,18 @@ void db::from_json(const json& j, character& character) {
 	j.at("earring").get_to(character.earring);
 	j.at("ring").get_to(character.ring);
 	j.at("weapon").get_to(character.weapon);
+	j.at("id").get_to(character.id);
+}
+void db::from_json(const json& j, inventory& inventory) {
+	j.at("user_id").get_to(inventory.userId);
+	j.at("weapons").get_to(inventory.weapons);
+	j.at("heads").get_to(inventory.heads);
+	j.at("chests").get_to(inventory.chests);
+	j.at("gloves").get_to(inventory.gloves);
+	j.at("necklaces").get_to(inventory.necklaces);
+	j.at("earrings").get_to(inventory.earrings);
+	j.at("rings").get_to(inventory.rings);
+	j.at("id").get_to(inventory.id);
 }
 void db::to_json(json& j, const user& user) {
 	j = json{
@@ -41,6 +53,14 @@ void db::to_json(json& j, const character& character) {
 		{"gloves", character.gloves}, {"necklace", character.necklace},
 		{"earring", character.earring}, {"ring", character.ring},
 		{"weapon", character.weapon}
+	};
+}
+void db::to_json(json& j, const inventory& inventory) {
+	j = json{
+		{"user_id", inventory.userId}, {"weapons", inventory.weapons},
+		{"heads", inventory.heads}, {"chests", inventory.chests},
+		{"gloves", inventory.gloves}, {"necklaces", inventory.necklaces},
+		{"earrings", inventory.earrings}, {"rings", inventory.rings},
 	};
 }
 void db::to_json(json& j, const error& error) {
@@ -199,6 +219,15 @@ bool Database::request(std::string url, json payload) {
 	return handleRequest(_request);
 }
 
+bool Database::patch(std::string url, json payload) {
+	_request = cpr::Patch(
+		cpr::Url{ url }, cpr::VerifySsl{ false },
+		cpr::Body{ payload.dump() },
+		cpr::Header{ {"Content-Type", "application/json"} });
+
+	return handleRequest(_request);
+}
+
 bool Database::handleRequest(cpr::Response r) {
 	cocos2d::log("**********"); //Help to see logs
 
@@ -224,11 +253,39 @@ bool Database::handleRequest(cpr::Response r) {
 }
 
 bool Database::getUser() {
-	cocos2d::log("getting user");
 	std::string url = std::string(_url + "/items/users?filter[mail][_eq]=" + _email);
 
 	if (request(url)) {
 		_user = json::parse(_request.text)["data"][0].get<db::user>();
+		if (getCharacter()) {
+			return getInventory();
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		return false;
+	}
+}
+
+bool Database::getCharacter() {
+	std::string url = std::string(_url + "/items/characters?filter[user_id][_eq]=" + std::to_string(_user.id));
+
+	if (request(url)) {
+		_character = json::parse(_request.text)["data"][0].get<db::character>();
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool Database::getInventory() {
+	std::string url = std::string(_url + "/items/inventories?filter[user_id][_eq]=" + std::to_string(_user.id));
+
+	if (request(url)) {
+		_inventory = json::parse(_request.text)["data"][0].get<db::inventory>();
 		return true;
 	}
 	else {
@@ -237,21 +294,15 @@ bool Database::getUser() {
 }
 
 bool Database::createUser() {
-	cocos2d::log("creating user");
 	std::string url = std::string(_url + "/items/users");
 	db::user user = { std::string(_email), std::string("User#" + split(_email, "@")[0]), 1, 50}; //Création de la struct
 	json payload = user; //On convertis la struct en JSON
 
-	if (request(url, payload)) {
+	if (request(url, payload)) { //Création de l'utilisateur
 		_user = json::parse(_request.text)["data"].get<db::user>();
-		_userId = _user.id;
-		url = std::string(_url + "/items/characters");
-		db::character character = { _userId }; //Création de la struct
-		payload = character;
 		//Delete user if character isn't created
-		if (request(url, payload)) {
-			_character = json::parse(_request.text)["data"].get<db::character>();
-			return true;
+		if (createCharacter()) { //Création du personnage
+			return createInventory(); //Création de l'inventaire
 		}
 		else {
 			return false;
@@ -263,18 +314,73 @@ bool Database::createUser() {
 	//Clean even if true
 }
 
+bool Database::createCharacter() {
+	std::string url = std::string(_url + "/items/characters");
+	db::character character = { _user.id }; //Création de la struct
+	json payload = character;
+
+	if (request(url, payload)) {
+		_character = json::parse(_request.text)["data"].get<db::character>();
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool Database::createInventory() {
+	std::string url = std::string(_url + "/items/inventories");
+	db::inventory inventory = { _user.id }; //Création de la struct
+	json payload = inventory;
+
+	if (request(url, payload)) {
+		_inventory = json::parse(_request.text)["data"].get<db::inventory>();
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 void Database::createError() {
 	cocos2d::log("creating error");
 	std::string url = std::string(_url + "/items/errors");
-	db::error error = { _request.status_code, _request.error.message };
+	db::error error = { _request.status_code, _request.text };
 	json payload = error;
 	request(url, payload);
+}
+
+bool Database::update() {
+	if (!updateUser() || !updateCharacter() || !updateInventory()) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+bool Database::updateUser() {
+	std::string url = std::string(_url + "/items/users/" + std::to_string(_user.id));
+	json payload = _user;
+	return patch(url, payload);
+}
+
+bool Database::updateCharacter() {
+	std::string url = std::string(_url + "/items/characters/" + std::to_string(_character.id));
+	json payload = _character;
+	return patch(url, payload);
+}
+
+bool Database::updateInventory() {
+	std::string url = std::string(_url + "/items/inventories/" + std::to_string(_inventory.id));
+	json payload = _inventory;
+	return patch(url, payload);
 }
 
 void Database::setEmail(std::string email) {
 	_email = email;
 }
 
-db::user Database::getUserData() { return _user; }
-db::character Database::getCharacterData() { return _character; }
-db::inventory Database::getInventoryData() { return _inventory; }
+db::user* Database::user() { return &_user; }
+db::character* Database::character() { return &_character; }
+db::inventory* Database::inventory() { return &_inventory; }
