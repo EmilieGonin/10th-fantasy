@@ -255,30 +255,15 @@ bool Database::getUser() {
 }
 
 bool Database::createUser() {
-	cocos2d::log("creating user");
 	std::string url = std::string(_url + "/items/users");
 	db::user user = { std::string(_email), std::string("User#" + split(_email, "@")[0]), 1, 50}; //Création de la struct
 	json payload = user; //On convertis la struct en JSON
 
 	if (request(url, payload)) { //Création de l'utilisateur
 		_user = json::parse(_request.text)["data"].get<db::user>();
-		_userId = _user.id;
-		url = std::string(_url + "/items/characters");
-		db::character character = { _userId }; //Création de la struct
-		payload = character;
 		//Delete user if character isn't created
-		if (request(url, payload)) { //Création du personnage
-			_character = json::parse(_request.text)["data"].get<db::character>();
-			url = std::string(_url + "/items/inventories");
-			db::inventory inventory = { _userId }; //Création de la struct
-			payload = inventory;
-			if (request(url, payload)) { //Création de l'inventaire
-				_inventory = json::parse(_request.text)["data"].get<db::inventory>();
-				return true;
-			}
-			else {
-				return false;
-			}
+		if (createCharacter()) { //Création du personnage
+			return createInventory(); //Création de l'inventaire
 		}
 		else {
 			return false;
@@ -288,6 +273,34 @@ bool Database::createUser() {
 		return false;
 	}
 	//Clean even if true
+}
+
+bool Database::createCharacter() {
+	std::string url = std::string(_url + "/items/characters");
+	db::character character = { _user.id }; //Création de la struct
+	json payload = character;
+
+	if (request(url, payload)) {
+		_character = json::parse(_request.text)["data"].get<db::character>();
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool Database::createInventory() {
+	std::string url = std::string(_url + "/items/inventories");
+	db::inventory inventory = { _user.id }; //Création de la struct
+	json payload = inventory;
+
+	if (request(url, payload)) {
+		_inventory = json::parse(_request.text)["data"].get<db::inventory>();
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 void Database::createError() {

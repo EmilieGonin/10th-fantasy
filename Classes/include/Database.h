@@ -78,7 +78,7 @@ private:
 	std::string _url; //Testing only - to encrypt
 	cpr::Response _request;
 	std::string _email;
-	int _userId;
+	//int _userId;
 
 public:
 	static Database* Instance();
@@ -102,6 +102,8 @@ public:
 
 	//POST requests
 	bool createUser();
+	bool createCharacter();
+	bool createInventory();
 	void createError();
 
 	//UPDATE requests
