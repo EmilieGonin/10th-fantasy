@@ -29,23 +29,37 @@ bool MainMenuScene::init()
     _background->setScale(0.5);
     _background->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 
-    _battle = Sprite::create("Sprite/Battle.png");
-
+    _player = Sprite::create("Sprite/remnant_violet.png");
+    _player->setPosition(center());
+    _player->setScale(0.69);
 
     this->addChild(_background);
-    //this->addChild(_battle, 3);
+    this->addChild(_player, 1);
 
     setScene(this);
 
-    Button* button = newButton("Raid", "Sprite/Battle.png");
-    button->setPosition(cocos2d::Vec2(440,25));
-    button->setAnchorPoint(Vec2::ZERO);
-    button->setScale(0.15);
+    Button* raidButton = newButton("Raid", "Button/Battle.png");
+    raidButton->setPosition(cocos2d::Vec2(440,25));
+    raidButton->setAnchorPoint(Vec2::ZERO);
+    raidButton->setScale(0.15);
 
-    button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+    raidButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
                 //cocos2d::Director::getInstance()->replaceScene(RaidMenuScene::create());  // Leann's raid menu
+            }
+        }
+    );
+
+    Button* summonButton = newButton("Summon", "Button/Summon.png");
+    summonButton->setPosition(cocos2d::Vec2(40, 23));
+    summonButton->setAnchorPoint(Vec2::ZERO);
+    summonButton->setScale(0.185);
+
+    summonButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                //cocos2d::Director::getInstance()->replaceScene(SummonMenuScene::create());  // Leann's raid menu
             }
         }
     );
