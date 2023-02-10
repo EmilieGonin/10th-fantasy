@@ -2,15 +2,29 @@
 
 #include "MainScene.h"
 #include "Player.h"
+#include "cocos2d.h"
+#include "Battle.h"
+#include "Entity.h"
+#include <iostream>
+#include <vector>
+
 class BattleScene : public MainScene
 {
 public:
+  
     static cocos2d::Scene* createScene();
+    std::vector<Enemy*> _enemies;
     virtual bool init();
+    Battle* battle;
     Player* player;
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
-
-    // implement the "static create()" method manually
+    cocos2d::Vec2 _mousePosition;
     CREATE_FUNC(BattleScene);
+    // a selector callback
+   // void menuCloseCallback(cocos2d::Ref* pSender);
+    void loop(float);
+    // implement the "static create()" method manually
+  
+
+protected:
+    void MouseUp(cocos2d::Event*);
 };

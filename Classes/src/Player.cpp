@@ -7,8 +7,17 @@ Player::Player() {
 	_basedef = _totalDef = 76; // 8 def per lvl
 	_baseMagicDef = _totalMagicDef = 76; // 8 def per lvl
 	_baseatk = _totalAtk = 75; // 12 atk per lvl
+	_bonusMagical = _bonusPhysical = 0;
 	_lvl = 1;// 50 lvl
-	_dmgType = 0;
+	_dmgType = 0; // 
+	SkillSlash *mySlash = new SkillSlash();
+
+	_skills.push_back(mySlash);
+
+	for (int i = 0; i < 50; i++)
+	{
+		levelup();
+	}
 
 	mySprite = cocos2d::Sprite::create("sprite/player.png");
 	mySprite->setPosition(50, 400);
@@ -17,7 +26,7 @@ Player::Player() {
 Player::~Player() {};
 
 
-cocos2d::Sprite* Player::getSprite() { return mySprite; }
+
 
 void Player::levelup() {
 	_lvl += 1;
@@ -28,9 +37,19 @@ void Player::levelup() {
 	update();
 }
 
-void Player::equip(Gear gear){
+void Player::equip(Gear* gear){
 	_myStuff.push_back(gear);
 	update();
+}
+
+void Player::equipWeapon(Weapon* weapon)
+{
+	_weapon = weapon;
+	_totalAtk = _baseatk += _weapon->getAtk();
+	_dmgType = _weapon->getDmgType();
+	_skills.push_back(weapon->getSkill3());
+	update();
+
 }
 
 void Player::update() {
@@ -39,20 +58,9 @@ void Player::update() {
 	{
 		for (int i = 0; i < _myStuff.size(); i++) {
 			
-			*_finalStats[_myStuff[i].getStatType()] = _myStuff[i].getAmount();
+			*_finalStats[_myStuff[i]->getStatType()] += _myStuff[i]->getAmount();
 
-			std::cout << "BASE HP : " << *_baseStats[HP] << std::endl;
-			std::cout << "Final HP : " << *_finalStats[HP] << std::endl;
 		}
 	}
-
-	std::cout << "Final HP : " << *_finalStats[HP] << std::endl;
-	std::cout << "Final DEF : " << *_finalStats[PDEF] << std::endl;
-	std::cout << "Final Magical Def : " << *_finalStats[MDEF] << std::endl;
-	std::cout << "Final ATK : " << *_finalStats[ATK] << std::endl;
-	std::cout << "Final Physical Damage Bonus : " << *_finalStats[PATK] << std::endl;
-	std::cout << "Final Magical Damage Bonus : " << *_finalStats[MATK] << std::endl;
-	std::cout << "Final Crit Rate : " << *_finalStats[CR] << std::endl;
-	std::cout << "Final Crit Damage : " << *_finalStats[CD] << std::endl;
 }
 

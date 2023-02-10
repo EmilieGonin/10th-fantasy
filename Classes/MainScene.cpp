@@ -9,66 +9,16 @@
 MainScene::MainScene() {
 	srand(time(0)); //Initialize rand seed once
 	_database = Database::Instance();
-	
+
 	_energy = 30;
 	_ready = false;
 	_director = cocos2d::Director::getInstance();
 	_scheduler = _director->getScheduler();
-	//_scheduler->schedule(setTimer, this, 0, 0);
-	//scheduler->performFunctionInCocosThread(CC_CALLBACK_0(MainScene::setTimer, this, energy, ready));
-	//std::thread timer(setTimer);
-	//timer.detach();
 
-	//while (!_ready) {};
 }
 
 void MainScene::testing() { //Debug only
-	enum Stats {
-		ATK = 0,
-		MATK = 1,
-		PATK = 2,
-		MDEF = 3,
-		PDEF = 4,
-		HP = 5,
-		CR = 6,
-		CD = 7
-	};
-
-    Enemy enemy(20);
-    Enemy enemy2(20);
-    Enemy enemy3(180);
-
-    Gear helmet(HP, 60);
-    Gear chest(MDEF, 20);
-    Gear legs(PDEF, 20);
-    Gear rings(PATK, 75);
-    Gear necklace(PATK, 75);
-    Gear earrings(CD, 15);
-
-    Player player;
-
-    player.equip(necklace);
-    player.equip(helmet);
-    player.equip(rings);
-    player.equip(legs);
-
-    for (int i = 0; i < 50; i++) {
-        player.levelup();
-    }
-
-    std::vector<Enemy*> myVector;
-    myVector.push_back(&enemy);
-    myVector.push_back(&enemy2);
-    myVector.push_back(&enemy3);
-
-    Battle battle(&player, myVector);
-
-    while (battle.getBattleState()) {
-        battle.turn();
-        battle.battleCheck();
-    }
-
-    cocos2d::log("battle end");
+	
 }
 
 void MainScene::log(std::string value) {
@@ -100,7 +50,7 @@ void MainScene::pull(int num) {
 			rarity = 1; //Rare (90%)
 		}
 
-		//Vecteurs temporaires pour représenter la database
+		//Vecteurs temporaires pour reprÃ©senter la database
 		//SELECT * FROM SUPPORTS WHERE RARITIES = (rarity)
 		std::vector< std::vector<std::string>> database;
 		std::vector<std::string> rare = { "first rare object","second rare object" ,"third rare object" ,"fourth rare object" ,"fifth rare object" };
@@ -115,23 +65,23 @@ void MainScene::pull(int num) {
 	}
 }
 
-//Lancée au démarrage de l'application pour setup le timer
+//LancÃ©e au dÃ©marrage de l'application pour setup le timer
 void MainScene::setTimer() {
 	log("Starting timer...");
 	_ready = true;
-	int limit = 50; //La limite d'énergie en fonction du niveau du joueur (database)
+	int limit = 50; //La limite d'Ã©nergie en fonction du niveau du joueur (database)
 	clock_t start, now, timePassed;
 
-	while (_energy < limit) { //Sera remplacé par while game is open
+	while (_energy < limit) { //Sera remplacÃ© par while game is open
 		if (_energy < limit) {
 			start = clock();
-			timePassed = 0; //Le temps du timer précédent si on a pu le stocker à la fermeture du jeu
-			int duration = 3000 - timePassed; //en ms, à remplacer par 300000 (5min)
+			timePassed = 0; //Le temps du timer prÃ©cÃ©dent si on a pu le stocker Ã  la fermeture du jeu
+			int duration = 3000 - timePassed; //en ms, Ã  remplacer par 300000 (5min)
 
 			do {
 				now = clock();
 
-				//Données à stocker si on peut lancer une fonction lors de la fermeture du jeu
+				//DonnÃ©es Ã  stocker si on peut lancer une fonction lors de la fermeture du jeu
 				timePassed = now - start;
 			} while (timePassed < duration);
 
