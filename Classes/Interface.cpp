@@ -41,7 +41,7 @@ Button* Interface::newButton(std::string string, std::string sprite) {
 	_buttons.push_back(button);
 
 	if (_scene != nullptr) {
-		_scene->addChild(button);
+		_scene->addChild(button, 1);
 	}
 
 	return button;
@@ -52,7 +52,7 @@ Label* Interface::newLabel(std::string string) {
 	_labels.push_back(label);
 
 	if (_scene != nullptr) {
-		_scene->addChild(label);
+		_scene->addChild(label, 2);
 	}
 
 	return label;
