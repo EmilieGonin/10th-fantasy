@@ -930,6 +930,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Resources\Button\playbtn.png" />
     <Image Include="..\Resources\Rectangle.png" />
     <Image Include="..\Resources\return.png" />
     <Image Include="bin\10th-fantasy\Debug\Resources\BattleScene.png" />

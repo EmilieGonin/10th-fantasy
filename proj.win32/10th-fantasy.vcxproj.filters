@@ -50,5 +50,6 @@
     <Image Include="..\Resources\Rectangle.png" />
     <Image Include="..\Resources\return.png" />
     <Image Include="bin\10th-fantasy\Debug\Resources\BattleScene.png" />
+    <Image Include="..\Resources\Button\playbtn.png" />
   </ItemGroup>
 </Project>
