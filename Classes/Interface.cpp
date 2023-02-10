@@ -84,7 +84,7 @@ Label* Interface::newLabel(std::string string, int layer) {
 Sprite* Interface::newSprite(std::string filename)
 {
 	Sprite* sprite = Sprite::create(filename);
-	_sprite.push_back(sprite);
+	_sprites.push_back(sprite);
 
 	if (_scene != nullptr) {
 		_scene->addChild(sprite);
@@ -116,23 +116,27 @@ void Interface::clean() {
 		for (TextField* item : _textFields) {
 			_scene->removeChild(item);
 		}
+		_textFields.clear();
 	}
 
 	if (!_buttons.empty()) {
 		for (Button* item : _buttons) {
 			_scene->removeChild(item);
 		}
+		_buttons.clear();
 	}
 
 	if (!_labels.empty()) {
 		for (Label* item : _labels) {
 			_scene->removeChild(item);
 		}
+		_labels.clear();
 	}
-	if (!_sprite.empty()) {
-		for (Sprite* item : _sprite) {
+	if (!_sprites.empty()) {
+		for (Sprite* item : _sprites) {
 			_scene->removeChild(item);
 		}
+		_sprites.clear();
 	}
 }
 

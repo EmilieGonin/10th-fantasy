@@ -95,6 +95,7 @@ public:
 	void init(cocos2d::Scene*);
 	bool checkSave();
 	void createSave();
+	void deleteSave();
 	void signup();
 	void login();
 
