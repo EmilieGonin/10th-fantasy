@@ -68,7 +68,6 @@ bool BattleScene::init()
 	player->equipWeapon(sword);
 
 
-
 	Battle* raidBattle =  new Battle(player, _enemies, 1);
 	battle = raidBattle;
 
@@ -93,9 +92,7 @@ bool BattleScene::init()
 		_enemies[i]->getSprite()->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 		this->addChild(_enemies[0]->getSprite());
 	}
-	DrawNode* drawNode = DrawNode::create();
-	drawNode->drawRect(player->getSprite()->getPosition(), player->getSprite()->getPosition() + player->getSprite()->getPosition(), Color4F(1, 0, 0, 1));
-	this->addChild(drawNode, 100);
+
 	for (int i = 0; i < player->getSkills().size(); i++)
 	{
 		CCLOG("okok");
@@ -110,6 +107,8 @@ bool BattleScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	this->schedule(CC_SCHEDULE_SELECTOR(BattleScene::loop), 1);
+
+  return true;
 }
 void BattleScene::loop(float delta)
 {

@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
-#include "BattleScene.h"
-
+#include "TitleScreen.h"
+#include "RaidMenuScene.h"
 // #define USE_AUDIO_ENGINE 1
 
 #if USE_AUDIO_ENGINE
@@ -14,7 +14,7 @@ USING_NS_CC;
 static cocos2d::Size designResolutionSize = cocos2d::Size(1920, 1084);
 
 static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
-static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
+static cocos2d::Size mediumResolutionSize = cocos2d::Size(540, 950);
 static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
 
 AppDelegate::AppDelegate()
@@ -60,9 +60,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 
+
     //// turn on display FPS
     //director->setDisplayStats(true);
-
 
     //// set FPS. the default value is 1.0/60 if you don't call this
     //director->setAnimationInterval(1.0f / 60);
@@ -94,12 +94,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 
 
-    // create a scene. it's an autorelease object
-    auto scene = BattleScene::createScene();
-    cocos2d::log("scene loaded");
+
+    auto scene = TitleScreen::createScene();
+    //auto Raidscene = RaidMenuScene::createScene();
 
     // run
     director->runWithScene(scene);
+    //director->runWithScene(scene);
+
     return true;
 }
 

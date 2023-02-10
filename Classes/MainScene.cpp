@@ -3,10 +3,13 @@
 #include "Enemy.h"
 #include "Battle.h"
 #include "MainMenuScene.h"
+#include "BattleScene.h"
+#include "Interface.h"
 
 MainScene::MainScene() {
 	srand(time(0)); //Initialize rand seed once
-	_database = new Database;
+	_database = Database::Instance();
+
 	_energy = 30;
 	_ready = false;
 	_director = cocos2d::Director::getInstance();
@@ -47,7 +50,7 @@ void MainScene::pull(int num) {
 			rarity = 1; //Rare (90%)
 		}
 
-		//Vecteurs temporaires pour représenter la database
+		//Vecteurs temporaires pour reprÃ©senter la database
 		//SELECT * FROM SUPPORTS WHERE RARITIES = (rarity)
 		std::vector< std::vector<std::string>> database;
 		std::vector<std::string> rare = { "first rare object","second rare object" ,"third rare object" ,"fourth rare object" ,"fifth rare object" };
@@ -62,23 +65,23 @@ void MainScene::pull(int num) {
 	}
 }
 
-//Lancée au démarrage de l'application pour setup le timer
+//LancÃ©e au dÃ©marrage de l'application pour setup le timer
 void MainScene::setTimer() {
 	log("Starting timer...");
 	_ready = true;
-	int limit = 50; //La limite d'énergie en fonction du niveau du joueur (database)
+	int limit = 50; //La limite d'Ã©nergie en fonction du niveau du joueur (database)
 	clock_t start, now, timePassed;
 
-	while (_energy < limit) { //Sera remplacé par while game is open
+	while (_energy < limit) { //Sera remplacÃ© par while game is open
 		if (_energy < limit) {
 			start = clock();
-			timePassed = 0; //Le temps du timer précédent si on a pu le stocker à la fermeture du jeu
-			int duration = 3000 - timePassed; //en ms, à remplacer par 300000 (5min)
+			timePassed = 0; //Le temps du timer prÃ©cÃ©dent si on a pu le stocker Ã  la fermeture du jeu
+			int duration = 3000 - timePassed; //en ms, Ã  remplacer par 300000 (5min)
 
 			do {
 				now = clock();
 
-				//Données à stocker si on peut lancer une fonction lors de la fermeture du jeu
+				//DonnÃ©es Ã  stocker si on peut lancer une fonction lors de la fermeture du jeu
 				timePassed = now - start;
 			} while (timePassed < duration);
 
@@ -93,84 +96,4 @@ void MainScene::setTimer() {
 
 void MainScene::update(float delta) {
 	//
-}
-
-void MainScene::signup() {
-	if (!_database->checkSave()) {
-		//Ajouter label créer un compte
-		_textField = newTextField("Enter your mail");
-		_textField->setPosition(center());
-		this->addChild(_textField);
-
-		Button* button = newButton("OK");
-		button->setPosition(cocos2d::Vec2(centerWidth(), centerHeight()-50));
-		this->addChild(button);
-
-		Button* buttonLogin = newButton("I already have an account !");
-		buttonLogin->setPosition(cocos2d::Vec2(centerWidth(), centerHeight() - 100));
-		this->addChild(buttonLogin);
-
-		button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
-			{
-				if (type == Widget::TouchEventType::ENDED) {
-					cocos2d::log("ended");
-					std::string input = _textField->getString();
-					_database->setEmail(input);
-					if (_database->createUser()) {
-						_database->createSave();
-						cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-					}
-					else {
-						this->removeChild(_textField);
-						//Ajouter autres children
-						signup();
-					}
-				}
-			}
-		);
-
-		buttonLogin->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
-			{
-				if (type == Widget::TouchEventType::ENDED) {
-					cocos2d::log("ended");
-					this->removeChild(_textField);
-					//Ajouter autres children
-					login();
-				}
-			}
-		);
-	}
-	else {
-		_database->getUser();
-	}
-}
-
-void MainScene::login() {
-	//Ajouter label connexion
-	_textField = newTextField("Enter your mail");
-	_textField->setPosition(center());
-	this->addChild(_textField);
-
-	Button* button = newButton("OK");
-	button->setPosition(cocos2d::Vec2(centerWidth(), centerHeight() - 50));
-	this->addChild(button);
-
-	button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
-		{
-			if (type == Widget::TouchEventType::ENDED) {
-				cocos2d::log("ended");
-				std::string input = _textField->getString();
-				_database->setEmail(input);
-				if (_database->getUser()) {
-					_database->createSave();
-					cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-				}
-				else {
-					this->removeChild(_textField);
-					//Ajouter autres children
-					login();
-				}
-			}
-		}
-	);
 }
