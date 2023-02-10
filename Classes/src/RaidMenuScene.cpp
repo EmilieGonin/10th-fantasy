@@ -85,6 +85,7 @@ void RaidMenuScene::Menu()
     Return->setPosition(cocos2d::Vec2(50, 18));
     Return->setScale(0.25, 0.25);
     this->addChild(Return, 1);
+
 }
 
 void RaidMenuScene::ForestLevel()
@@ -171,6 +172,7 @@ void RaidMenuScene::ForestLevel()
     UltimatePlay->setLocalZOrder(1);
 
     Play();
+
 
     Return = newButton("","Return.png", 1);
     Return->setPosition(cocos2d::Vec2(50, 18));
