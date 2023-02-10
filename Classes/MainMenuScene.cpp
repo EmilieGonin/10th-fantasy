@@ -1,6 +1,8 @@
 #include "MainMenuScene.h"
 #include "BattleScene.h"
 #include "RaidMenuScene.h"
+#include "SummonMenuScene.h"
+
 USING_NS_CC;
 
 Scene* MainMenuScene::createScene()
@@ -39,7 +41,7 @@ bool MainMenuScene::init()
 
     setScene(this);
 
-    Button* raidButton = newButton("Raid", "Button/Battle.png");
+    Button* raidButton = newButton("", "Button/Battle.png");
     raidButton->setPosition(cocos2d::Vec2(440,25));
     raidButton->setAnchorPoint(Vec2::ZERO);
     raidButton->setScale(0.15);
@@ -52,7 +54,7 @@ bool MainMenuScene::init()
         }
     );
 
-    Button* summonButton = newButton("Summon", "Button/Summon.png");
+    Button* summonButton = newButton("", "Button/Summon.png");
     summonButton->setPosition(cocos2d::Vec2(40, 23));
     summonButton->setAnchorPoint(Vec2::ZERO);
     summonButton->setScale(0.185);
@@ -60,7 +62,7 @@ bool MainMenuScene::init()
     summonButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                //cocos2d::Director::getInstance()->replaceScene(SummonMenuScene::create());  // Leann's raid menu
+                cocos2d::Director::getInstance()->replaceScene(SummonMenuScene::create());
             }
         }
     );
