@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Z:\Classes\AppDelegate.cpp">
       <Filter>Source Files\Classes</Filter>
@@ -116,34 +116,12 @@
     <CustomBuild Include="Z:\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Z:\proj.win32\game.rc">
-      <Filter>Source Files\proj.win32</Filter>
-    </ResourceCompile>
+    <ResourceCompile Include="Z:\proj.win32\game.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Resources">
-      <UniqueIdentifier>{1ADB2AF6-0A17-3091-B52A-EE0EE38FF6A9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\fonts">
-      <UniqueIdentifier>{9634AF4B-7AE6-3DE9-80EA-1F4823210ED1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resources\res">
-      <UniqueIdentifier>{755084FD-0325-3FB5-87B4-ED44C4136F8C}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{8942DD0A-CDEA-3ADA-B461-F71B2E5F5FB8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Classes">
-      <UniqueIdentifier>{B754C423-5FD5-3999-9BBD-0AE6BD9A9101}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\proj.win32">
-      <UniqueIdentifier>{82E2383D-3395-31D5-BE38-8DBE05348D3D}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Classes\src">
-      <UniqueIdentifier>{c5e0be07-27cc-48dd-9f1d-5aa504df4a12}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Classes\include">
-      <UniqueIdentifier>{3f30072d-1af2-4785-8818-2a9cd635987d}</UniqueIdentifier>
-    </Filter>
+    <Image Include="..\Resources\Rectangle.png" />
+    <Image Include="..\Resources\return.png" />
+    <Image Include="bin\10th-fantasy\Debug\Resources\BattleScene.png" />
+    <Image Include="..\Resources\Button\playbtn.png" />
   </ItemGroup>
 </Project>

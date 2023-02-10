@@ -12,6 +12,7 @@ protected:
 	std::vector<TextField*> _textFields;
 	std::vector<Button*> _buttons;
 	std::vector<Label*> _labels;
+	std::vector<Sprite*> _sprite;
 
 public:
 	Interface();
@@ -21,6 +22,7 @@ public:
 	Button* newButton(std::string);
 	Button* newButton(std::string, std::string);
 	Label* newLabel(std::string);
+	Sprite* newSprite(std::string);
 
 	//Des wrappers pour set les positions
 	Vec2 center();
