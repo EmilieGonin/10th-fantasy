@@ -8,26 +8,28 @@ using namespace cocos2d;
 class Interface {
 protected:
 	Scene* _scene;
-	//On stocke les différents éléments d'interface à afficher
+	//On stocke les diffÃ©rents Ã©lÃ©ments d'interface Ã  afficher
 	std::vector<TextField*> _textFields;
 	std::vector<Button*> _buttons;
 	std::vector<Label*> _labels;
+	std::vector<Sprite*> _sprite;
 
 public:
 	Interface();
 
-	//Création d'éléments automatiquement ajoutés dans la scène définie
+	//CrÃ©ation d'Ã©lÃ©ments automatiquement ajoutÃ©s dans la scÃ¨ne dÃ©finie
 	TextField* newTextField(std::string);
 	Button* newButton(std::string);
 	Button* newButton(std::string, std::string, int);
 	Label* newLabel(std::string, int);
+	Sprite* newSprite(std::string);
 
 	//Des wrappers pour set les positions
 	Vec2 center();
 	float centerWidth();
 	float centerHeight();
 
-	//On retire tous les éléments d'interface créés
+	//On retire tous les Ã©lÃ©ments d'interface crÃ©Ã©s
 	void clean();
 
 	//Setters

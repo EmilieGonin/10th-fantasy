@@ -58,6 +58,18 @@ Label* Interface::newLabel(std::string string, int layer) {
 	return label;
 }
 
+Sprite* Interface::newSprite(std::string filename)
+{
+	Sprite* sprite = Sprite::create(filename);
+	_sprite.push_back(sprite);
+
+	if (_scene != nullptr) {
+		_scene->addChild(sprite);
+	}
+
+	return sprite;
+}
+
 Vec2 Interface::center() {
 	//Taille de la fenêtre de jeu
 	Size size = Director::getInstance()->getVisibleSize();
@@ -91,6 +103,11 @@ void Interface::clean() {
 
 	if (!_labels.empty()) {
 		for (Label* item : _labels) {
+			_scene->removeChild(item);
+		}
+	}
+	if (!_sprite.empty()) {
+		for (Sprite* item : _sprite) {
 			_scene->removeChild(item);
 		}
 	}
