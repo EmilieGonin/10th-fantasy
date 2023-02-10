@@ -47,7 +47,7 @@ bool CharacterMenu::init()
 
 void CharacterMenu::Stuff()
 {
-    Title = newLabel("STUFF");
+    Title = newLabel("STUFF",1);
     Title->setPosition(centerWidth(), 900);
     this->addChild(Title, 1);
 
@@ -93,7 +93,7 @@ void CharacterMenu::Stuff()
     Gem->setScale(0.1, 0.1);
     this->addChild(Gem, 1);
 
-    Return = newButton("", "return.png");
+    Return = newButton("", "return.png",1);
     Return->setPosition(cocos2d::Vec2(50, 18));
     Return->setScale(0.25, 0.25);
     this->addChild(Return, 1);
@@ -111,15 +111,15 @@ void CharacterMenu::Stuff()
 void CharacterMenu::Stat()
 {
 
-    Title = newLabel("STATS");
+    Title = newLabel("STATS",1);
     Title->setPosition(centerWidth(), 190);
     this->addChild(Title, 2);  
     
-    LvlUp = newLabel("Level Up");
+    LvlUp = newLabel("Level Up",1);
     LvlUp->setPosition(130, 120);
     this->addChild(LvlUp, 2);
     
-    Price = newLabel("Price");
+    Price = newLabel("Price",1);
     Price->setPosition(400, 120);
     this->addChild(Price, 2);
 
