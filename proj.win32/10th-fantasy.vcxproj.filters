@@ -43,6 +43,27 @@
     <ClCompile Include="..\Classes\MainMenuScene.cpp">
       <Filter>Source Files\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Z:\Classes\src\Skill.cpp">
+      <Filter>Source Files\Classes\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\Classes\src\SkillSlash.cpp">
+      <Filter>Source Files\Classes\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\Classes\src\Weapon.cpp">
+      <Filter>Source Files\Classes\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\Classes\src\Sword.cpp">
+      <Filter>Source Files\Classes\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\Classes\src\SkillSwordJudgement.cpp">
+      <Filter>Source Files\Classes\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\Classes\src\RaidBoss.cpp">
+      <Filter>Source Files\Classes\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\Classes\src\RaidBossBetala.cpp">
+      <Filter>Source Files\Classes\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Z:\Classes\AppDelegate.h">
@@ -97,10 +118,32 @@
       <Filter>Source Files\Classes\include</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BattleScene.h">
-    <Filter>Source Files\Classes</Filter>
+      <Filter>Source Files\Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MainMenuScene.h">
       <Filter>Source Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Interface.h" />
+    <ClInclude Include="Z:\Classes\include\Skill.h">
+      <Filter>Source Files\Classes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Classes\include\SkillSlash.h">
+      <Filter>Source Files\Classes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Classes\include\Weapon.h">
+      <Filter>Source Files\Classes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Classes\include\Sword.h">
+      <Filter>Source Files\Classes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Classes\include\SkillSwordJudgement.h">
+      <Filter>Source Files\Classes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Classes\include\RaidBoss.h">
+      <Filter>Source Files\Classes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Classes\include\RaidBossBetala.h">
+      <Filter>Source Files\Classes\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

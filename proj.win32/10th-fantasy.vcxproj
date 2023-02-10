@@ -840,6 +840,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\Interface.h" />
     <ClInclude Include="..\Classes\MainMenuScene.h" />
     <ClInclude Include="Z:\Classes\AppDelegate.h" />
+    <ClInclude Include="Z:\Classes\include\RaidBoss.h" />
+    <ClInclude Include="Z:\Classes\include\RaidBossBetala.h" />
+    <ClInclude Include="Z:\Classes\include\Skill.h" />
+    <ClInclude Include="Z:\Classes\include\SkillSlash.h" />
+    <ClInclude Include="Z:\Classes\include\SkillSwordJudgement.h" />
+    <ClInclude Include="Z:\Classes\include\Sword.h" />
+    <ClInclude Include="Z:\Classes\include\Weapon.h" />
     <ClInclude Include="Z:\Classes\MainScene.h" />
     <ClInclude Include="Z:\proj.win32\main.h" />
     <ClInclude Include="Z:\proj.win32\resource.h" />
@@ -855,6 +862,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="Z:\Classes\AppDelegate.cpp" />
     <ClCompile Include="Z:\Classes\BattleScene.cpp" />
     <ClCompile Include="Z:\Classes\MainScene.cpp" />
+    <ClCompile Include="Z:\Classes\src\RaidBoss.cpp" />
+    <ClCompile Include="Z:\Classes\src\RaidBossBetala.cpp" />
+    <ClCompile Include="Z:\Classes\src\Skill.cpp" />
+    <ClCompile Include="Z:\Classes\src\SkillSlash.cpp" />
+    <ClCompile Include="Z:\Classes\src\SkillSwordJudgement.cpp" />
+    <ClCompile Include="Z:\Classes\src\Sword.cpp" />
+    <ClCompile Include="Z:\Classes\src\Weapon.cpp" />
     <ClCompile Include="Z:\proj.win32\main.cpp" />
     <ResourceCompile Include="Z:\proj.win32\game.rc" />
     <ClInclude Include="Z:\Resources\CloseNormal.png" />

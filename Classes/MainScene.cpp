@@ -7,66 +7,15 @@
 MainScene::MainScene() {
 	srand(time(0)); //Initialize rand seed once
 	_database = new Database;
-	
 	_energy = 30;
 	_ready = false;
 	_director = cocos2d::Director::getInstance();
 	_scheduler = _director->getScheduler();
-	//_scheduler->schedule(setTimer, this, 0, 0);
-	//scheduler->performFunctionInCocosThread(CC_CALLBACK_0(MainScene::setTimer, this, energy, ready));
-	//std::thread timer(setTimer);
-	//timer.detach();
 
-	//while (!_ready) {};
 }
 
 void MainScene::testing() { //Debug only
-	enum Stats {
-		ATK = 0,
-		MATK = 1,
-		PATK = 2,
-		MDEF = 3,
-		PDEF = 4,
-		HP = 5,
-		CR = 6,
-		CD = 7
-	};
-
-    Enemy enemy(20);
-    Enemy enemy2(20);
-    Enemy enemy3(180);
-
-    Gear helmet(HP, 60);
-    Gear chest(MDEF, 20);
-    Gear legs(PDEF, 20);
-    Gear rings(PATK, 75);
-    Gear necklace(PATK, 75);
-    Gear earrings(CD, 15);
-
-    Player player;
-
-    player.equip(necklace);
-    player.equip(helmet);
-    player.equip(rings);
-    player.equip(legs);
-
-    for (int i = 0; i < 50; i++) {
-        player.levelup();
-    }
-
-    std::vector<Enemy*> myVector;
-    myVector.push_back(&enemy);
-    myVector.push_back(&enemy2);
-    myVector.push_back(&enemy3);
-
-    Battle battle(&player, myVector);
-
-    while (battle.getBattleState()) {
-        battle.turn();
-        battle.battleCheck();
-    }
-
-    cocos2d::log("battle end");
+	
 }
 
 void MainScene::log(std::string value) {
