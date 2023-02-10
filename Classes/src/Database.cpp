@@ -133,8 +133,7 @@ void Database::signup() {
 				_email = _textFields[0]->getString();
 				if (createUser()) {
 					createSave();
-					//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-					cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
+					cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 				}
 				else {
 					clean();
@@ -168,8 +167,7 @@ void Database::login() {
 				_email = _textFields[0]->getString();
 				if (getUser()) {
 					createSave();
-					//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-					cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
+					cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 				}
 				else {
 					clean();
