@@ -26,15 +26,15 @@ bool SummonMenuScene::init()
 
     setScene(this);
 
-    cocos2d::Label* Banner = newLabel("Current Banner");
+    cocos2d::Label* Banner = newLabel("Current Banner", 2);
     Banner->setPosition(250, 580);
 
-    cocos2d::Label* Single = newLabel("Single Summons");
+    cocos2d::Label* Single = newLabel("Single Summons", 2);
     Single->setPosition(120, 440);
     Single->setAnchorPoint(Vec2::ZERO);
     Single->setScale(0.5);
 
-    cocos2d::Label* Multi = newLabel("10x Summons");
+    cocos2d::Label* Multi = newLabel("10x Summons", 2);
     Multi->setPosition(300, 440);
     Multi->setAnchorPoint(Vec2::ZERO);
     Multi->setScale(0.5);
@@ -50,17 +50,17 @@ bool SummonMenuScene::init()
     _back->setPosition(0, 945);
     _back->setScale(0.12);
 
-    Button* backButton = newButton("", "Button/Back.png");
+    Button* backButton = newButton("", "Button/Back.png", 1);
     backButton->setPosition(cocos2d::Vec2(0, 942));
     backButton->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
     backButton->setScale(0.08);
 
-    Button* singleButton = newButton("", "Button/Rectangle.png");
+    Button* singleButton = newButton("", "Button/Rectangle.png", 1);
     singleButton->setPosition(cocos2d::Vec2(120, 425));
     singleButton->setAnchorPoint(Vec2::ZERO);
     singleButton->setScale(0.08);
 
-    Button* MultiButton = newButton("", "Button/Rectangle.png");
+    Button* MultiButton = newButton("", "Button/Rectangle.png", 1);
     MultiButton->setPosition(cocos2d::Vec2(300, 425));
     MultiButton->setAnchorPoint(Vec2::ZERO);
     MultiButton->setScale(0.08);
