@@ -20,7 +20,9 @@ public:
 	//Création d'éléments automatiquement ajoutés dans la scène définie
 	TextField* newTextField(std::string);
 	Button* newButton(std::string);
+	Button* newButton(std::string, std::string);
 	Button* newButton(std::string, std::string, int);
+	Label* newLabel(std::string);
 	Label* newLabel(std::string, int);
 	Sprite* newSprite(std::string);
 
