@@ -43,45 +43,45 @@ bool RaidMenuScene::init()
 
 void RaidMenuScene::Menu()
 {
-    Title = newLabel("RAIDS");
+    Title = newLabel("RAIDS", 1);
     Title->setPosition(centerWidth(),900);
     this->addChild(Title,1);
 
 
-    _firstRaid = newButton("", "Rectangle.png");
+    _firstRaid = newButton("", "Rectangle.png", 1);
     _firstRaid->setPosition(cocos2d::Vec2(centerWidth(), 700));
     _firstRaid->setScale(0.4, 0.25);
     this->addChild(_firstRaid, 1);
 
 
-    Forest = newLabel("Forest");
+    Forest = newLabel("Forest", 1);
     Forest->setPosition(centerWidth(), 700);
     this->addChild(Forest, 1);
 
 
-    Second = newButton("", "Rectangle.png");
+    Second = newButton("", "Rectangle.png", 1);
     Second->setPosition(cocos2d::Vec2(centerWidth(), 500));
     Second->setScale(0.4, 0.25);
     this->addChild(Second, 1);
 
 
-    Dungeon = newLabel("Dungeon");
+    Dungeon = newLabel("Dungeon", 1);
     Dungeon->setPosition(centerWidth(), 500);
     this->addChild(Dungeon, 1);
 
 
-    Third = newButton("", "Rectangle.png");
+    Third = newButton("", "Rectangle.png", 1);
     Third->setPosition(cocos2d::Vec2(centerWidth(), 300));
     Third->setScale(0.4, 0.25);
     this->addChild(Third, 1);
 
 
-    Cave = newLabel("Cave");
+    Cave = newLabel("Cave", 1);
     Cave->setPosition(centerWidth(), 300);
     this->addChild(Cave, 1);
 
 
-    Return = newButton("", "Return.png");
+    Return = newButton("", "Return.png", 1);
     Return->setPosition(cocos2d::Vec2(50, 18));
     Return->setScale(0.25, 0.25);
     this->addChild(Return, 1);
@@ -90,30 +90,30 @@ void RaidMenuScene::Menu()
 void RaidMenuScene::ForestLevel()
 {
     // LEVELS LABELS 
-    Title = newLabel("FOREST RAID");
+    Title = newLabel("FOREST RAID", 1);
     Title->setPosition(centerWidth(), 900);
 
-    Peaceful = newLabel("Peaceful");
+    Peaceful = newLabel("Peaceful", 1);
     Peaceful->setPosition(150, 780);
     Peaceful->setLocalZOrder(1);
 
-    Easy = newLabel("Easy");
+    Easy = newLabel("Easy", 1);
     Easy->setPosition(120, 650);
     Easy->setLocalZOrder(1);
 
-    Normal = newLabel("Normal");
+    Normal = newLabel("Normal", 1);
     Normal->setPosition(130, 520);
     Normal->setLocalZOrder(1);    
 
-    Hard = newLabel("Hard");
+    Hard = newLabel("Hard", 1);
     Hard->setPosition(120, 390);
     Hard->setLocalZOrder(1);
 
-    Insane = newLabel("Insane");
+    Insane = newLabel("Insane", 1);
     Insane->setPosition(130, 260);
     Insane->setLocalZOrder(1); 
     
-    Ultimate = newLabel("Ultimate");
+    Ultimate = newLabel("Ultimate", 1);
     Ultimate->setPosition(140, 130);
     Ultimate->setLocalZOrder(1);
 
@@ -145,34 +145,34 @@ void RaidMenuScene::ForestLevel()
 
     // LEVEL BUTTON
 
-    PeacefulPlay = newButton("", "Button/playbtn.png");
+    PeacefulPlay = newButton("", "Button/playbtn.png", 1);
     PeacefulPlay->setPosition(cocos2d::Vec2(400, 780));
     PeacefulPlay->setScale(0.05, 0.05);
 
-    EasyPlay = newButton("", "Button/playbtn.png");
+    EasyPlay = newButton("", "Button/playbtn.png", 1);
     EasyPlay->setPosition(cocos2d::Vec2(400, 650));
     EasyPlay->setScale(0.05, 0.05);
 
-    NormalPlay = newButton("", "Button/playbtn.png");
+    NormalPlay = newButton("", "Button/playbtn.png", 1);
     NormalPlay->setPosition(cocos2d::Vec2(400, 520));
     NormalPlay->setScale(0.05, 0.05);
 
-    HardPlay = newButton("", "Button/playbtn.png");
+    HardPlay = newButton("", "Button/playbtn.png", 1);
     HardPlay->setPosition(cocos2d::Vec2(400, 390));
     HardPlay->setScale(0.05, 0.05);
 
-    InsanePlay = newButton("", "Button/playbtn.png");
+    InsanePlay = newButton("", "Button/playbtn.png", 1);
     InsanePlay->setPosition(cocos2d::Vec2(400, 260));
     InsanePlay->setScale(0.05, 0.05);
 
-    UltimatePlay = newButton("", "Button/playbtn.png");
+    UltimatePlay = newButton("", "Button/playbtn.png", 1);
     UltimatePlay->setPosition(cocos2d::Vec2(400, 130));
     UltimatePlay->setScale(0.05, 0.05);
     UltimatePlay->setLocalZOrder(1);
 
     Play();
 
-    Return = newButton("","Return.png");
+    Return = newButton("","Return.png", 1);
     Return->setPosition(cocos2d::Vec2(50, 18));
     Return->setScale(0.25, 0.25);
 

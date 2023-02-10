@@ -32,7 +32,7 @@ bool BattleScene::init()
     background->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 
 
-    //this->addChild(background);
+    this->addChild(background);
     this->addChild(player->getSprite());
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
