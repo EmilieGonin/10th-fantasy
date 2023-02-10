@@ -81,7 +81,7 @@ void RaidMenuScene::Menu()
     this->addChild(Cave, 1);
 
 
-    Return = newButton("Return.png");
+    Return = newButton("", "Return.png");
     Return->setPosition(cocos2d::Vec2(50, 18));
     Return->setScale(0.25, 0.25);
     this->addChild(Return, 1);
@@ -172,7 +172,7 @@ void RaidMenuScene::ForestLevel()
 
     Play();
 
-    Return = newButton("Return.png");
+    Return = newButton("","Return.png");
     Return->setPosition(cocos2d::Vec2(50, 18));
     Return->setScale(0.25, 0.25);
 
