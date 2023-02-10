@@ -246,8 +246,7 @@ bool Database::patch(std::string url, json payload) {
 
 bool Database::handleRequest(cpr::Response r) {
 	cocos2d::log("**********"); //Help to see logs
-
-	json test = json::parse(r.text)["data"][0];
+	json request = json::parse(r.text)["data"];
 
 	if (r.status_code == 0) { //Si la requête n'a pas pu être lancée
 		cocos2d::log(r.error.message.c_str());
@@ -263,7 +262,7 @@ bool Database::handleRequest(cpr::Response r) {
 		createError();
 		return false;
 	}
-	else if (json::parse(r.text)["data"][0].is_null()) {
+	else if (request.empty()) {
 		cocos2d::log("Data received are empty !");
 		return false;
 	}
