@@ -90,10 +90,10 @@ void Database::init(cocos2d::Scene* scene) {
 	}
 	else {
 		getUser();
-		cocos2d::Label* label = newLabel("Touch the screen to start");
+		cocos2d::Label* label = newLabel("Touch the screen to start", 1);
 		label->setPosition(center());
 
-		cocos2d::Label* userLabel = newLabel("username"); //getter from database
+		cocos2d::Label* userLabel = newLabel("username", 1); //getter from database
 		userLabel->setPosition(Vec2(0, 0)); //set position top
 
 		Button* button = newButton("Next");
