@@ -165,7 +165,7 @@ void Database::login() {
 	button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
 		{
 			if (type == Widget::TouchEventType::ENDED) {
-				_email = textField->getString();
+				_email = _textFields[0]->getString();
 				if (getUser()) {
 					createSave();
 					//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());

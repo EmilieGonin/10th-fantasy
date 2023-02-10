@@ -12,7 +12,7 @@ protected:
 	std::vector<TextField*> _textFields;
 	std::vector<Button*> _buttons;
 	std::vector<Label*> _labels;
-	std::vector<Sprite*> _sprite;
+	std::vector<Sprite*> _sprites;
 
 public:
 	Interface();
