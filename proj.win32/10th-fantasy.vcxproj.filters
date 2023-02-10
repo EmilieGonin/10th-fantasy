@@ -1,48 +1,117 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\Classes\Interface.cpp" />
-    <ClCompile Include="..\Classes\MainMenuScene.cpp" />
-    <ClCompile Include="..\Classes\src\Battle.cpp" />
-    <ClCompile Include="..\Classes\src\Database.cpp" />
-    <ClCompile Include="..\Classes\src\Enemy.cpp" />
-    <ClCompile Include="..\Classes\src\Entity.cpp" />
-    <ClCompile Include="..\Classes\src\Gear.cpp" />
-    <ClCompile Include="..\Classes\src\Player.cpp" />
-    <ClCompile Include="..\Classes\src\RaidMenuScene.cpp" />
-    <ClCompile Include="..\Classes\src\TitleScreen.cpp" />
-    <ClCompile Include="..\Classes\SummonMenuScene.cpp" />
-    <ClCompile Include="Z:\Classes\AppDelegate.cpp" />
-    <ClCompile Include="Z:\Classes\BattleScene.cpp" />
-    <ClCompile Include="Z:\Classes\MainScene.cpp" />
     <ClCompile Include="Z:\proj.win32\main.cpp" />
     <ClCompile Include="Z:\cocos2d\cocos\precheader.cpp" />
-    <ClCompile Include="..\Classes\src\CharacterMenu.cpp" />
+    <ClCompile Include="..\Classes\src\Battle.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\CharacterMenu.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\Database.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\Enemy.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\Entity.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\Classes\BattleScene.cpp">
+      <Filter>Classes\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\Gear.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Interface.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainMenuScene.cpp">
+      <Filter>Classes\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\Classes\MainScene.cpp">
+      <Filter>Classes\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\RaidMenuScene.cpp">
+      <Filter>Classes\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\Player.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SummonMenuScene.cpp">
+      <Filter>Classes\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\TitleScreen.cpp">
+      <Filter>Classes\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\Classes\AppDelegate.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Classes\BattleScene.h" />
-    <ClInclude Include="..\Classes\include\Battle.h" />
-    <ClInclude Include="..\Classes\include\Database.h" />
-    <ClInclude Include="..\Classes\include\Enemy.h" />
-    <ClInclude Include="..\Classes\include\Entity.h" />
-    <ClInclude Include="..\Classes\include\Gear.h" />
-    <ClInclude Include="..\Classes\include\Player.h" />
-    <ClInclude Include="..\Classes\include\RaidMenuScene.h" />
-    <ClInclude Include="..\Classes\include\TitleScreen.h" />
-    <ClInclude Include="..\Classes\Interface.h" />
-    <ClInclude Include="..\Classes\MainMenuScene.h" />
-    <ClInclude Include="..\Classes\SummonMenuScene.h" />
-    <ClInclude Include="Z:\Classes\AppDelegate.h" />
-    <ClInclude Include="Z:\Classes\MainScene.h" />
     <ClInclude Include="Z:\proj.win32\main.h" />
     <ClInclude Include="Z:\proj.win32\resource.h" />
-    <ClInclude Include="Z:\Resources\CloseNormal.png" />
-    <ClInclude Include="Z:\Resources\CloseSelected.png" />
-    <ClInclude Include="Z:\Resources\HelloWorld.png" />
-    <ClInclude Include="Z:\Resources\fonts\Marker Felt.ttf" />
-    <ClInclude Include="Z:\Resources\fonts\arial.ttf" />
-    <ClInclude Include="Z:\Resources\res\.gitkeep" />
-    <ClInclude Include="..\Classes\include\CharacterMenu.h" />
+    <ClInclude Include="..\Classes\include\Battle.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\CharacterMenu.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Database.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Enemy.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Entity.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BattleScene.h">
+      <Filter>Classes\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Gear.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Interface.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainMenuScene.h">
+      <Filter>Classes\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Classes\MainScene.h">
+      <Filter>Classes\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\fonts\arial.ttf">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\CloseNormal.png">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\CloseSelected.png">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\HelloWorld.png">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Resources\fonts\Marker Felt.ttf">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\RaidMenuScene.h">
+      <Filter>Classes\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Player.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SummonMenuScene.h">
+      <Filter>Classes\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\TitleScreen.h">
+      <Filter>Classes\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Classes\AppDelegate.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Z:\CMakeLists.txt" />
@@ -51,26 +120,79 @@
     <ResourceCompile Include="Z:\proj.win32\game.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Resources\Rectangle.png" />
-    <Image Include="..\Resources\return.png" />
-    <Image Include="bin\10th-fantasy\Debug\Resources\BattleScene.png" />
-    <Image Include="..\Resources\Button\playbtn.png" />
-    <Image Include="..\Resources\Background\characterbg.png" />
-    <Image Include="..\Resources\Characters\djeamy.png" />
-    <Image Include="..\Resources\Characters\elf.png" />
-    <Image Include="..\Resources\Characters\firemage.png" />
-    <Image Include="..\Resources\Characters\Hem-Mily.png" />
-    <Image Include="..\Resources\Characters\lheen.png" />
-    <Image Include="..\Resources\Characters\succubus.png" />
-    <Image Include="..\Resources\Characters\Theaume.png" />
-    <Image Include="..\Resources\Characters\Thief.png" />
-    <Image Include="..\Resources\Characters\Uggoh.png" />
-    <Image Include="..\Resources\Stuff\ring.png" />
-    <Image Include="..\Resources\Stuff\boots.png" />
-    <Image Include="..\Resources\Stuff\chest.png" />
-    <Image Include="..\Resources\Stuff\earring.png" />
-    <Image Include="..\Resources\Stuff\helmet.png" />
-    <Image Include="..\Resources\Stuff\necklace.png" />
-    <Image Include="..\Resources\Sprite\player.png" />
+    <Image Include="bin\10th-fantasy\Debug\Resources\BattleScene.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Stuff\boots.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Background\characterbg.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Stuff\chest.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Characters\djeamy.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Stuff\earring.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Characters\elf.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Characters\firemage.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Characters\lheen.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Characters\Hem-Mily.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Stuff\helmet.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Sprite\player.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Button\playbtn.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Stuff\necklace.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\return.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Stuff\ring.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Characters\succubus.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Rectangle.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Characters\Theaume.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Characters\Thief.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Characters\Uggoh.png">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{50f758e7-f0aa-44bf-9bff-c2be6862aa8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Scenes">
+      <UniqueIdentifier>{e8a376e1-8515-461b-88b8-1fc742d6249b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{2e4d2d54-88ea-4167-b1e7-2dd6f7b90a4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

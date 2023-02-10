@@ -868,7 +868,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="Z:\Resources\HelloWorld.png" />
     <ClInclude Include="Z:\Resources\fonts\Marker Felt.ttf" />
     <ClInclude Include="Z:\Resources\fonts\arial.ttf" />
-    <ClInclude Include="Z:\Resources\res\.gitkeep" />
     <ClCompile Include="Z:\cocos2d\cocos\precheader.cpp" />
   </ItemGroup>
   <ItemGroup>
