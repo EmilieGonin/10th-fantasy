@@ -87,7 +87,8 @@ bool BattleScene::init()
 
 	for (int i = 0; i < _enemies.size(); i++)
 	{
-		_enemies[i]->getSprite()->setPosition(400 + i * 50, 100);
+		//_enemies[i]->getSprite()->setPosition(400 + i * 50, 100);
+		_enemies[i]->getSprite()->setPosition(150 + i * 50, 250);
 		_enemies[i]->getSprite()->setScale(0.5);
 		_enemies[i]->getSprite()->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 		this->addChild(_enemies[0]->getSprite());
