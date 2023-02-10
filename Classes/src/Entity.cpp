@@ -29,10 +29,15 @@ Entity::~Entity() {};
 int Entity::getSpd() { return _spd; }
 int Entity::getBattleHP() { return _battleHp; }
 int Entity::getDamageType() { return _dmgType; }
-
+std::vector<Skill*> Entity::getSkills() { return _skills; }
 std::vector<int*> Entity::getBaseStats() { return _baseStats; }
 std::vector<int*> Entity::getTotalStats() { return _finalStats; }
 
+cocos2d::Sprite* Entity::getSprite() { return mySprite; }
 void Entity::looseHp(int amount) {
 	_battleHp -= amount;
+	if (_battleHp < 0)
+	{
+		_battleHp = 0;
+	}
 }
