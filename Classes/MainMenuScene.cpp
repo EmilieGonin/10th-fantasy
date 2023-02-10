@@ -103,7 +103,7 @@ void MainMenuScene::Buttons() {
     );   
 
     Button* characterButton = newButton("", "Button/characterbtn.png");
-    characterButton->setPosition(cocos2d::Vec2(5, 860));
+    characterButton->setPosition(cocos2d::Vec2(150, 860));
     characterButton->setAnchorPoint(Vec2::ZERO);
     characterButton->setScale(0.7);
 
