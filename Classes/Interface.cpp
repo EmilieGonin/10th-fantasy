@@ -35,6 +35,18 @@ Button* Interface::newButton(std::string string) {
 	return button;
 }
 
+Button* Interface::newButton(std::string string, std::string sprite) {
+	Button* button = Button::create(sprite, sprite, sprite);
+	button->setTitleText(string);
+	_buttons.push_back(button);
+
+	if (_scene != nullptr) {
+		_scene->addChild(button);
+	}
+
+	return button;
+}
+
 Button* Interface::newButton(std::string string, std::string sprite, int layer) {
 	Button* button = Button::create(sprite, sprite, sprite);
 	button->setTitleText(string);
@@ -45,6 +57,17 @@ Button* Interface::newButton(std::string string, std::string sprite, int layer) 
 	}
 
 	return button;
+}
+
+Label* Interface::newLabel(std::string string) {
+	Label* label = Label::createWithTTF(string, "fonts/arial.ttf", 25);
+	_labels.push_back(label);
+
+	if (_scene != nullptr) {
+		_scene->addChild(label);
+	}
+
+	return label;
 }
 
 Label* Interface::newLabel(std::string string, int layer) {
