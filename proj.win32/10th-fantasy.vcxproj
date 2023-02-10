@@ -836,6 +836,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\include\Entity.h" />
     <ClInclude Include="..\Classes\include\Gear.h" />
     <ClInclude Include="..\Classes\include\Player.h" />
+    <ClInclude Include="..\Classes\include\CharacterMenu.h" />
     <ClInclude Include="..\Classes\include\RaidMenuScene.h" />
     <ClInclude Include="..\Classes\include\TitleScreen.h" />
     <ClInclude Include="..\Classes\Interface.h" />
@@ -853,6 +854,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\src\Entity.cpp" />
     <ClCompile Include="..\Classes\src\Gear.cpp" />
     <ClCompile Include="..\Classes\src\Player.cpp" />
+    <ClCompile Include="..\Classes\src\CharacterMenu.cpp" />
     <ClCompile Include="..\Classes\src\RaidMenuScene.cpp" />
     <ClCompile Include="..\Classes\src\TitleScreen.cpp" />
     <ClCompile Include="..\Classes\SummonMenuScene.cpp" />
@@ -932,9 +934,26 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Resources\Background\characterbg.png" />
     <Image Include="..\Resources\Button\playbtn.png" />
+    <Image Include="..\Resources\Characters\djeamy.png" />
+    <Image Include="..\Resources\Characters\elf.png" />
+    <Image Include="..\Resources\Characters\firemage.png" />
+    <Image Include="..\Resources\Characters\Hem-Mily.png" />
+    <Image Include="..\Resources\Characters\lheen.png" />
+    <Image Include="..\Resources\Characters\succubus.png" />
+    <Image Include="..\Resources\Characters\Theaume.png" />
+    <Image Include="..\Resources\Characters\Thief.png" />
+    <Image Include="..\Resources\Characters\Uggoh.png" />
     <Image Include="..\Resources\Rectangle.png" />
     <Image Include="..\Resources\return.png" />
+    <Image Include="..\Resources\Sprite\player.png" />
+    <Image Include="..\Resources\Stuff\boots.png" />
+    <Image Include="..\Resources\Stuff\chest.png" />
+    <Image Include="..\Resources\Stuff\earring.png" />
+    <Image Include="..\Resources\Stuff\helmet.png" />
+    <Image Include="..\Resources\Stuff\necklace.png" />
+    <Image Include="..\Resources\Stuff\ring.png" />
     <Image Include="bin\10th-fantasy\Debug\Resources\BattleScene.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -2,6 +2,7 @@
 #include "BattleScene.h"
 #include "RaidMenuScene.h"
 #include "SummonMenuScene.h"
+#include "CharacterMenu.h"
 
 USING_NS_CC;
 
@@ -63,6 +64,19 @@ bool MainMenuScene::init()
         {
             if (type == Widget::TouchEventType::ENDED) {
                 cocos2d::Director::getInstance()->replaceScene(SummonMenuScene::create());
+            }
+        }
+    );   
+
+    Button* characterButton = newButton("", "Button/characterbtn.png");
+    characterButton->setPosition(cocos2d::Vec2(5, 860));
+    characterButton->setAnchorPoint(Vec2::ZERO);
+    characterButton->setScale(0.7);
+
+    characterButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                cocos2d::Director::getInstance()->replaceScene(CharacterMenu::create());
             }
         }
     );
