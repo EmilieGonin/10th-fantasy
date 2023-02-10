@@ -1,4 +1,5 @@
 #include "Battle.h"
+#include "MainMenuScene.h"
 #include <iostream>
 
 Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
@@ -14,7 +15,7 @@ Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
 	myLifeBar = cocos2d::DrawNode::create();
 	enemyLifeBar = cocos2d::DrawNode::create();
 	
-	rectangle[0] = cocos2d::Vec2(0, -8);
+	/*rectangle[0] = cocos2d::Vec2(0, -8);
 	rectangle[1] = cocos2d::Vec2(100, -8);
 	rectangle[2] = cocos2d::Vec2(100 , 5);
 	rectangle[3] = cocos2d::Vec2(0, 5);
@@ -22,14 +23,19 @@ Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
 	rectangle2[0] = cocos2d::Vec2(0, -15);
 	rectangle2[1] = cocos2d::Vec2(300, -15);
 	rectangle2[2] = cocos2d::Vec2(300, 15);
-	rectangle2[3] = cocos2d::Vec2(0, 15);
+	rectangle2[3] = cocos2d::Vec2(0, 15);*/
 
+	myLifeBar->drawSolidRect(cocos2d::Vec2(0, 0), cocos2d::Vec2(100, 20), cocos2d::Color4F::GREEN);
+	myLifeBar->setAnchorPoint(cocos2d::Vec2(0.0, 0.0));
 	myLifeBar->setPosition(cocos2d::Vec2(30, 500));
+
+	enemyLifeBar->drawSolidRect(cocos2d::Vec2(0, 0), cocos2d::Vec2(250, 20), cocos2d::Color4F::GREEN);
+	enemyLifeBar->setAnchorPoint(cocos2d::Vec2(0.0, 0.0));
 	enemyLifeBar->setPosition(cocos2d::Vec2(200, 650));
 
 	
-	myLifeBar->drawPolygon(rectangle, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
-	enemyLifeBar->drawPolygon(rectangle2, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
+	//myLifeBar->drawPolygon(rectangle, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
+	//enemyLifeBar->drawPolygon(rectangle2, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
 
 	
 
@@ -93,6 +99,7 @@ void Battle::play() {
 			if (_player->getBattleHP() == 0)
 			{
 				_battle = false;
+				cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 			}
 		}
 		else
@@ -136,6 +143,7 @@ void Battle::battleCheck() {
 		CCLOG("I WIN");
 		_battle = false;
 		_win = true;
+		cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 	}
 	
 }
@@ -148,13 +156,18 @@ cocos2d::DrawNode* Battle::getEnemyLifeBar() { return enemyLifeBar; }
 
 void Battle::updateLifeBar()
 {
+	myLifeBar->clear();
+	myLifeBar->drawSolidRect(cocos2d::Vec2(0, 0), cocos2d::Vec2(100 * _player->getBattleHP() / *_player->getTotalStats()[HP], 20), cocos2d::Color4F::RED);
 
-	rectangle[0] = cocos2d::Vec2(0, -8);
-	rectangle[1] = cocos2d::Vec2(100 * _player->getBattleHP() / *_player->getTotalStats()[HP], -8);
-	rectangle[2] = cocos2d::Vec2(100 * _player->getBattleHP() / *_player->getTotalStats()[HP], 5);
-	rectangle[3] = cocos2d::Vec2(0, 5);
-	myLifeBar->drawPolygon(rectangle, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
-	enemyLifeBar->drawPolygon(rectangle2, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
+	enemyLifeBar->clear();
+	enemyLifeBar->drawSolidRect(cocos2d::Vec2(0, 0), cocos2d::Vec2(250 * _enemies[0]->getBattleHP() / *_player->getTotalStats()[HP], 20), cocos2d::Color4F::RED);
+
+	//rectangle[0] = cocos2d::Vec2(0, -8);
+	//rectangle[1] = cocos2d::Vec2(100 * _player->getBattleHP() / *_player->getTotalStats()[HP], -8);
+	//rectangle[2] = cocos2d::Vec2(100 * _player->getBattleHP() / *_player->getTotalStats()[HP], 5);
+	//rectangle[3] = cocos2d::Vec2(0, 5);
+	//myLifeBar->drawPolygon(rectangle, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
+	//enemyLifeBar->drawPolygon(rectangle2, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
 
 
 	
