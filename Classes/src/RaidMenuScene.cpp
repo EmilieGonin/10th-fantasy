@@ -106,79 +106,39 @@ void RaidMenuScene::Menu()
     this->addChild(Return);
 }
 
+void RaidMenuScene::Levels()
+{
+    auto Raidscene = RaidMenuScene::createScene();
 
-
-//void RaidMenuScene::SceneChanger()
-//{
-//    if (isTouched(Return)) 
-//    {
-//        auto scene = RaidMenuScene::createScene();
-//        Director::getInstance()->replaceScene(scene);
-//    }   
-//    else if (isTouched(_firstRaid))
-//    {
-//        clean();
-//    }
-//    else if (isTouched(Second))
-//    {
-//        auto scene = RaidMenuScene::createScene();
-//        Director::getInstance()->replaceScene(scene);
-//    } 
-//    else if (isTouched(Third))
-//    {
-//        auto scene = RaidMenuScene::createScene();
-//        Director::getInstance()->replaceScene(scene);
-//    }
-//}
-
-//void RaidMenuScene::Levels(Event* event)
-//{
-//    auto label = newLabel("RAIDS", "fonts/Marker Felt.ttf", 24);
-//    label->setPosition(240, 290);
-//    this->addChild(label, 1);
-//
-//    auto _firstRaid = newSprite("Rectangle.png");
-//    _firstRaid->setPosition(240, 230);
-//    _firstRaid->setScale(0.15, 0.1);
-//    this->addChild(_firstRaid);
-//
-//    auto Forest = newLabel("Forest", "fonts/Marker Felt.ttf", 24);
-//    Forest->setPosition(240, 230);
-//    this->addChild(Forest, 1);
-//
-//    auto Second = newSprite("Rectangle.png");
-//    Second->setPosition(240, 150);
-//    Second->setScale(0.15, 0.1);
-//    this->addChild(Second);
-//
-//    auto Dungeon = newLabel("Dungeon", "fonts/Marker Felt.ttf", 24);
-//    Dungeon->setPosition(240, 150);
-//    this->addChild(Dungeon, 1);
-//
-//    auto Third = newSprite("Rectangle.png");
-//    Third->setPosition(240, 70);
-//    Third->setScale(0.15, 0.1);
-//    this->addChild(Third);
-//
-//    auto Cave = newLabel("Cave", "fonts/Marker Felt.ttf", 24);
-//    Cave->setPosition(240, 70);
-//    this->addChild(Cave, 1);
-//
-//    auto Return = newSprite("Return.png");
-//    Return->setPosition(160, 15);
-//    Return->setScale(0.1, 0.1);
-//    this->addChild(Return);
-//}
-
-bool RaidMenuScene::isTouched(Sprite* sprite) {
-    Rect bounds = sprite->getBoundingBox();
-
-    if (bounds.containsPoint(_mousePosition)) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    // run
+    _firstRaid->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                clean();
+            }
+        }
+    );   
+    Second->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());  // Leann's raid menu
+            }
+        }
+    );  
+    Third->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());  // Leann's raid menu
+            }
+        }
+    );  
+    Return->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());  // Leann's raid menu
+            }
+        }
+    );
 }
 
 void RaidMenuScene::MouseUp(cocos2d::Event* event)
