@@ -1,6 +1,8 @@
 #pragma once
+
 #include <vector>
 #include <iostream>
+#include "Skill.h"
 
 class Entity
 {
@@ -10,18 +12,25 @@ protected:
 	int _battleHp;
 
 	bool _dmgType; // 0 physical, 1 magical
-
+	std::vector<Skill*> _skills;
 	std::vector<int*> _baseStats;
 	std::vector<int*> _finalStats;// atk, matk, patk, mdef, pdef, hp, cr, cd
+
+
+	cocos2d::Sprite* mySprite;
+	
 
 public:
 	Entity();
 	~Entity();
-
+	
 	//Getters
 	int getSpd();
 	int getBattleHP();
 	int getDamageType();
+	cocos2d::Sprite* getSprite();
+
+	std::vector<Skill*> getSkills();
 	std::vector<int*> getBaseStats();
 	std::vector<int*> getTotalStats();
 

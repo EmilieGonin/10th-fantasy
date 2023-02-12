@@ -1,31 +1,54 @@
 #pragma once
 #include "MainScene.h"
 #include "Interface.h"
+#include "BattleScene.h"
+#include "MainMenuScene.h"
 #include "cocos2d.h"
 #include <iostream>
 
-class RaidMenuScene : public MainScene, public Interface
+class RaidMenuScene : public MainScene, Interface
 {
 protected:
-    cocos2d::Sprite* _firstRaid;
-    cocos2d::Sprite* Second;
-    cocos2d::Sprite* Third;
-    cocos2d::Sprite* Return;
+    Button* _firstRaid;
+    Button* Second;
+    Button* Third;
+    Button* Return;  
+    
+    Button* PeacefulPlay;
+    Button* EasyPlay;
+    Button* NormalPlay;
+    Button* HardPlay;
+    Button* InsanePlay;
+    Button* UltimatePlay;
+
+    Sprite* PeacefulImg;
+    Sprite* EasyImg;
+    Sprite* NormalImg;
+    Sprite* HardImg;
+    Sprite* InsaneImg;
+    Sprite* UltimateImg;
+
     cocos2d::Label* Title;
     cocos2d::Label* Forest;
     cocos2d::Label* Cave;
-    cocos2d::Label* Dungeon;
+    cocos2d::Label* Dungeon; 
+    
+    cocos2d::Label* Peaceful;
+    cocos2d::Label* Easy;
+    cocos2d::Label* Normal;
+    cocos2d::Label* Hard;
+    cocos2d::Label* Insane;
+    cocos2d::Label* Ultimate;
+
     cocos2d::Vec2 _mousePosition;
 
 public:
     static cocos2d::Scene* createScene();
     virtual bool init();
-    bool isTouched(cocos2d::Sprite*);
     void Menu();
-    //void SceneChanger();
-    void MouseUp(cocos2d::Event* event);
-    //void Levels(cocos2d::Event* event);
-    void handleEvent(cocos2d::Event* event);
+    void ForestLevel();
+    void SceneChanger();
+    void Play();
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
 

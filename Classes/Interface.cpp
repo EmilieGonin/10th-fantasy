@@ -47,6 +47,18 @@ Button* Interface::newButton(std::string string, std::string sprite) {
 	return button;
 }
 
+Button* Interface::newButton(std::string string, std::string sprite, int layer) {
+	Button* button = Button::create(sprite, sprite, sprite);
+	button->setTitleText(string);
+	_buttons.push_back(button);
+
+	if (_scene != nullptr) {
+		_scene->addChild(button, layer);
+	}
+
+	return button;
+}
+
 Label* Interface::newLabel(std::string string) {
 	Label* label = Label::createWithTTF(string, "fonts/arial.ttf", 25);
 	_labels.push_back(label);
@@ -58,10 +70,21 @@ Label* Interface::newLabel(std::string string) {
 	return label;
 }
 
+Label* Interface::newLabel(std::string string, int layer) {
+	Label* label = Label::createWithTTF(string, "fonts/arial.ttf", 25);
+	_labels.push_back(label);
+
+	if (_scene != nullptr) {
+		_scene->addChild(label, layer);
+	}
+
+	return label;
+}
+
 Sprite* Interface::newSprite(std::string filename)
 {
 	Sprite* sprite = Sprite::create(filename);
-	_sprite.push_back(sprite);
+	_sprites.push_back(sprite);
 
 	if (_scene != nullptr) {
 		_scene->addChild(sprite);
@@ -93,23 +116,27 @@ void Interface::clean() {
 		for (TextField* item : _textFields) {
 			_scene->removeChild(item);
 		}
+		_textFields.clear();
 	}
 
 	if (!_buttons.empty()) {
 		for (Button* item : _buttons) {
 			_scene->removeChild(item);
 		}
+		_buttons.clear();
 	}
 
 	if (!_labels.empty()) {
 		for (Label* item : _labels) {
 			_scene->removeChild(item);
 		}
+		_labels.clear();
 	}
-	if (!_sprite.empty()) {
-		for (Sprite* item : _sprite) {
+	if (!_sprites.empty()) {
+		for (Sprite* item : _sprites) {
 			_scene->removeChild(item);
 		}
+		_sprites.clear();
 	}
 }
 

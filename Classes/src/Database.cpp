@@ -88,17 +88,16 @@ void Database::init(cocos2d::Scene* scene) {
 	if (!checkSave()) {
 		signup();
 	}
-	else {
-		getUser();
-		cocos2d::Label* label = newLabel("Touch the screen to start");
+	else if (getUser()) {
+		cocos2d::Label* label = newLabel("Touch the screen to start", 1);
 		label->setPosition(center());
 
-		cocos2d::Label* userLabel = newLabel("username"); //getter from database
+		cocos2d::Label* userLabel = newLabel("username", 1); //getter from database
 		userLabel->setPosition(Vec2(0, 0)); //set position top
 
 		Button* button = newButton("Next");
 		button->setPosition(cocos2d::Vec2(centerWidth(), centerHeight() - 50));
-		
+
 		button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
 			{
 				if (type == Widget::TouchEventType::ENDED) {
@@ -109,6 +108,10 @@ void Database::init(cocos2d::Scene* scene) {
 		//rajouter touch event on screen puis replace scene
 		//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 		//cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
+	}
+	else {
+		deleteSave();
+		init(scene);
 	}
 }
 
@@ -130,8 +133,7 @@ void Database::signup() {
 				_email = _textFields[0]->getString();
 				if (createUser()) {
 					createSave();
-					//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-					cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
+					cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 				}
 				else {
 					clean();
@@ -162,11 +164,10 @@ void Database::login() {
 	button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
 		{
 			if (type == Widget::TouchEventType::ENDED) {
-				_email = textField->getString();
+				_email = _textFields[0]->getString();
 				if (getUser()) {
 					createSave();
-					//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-					cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
+					cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 				}
 				else {
 					clean();
@@ -207,6 +208,10 @@ void Database::createSave() {
 	file.close();
 }
 
+void Database::deleteSave() {
+	remove("user.txt");
+}
+
 std::vector<std::string> Database::split(std::string string, std::string delim) {
 	std::size_t delimIndex = string.find(delim);
 	std::string setting = string.substr(0, delimIndex);
@@ -241,6 +246,7 @@ bool Database::patch(std::string url, json payload) {
 
 bool Database::handleRequest(cpr::Response r) {
 	cocos2d::log("**********"); //Help to see logs
+	json request = json::parse(r.text)["data"];
 
 	if (r.status_code == 0) { //Si la requête n'a pas pu être lancée
 		cocos2d::log(r.error.message.c_str());
@@ -254,6 +260,10 @@ bool Database::handleRequest(cpr::Response r) {
 		cocos2d::log(r.text.c_str());
 		cocos2d::log("**********"); //Help to see logs
 		createError();
+		return false;
+	}
+	else if (request.empty()) {
+		cocos2d::log("Data received are empty !");
 		return false;
 	}
 	else { //On affiche le résultat dans la console (debug only)

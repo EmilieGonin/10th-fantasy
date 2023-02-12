@@ -1,23 +1,59 @@
 #include "Battle.h"
+#include "MainMenuScene.h"
+#include <iostream>
 
-Battle::Battle(Player* player, std::vector<Enemy*> enemies) {
+Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
 	_player = player;
 	_enemies = enemies;
 	_battle = true;
-	_battleOrder.push_back(_player);
+
+	selectedSkill = -1;
+	selectedEnemy = -1;
+	iPlay = 1;
+
+
+	myLifeBar = cocos2d::DrawNode::create();
+	enemyLifeBar = cocos2d::DrawNode::create();
+	
+	/*rectangle[0] = cocos2d::Vec2(0, -8);
+	rectangle[1] = cocos2d::Vec2(100, -8);
+	rectangle[2] = cocos2d::Vec2(100 , 5);
+	rectangle[3] = cocos2d::Vec2(0, 5);
+
+	rectangle2[0] = cocos2d::Vec2(0, -15);
+	rectangle2[1] = cocos2d::Vec2(300, -15);
+	rectangle2[2] = cocos2d::Vec2(300, 15);
+	rectangle2[3] = cocos2d::Vec2(0, 15);*/
+
+	myLifeBar->drawSolidRect(cocos2d::Vec2(0, 0), cocos2d::Vec2(100, 20), cocos2d::Color4F::GREEN);
+	myLifeBar->setAnchorPoint(cocos2d::Vec2(0.0, 0.0));
+	myLifeBar->setPosition(cocos2d::Vec2(30, 500));
+
+	enemyLifeBar->drawSolidRect(cocos2d::Vec2(0, 0), cocos2d::Vec2(250, 20), cocos2d::Color4F::GREEN);
+	enemyLifeBar->setAnchorPoint(cocos2d::Vec2(0.0, 0.0));
+	enemyLifeBar->setPosition(cocos2d::Vec2(200, 650));
+
+	
+	//myLifeBar->drawPolygon(rectangle, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
+	//enemyLifeBar->drawPolygon(rectangle2, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
+
+	
 
 	for (int i = 0; i < _enemies.size(); i++) {
 		
 		_battleOrder.push_back(_enemies[i]);
 	}
+	_battleOrder.push_back(_player);
+	play();
 }	
 
 Battle::~Battle() {};
 
-void Battle::attack(Entity* attacker, Entity* target) {
+void Battle::attack(Entity* attacker, Entity* target, Skill* skillUsed) {
 
+	
 	int usedDef;
-	int multiplicatorType;
+	float multiplicatorType;
 
 	if (attacker->getDamageType() == 0) {
 		usedDef = *target->getTotalStats()[PDEF];
@@ -29,47 +65,121 @@ void Battle::attack(Entity* attacker, Entity* target) {
 		multiplicatorType = *attacker->getTotalStats()[MATK];
 	}
 	float atk = *attacker->getTotalStats()[ATK];
+	int damage = (*attacker->getTotalStats()[ATK] + (*attacker->getTotalStats()[ATK] + multiplicatorType) - (usedDef / 2)) * skillUsed->getMultiplier();
+	target->looseHp(damage);
+	skillUsed->_cooldown = skillUsed->_maxCooldown;
 
-	std::cout << "Damage dealt  : " << (*attacker->getTotalStats()[ATK] + (*attacker->getTotalStats()[ATK] * multiplicatorType / 100) - (usedDef / 2)) << std::endl;
-	target->looseHp((*attacker->getTotalStats()[ATK] + (*attacker->getTotalStats()[ATK] * multiplicatorType / 100)  - (usedDef / 2)));
+	selectedSkill = -1;
+	//skillUsed.additionalEffect(attacker, target, damage);
+	
+
+
 }
 
-void Battle::turn() {
-	int target;
+void Battle::play() {
+	
 
-	std::cout << "Choose an enemy : " << std::endl;
-	std::cin >> target;
+	for (int i = 0; i < _battleOrder.size(); i++) {
+		if (iPlay == i)
+		{
+			_myTurn = true;
+		}
+		if (_myTurn != true)
+		{
+			int num = rand() % 1;
+			CCLOG("Enemy attacks");
+			attack(_battleOrder[i], _player, _battleOrder[i]->getSkills()[num]);
+			for (int a = 0; a < _battleOrder[i]->getSkills().size(); a++)
+			{
+				if (_battleOrder[i]->getSkills()[a]->_maxCooldown == 0 || _battleOrder[i]->getSkills()[a]->_cooldown > 0)
+				{
+					_battleOrder[i]->getSkills()[a]->_cooldown -= 1;
+				}
+			}
+			if (_player->getBattleHP() == 0)
+			{
+				_battle = false;
+				cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+			}
+		}
+		else
+		{
+			
+			if (selectedEnemy > - 1 && selectedSkill > -1)
+			{
+				CCLOG("I attack");
+				
+				attack(_player, _enemies[selectedEnemy], _player->getSkills()[selectedSkill]);
+				for (int a = 0; a < _player->getSkills().size(); a++)
+				{
+					if (_player->getSkills()[a]->_maxCooldown == 0 || _player->getSkills()[a]->_cooldown > 0)
+					{
+						_player->getSkills()[a]->_cooldown -= 1;
+					}
+				}
+				selectedEnemy = selectedSkill = -1;
+				_myTurn = false;
+				play();
+				
 
-	attack(_player, _enemies[target-1]);
-	for (int i = 0; i < _enemies.size(); i++) {
-		std::cout << "Je me fiait attaquer";
-		attack(_enemies[i], _player);
+			}
+		}
 	}
+	updateLifeBar();
+	battleCheck();
+
 }
 
 void Battle::battleCheck() {
-	std::cout << "MY hp status : " << _player->getBattleHP() << std::endl;
 	
-	for (int i = 0; i < _enemies.size(); i++) {
-		
-		std::cout << "Enemy n° " << i << "hp status : " << _enemies[i]->getBattleHP() << std::endl;
-		if (_enemies[i]->getBattleHP() <= 0) {
-			std::cout << "je delete";
-			_enemies.erase(_enemies.begin() + i );
+	
+	for (int i = 0; i < _battleOrder.size(); i++) {
+		if (_battleOrder[i]->getBattleHP() <= 0) {
+			CCLOG("I delete");
+			_battleOrder.erase(_battleOrder.begin() + i );
 		}
 	}
-
-	if (_player->getBattleHP() > 0 && _enemies.size() >= 1) {
-		_battle = true;
-	}
-	else if (_player->getBattleHP() <= 0) {
-		_battle = false;
-		_win = false;
-	}
-	else if (_enemies.size() == 0) {
+	if (_battleOrder.size() == 1 && _player->getBattleHP() > 0) {
+		CCLOG("I WIN");
 		_battle = false;
 		_win = true;
-		}
+		cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+	}
+	
 }
 
 bool Battle::getBattleState() { return _battle; }
+bool Battle::getMyTurn() { return _myTurn; }
+int Battle::getSelected() { return selectedSkill; }
+cocos2d::DrawNode* Battle::getLifeBar() { return myLifeBar; }
+cocos2d::DrawNode* Battle::getEnemyLifeBar() { return enemyLifeBar; }
+
+void Battle::updateLifeBar()
+{
+	myLifeBar->clear();
+	myLifeBar->drawSolidRect(cocos2d::Vec2(0, 0), cocos2d::Vec2(100 * _player->getBattleHP() / *_player->getTotalStats()[HP], 20), cocos2d::Color4F::RED);
+
+	enemyLifeBar->clear();
+	enemyLifeBar->drawSolidRect(cocos2d::Vec2(0, 0), cocos2d::Vec2(250 * _enemies[0]->getBattleHP() / *_player->getTotalStats()[HP], 20), cocos2d::Color4F::RED);
+
+	//rectangle[0] = cocos2d::Vec2(0, -8);
+	//rectangle[1] = cocos2d::Vec2(100 * _player->getBattleHP() / *_player->getTotalStats()[HP], -8);
+	//rectangle[2] = cocos2d::Vec2(100 * _player->getBattleHP() / *_player->getTotalStats()[HP], 5);
+	//rectangle[3] = cocos2d::Vec2(0, 5);
+	//myLifeBar->drawPolygon(rectangle, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
+	//enemyLifeBar->drawPolygon(rectangle2, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
+
+
+	
+}
+
+void Battle::setSelected(int selected) 
+{
+	selectedSkill = selected; 
+}
+void Battle::selectEnemy(int selected)
+{
+	selectedEnemy = selected;
+	play();
+
+}
