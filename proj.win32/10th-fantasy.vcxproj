@@ -840,6 +840,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\include\RaidBoss.h" />
     <ClInclude Include="..\Classes\include\RaidBossBetala.h" />
     <ClInclude Include="..\Classes\include\RaidMenuScene.h" />
+    <ClInclude Include="..\Classes\include\ShopMenu.h" />
     <ClInclude Include="..\Classes\include\Skill.h" />
     <ClInclude Include="..\Classes\include\SkillSlash.h" />
     <ClInclude Include="..\Classes\include\SkillSwordJudgement.h" />
@@ -865,6 +866,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\src\RaidBoss.cpp" />
     <ClCompile Include="..\Classes\src\RaidBossBetala.cpp" />
     <ClCompile Include="..\Classes\src\RaidMenuScene.cpp" />
+    <ClCompile Include="..\Classes\src\ShopMenu.cpp" />
     <ClCompile Include="..\Classes\src\Skill.cpp" />
     <ClCompile Include="..\Classes\src\SkillSlash.cpp" />
     <ClCompile Include="..\Classes\src\SkillSwordJudgement.cpp" />
@@ -968,6 +970,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <Image Include="..\Resources\Stuff\necklace.png" />
     <Image Include="..\Resources\Stuff\ring.png" />
     <Image Include="bin\10th-fantasy\Debug\Resources\BattleScene.png" />
+    <Image Include="C:\Users\lélé\OneDrive\Bureau\ProjGtech2\GrandProjet\Resources\Button\Shop.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
