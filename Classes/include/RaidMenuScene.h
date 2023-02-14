@@ -40,8 +40,6 @@ protected:
     cocos2d::Label* Insane;
     cocos2d::Label* Ultimate;
 
-    cocos2d::Vec2 _mousePosition;
-
 public:
     static cocos2d::Scene* createScene();
     virtual bool init();
