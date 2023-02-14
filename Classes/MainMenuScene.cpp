@@ -3,6 +3,7 @@
 #include "RaidMenuScene.h"
 #include "SummonMenuScene.h"
 #include "CharacterMenu.h"
+#include "ShopMenu.h"
 //#include "Database.h"
 
 
@@ -85,6 +86,19 @@ void MainMenuScene::Buttons() {
         {
             if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
                 cocos2d::Director::getInstance()->replaceScene(RaidMenuScene::create());  // Leann's raid menu
+            }
+        }
+    );
+
+    Button* shopButton = newButton("", "Button/Shop.png", 3);
+    shopButton->setPosition(cocos2d::Vec2(225, 23));
+    shopButton->setAnchorPoint(Vec2::ZERO);
+    shopButton->setScale(0.25);
+
+    shopButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
+                cocos2d::Director::getInstance()->replaceScene(ShopMenu::create());  // Leann's raid menu
             }
         }
     );
