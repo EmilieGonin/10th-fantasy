@@ -69,6 +69,9 @@
     <ClCompile Include="..\Classes\src\Weapon.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\src\ShopMenu.cpp">
+      <Filter>Classes\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Z:\proj.win32\main.h" />
@@ -154,6 +157,9 @@
     <ClInclude Include="..\Classes\include\Weapon.h">
       <Filter>Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\include\ShopMenu.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Z:\CMakeLists.txt" />
@@ -223,6 +229,9 @@
       <Filter>Resources</Filter>
     </Image>
     <Image Include="..\Resources\Characters\Uggoh.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="C:\Users\lélé\OneDrive\Bureau\ProjGtech2\GrandProjet\Resources\Button\Shop.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>
