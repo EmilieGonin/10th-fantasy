@@ -112,7 +112,7 @@ void Battle::play() {
 				attack(_player, _enemies[selectedEnemy], _player->getSkills()[selectedSkill]);
 				for (int a = 0; a < _player->getSkills().size(); a++)
 				{
-					if (_player->getSkills()[a]->_maxCooldown == 0 || _player->getSkills()[a]->_cooldown > 0)
+					if (_player->getSkills()[a]->_cooldown > 0)
 					{
 						_player->getSkills()[a]->_cooldown -= 1;
 					}

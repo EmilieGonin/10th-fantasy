@@ -52,8 +52,8 @@ bool BattleScene::init()
 	_enemies.push_back(boss);
 	/*enemies.push_back(boss);*/
 	Gear helmet(HP, 3000);
-	Gear chest(MDEF, 200);
-	Gear legs(PDEF, 200);
+	Gear chest(MDEF, 0);
+	Gear legs(PDEF, 0);
 	Gear rings(PATK, 250);
 	Gear necklace(PATK, 250);
 	Gear earrings(CD, 15);
@@ -130,9 +130,7 @@ void BattleScene::loop(float delta)
 			player->getSkills()[a]->getSprite()->setVisible(true);
 			if (player->getSkills()[a]->_cooldown > 0)
 			{
-				
 				player->getSkills()[a]->getSprite()->setColor(Color3B::RED);
-
 			}
 		}
 	}
