@@ -38,18 +38,19 @@ void db::from_json(const json& j, support& support) {
 	j.at("id").get_to(support.supportId);
 	j.at("name").get_to(support.name);
 	j.at("rarity").get_to(support.rarity);
+	j.at("type").get_to(support.type);
 	j.at("stats").get_to(support.stats);
 }
 void db::from_json(const json& j, inventory& inventory) {
 	j.at("user_id").get_to(inventory.userId);
-	j.at("weapons").get_to(inventory.weapons);
-	j.at("heads").get_to(inventory.heads);
-	j.at("chests").get_to(inventory.chests);
-	j.at("gloves").get_to(inventory.gloves);
-	j.at("necklaces").get_to(inventory.necklaces);
-	j.at("earrings").get_to(inventory.earrings);
-	j.at("rings").get_to(inventory.rings);
 	j.at("id").get_to(inventory.id);
+}
+void db::from_json(const json& j, gear& gear) {
+	j.at("type").get_to(gear.type);
+	j.at("stat").get_to(gear.stat);
+	j.at("amount").get_to(gear.amount);
+	j.at("rarity").get_to(gear.rarity);
+	j.at("level").get_to(gear.level);
 }
 void db::to_json(json& j, const user& user) {
 	j = json{
@@ -71,10 +72,14 @@ void db::to_json(json& j, const character& character) {
 }
 void db::to_json(json& j, const inventory& inventory) {
 	j = json{
-		{"user_id", inventory.userId}, {"weapons", inventory.weapons},
-		{"heads", inventory.heads}, {"chests", inventory.chests},
-		{"gloves", inventory.gloves}, {"necklaces", inventory.necklaces},
-		{"earrings", inventory.earrings}, {"rings", inventory.rings},
+		{"user_id", inventory.userId}
+	};
+}
+void db::to_json(json& j, const gear& gear) {
+	j = json{
+		{"type", gear.type}, {"stat", gear.stat},
+		{"amount", gear.amount}, {"rarity", gear.rarity},
+		{"level", gear.level}
 	};
 }
 void db::to_json(json& j, const error& error) {
