@@ -3,7 +3,7 @@
 #include "Interface.h"
 #include "BattleScene.h"
 #include "MainMenuScene.h"
-#include "GameManager.h"
+  
 #include "cocos2d.h"
 #include <iostream>
 
@@ -51,7 +51,7 @@ public:
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
 
-    GameManager* gameManager;
+    GameManager* _gameManager;
 
     // implement the "static create()" method manually
     CREATE_FUNC(RaidMenuScene);
