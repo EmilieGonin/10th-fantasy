@@ -7,10 +7,11 @@ class GameManager
 private:
 	GameManager();
 	static GameManager* _instance;
-	int BossId;
-	int BossLvl;
+	
 	
 
 public:
 	static GameManager* Instance();
+	int BossId;
+	int BossLvl;
 };

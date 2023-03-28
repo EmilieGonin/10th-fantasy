@@ -26,7 +26,7 @@ bool RaidMenuScene::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-
+    gameManager = GameManager::Instance();
     Menu();
     SceneChanger();
 
@@ -88,7 +88,7 @@ void RaidMenuScene::Menu()
 
 }
 
-void RaidMenuScene::ForestLevel()
+void RaidMenuScene::Level()
 {
     // LEVELS LABELS 
     Title = newLabel("FOREST RAID", 1);
@@ -192,6 +192,7 @@ void RaidMenuScene::Play()
     PeacefulPlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
+                gameManager->BossLvl = 10;
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -200,6 +201,7 @@ void RaidMenuScene::Play()
     EasyPlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
+                gameManager->BossLvl = 20;
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -208,6 +210,7 @@ void RaidMenuScene::Play()
     NormalPlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
+                gameManager->BossLvl = 29;
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -216,6 +219,7 @@ void RaidMenuScene::Play()
     HardPlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
+                gameManager->BossLvl = 37;
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -224,6 +228,7 @@ void RaidMenuScene::Play()
     InsanePlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
+                gameManager->BossLvl = 44;
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -232,6 +237,7 @@ void RaidMenuScene::Play()
     UltimatePlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
+                gameManager->BossLvl = 50;
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -245,21 +251,28 @@ void RaidMenuScene::SceneChanger()
         {
             if (type == Widget::TouchEventType::ENDED) {
                 clean();
-                ForestLevel();
+                gameManager->BossId = 1;
+                Level();
             }
         }
     );   
     Second->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
+
                 clean();
+                gameManager->BossId = 2;
+                Level();
             }
         }
     );  
     Third->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
-            if (type == Widget::TouchEventType::ENDED) {
+            if (type == Widget::TouchEventType::ENDED) {    
                 clean();
+                gameManager->BossId = 3;
+                Level();
+
             }
         }
     );  

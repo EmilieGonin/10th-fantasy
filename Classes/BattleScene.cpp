@@ -46,10 +46,28 @@ bool BattleScene::init()
 		CD = 7
 	};
 
+	gameManager = GameManager::Instance();
 
-	RaidBossBetala* boss = new RaidBossBetala(50);
+	switch (gameManager->BossId) {
+	case 0://UwU
+		break;
+	case 1: 
+		RaidBossBetala * boss = new RaidBossBetala(gameManager->BossLvl); 
+		_enemies.push_back(boss);
+		break;
+	case 2:
+		RaidBossBetala * boss = new RaidBossBetala(gameManager->BossLvl); 
+		_enemies.push_back(boss);
+		break;
+	case 3:
+		RaidBossBetala * boss = new RaidBossBetala(gameManager->BossLvl);
+		_enemies.push_back(boss);
+		break;
+		
+	}
+	
 
-	_enemies.push_back(boss);
+	
 	/*enemies.push_back(boss);*/
 	Gear helmet(HP, 3000);
 	Gear chest(MDEF, 0);
