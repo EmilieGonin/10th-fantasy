@@ -23,6 +23,7 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int tickets;
 		int timer;
 		int id;
+		std::vector<int> supports;
 	};
 
 	struct character {
@@ -36,6 +37,19 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int ring;
 		int weapon;
 		int id;
+	};
+
+	struct stat {
+		int statId;
+		int rate;
+		bool percentage;
+	};
+
+	struct support {
+		int supportId;
+		std::string name;
+		int rarity;
+		std::vector<stat> stats;
 	};
 
 	struct inventory {
@@ -59,6 +73,8 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 	//JSON -> STRUCT
 	void from_json(const json& j, user& user);
 	void from_json(const json& j, character& character);
+	void from_json(const json& j, stat& stat);
+	void from_json(const json& j, support& support);
 	void from_json(const json& j, inventory& inventory);
 	//STRUCT -> JSON
 	void to_json(json& j, const user& user);

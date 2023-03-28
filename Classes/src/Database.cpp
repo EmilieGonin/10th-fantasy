@@ -15,6 +15,7 @@ void db::from_json(const json& j, user& user) {
 	j.at("tickets").get_to(user.tickets);
 	j.at("timer").get_to(user.timer);
 	j.at("id").get_to(user.id);
+	j.at("supports").get_to(user.supports);
 }
 void db::from_json(const json& j, character& character) {
 	j.at("user_id").get_to(character.userId);
@@ -27,6 +28,17 @@ void db::from_json(const json& j, character& character) {
 	j.at("ring").get_to(character.ring);
 	j.at("weapon").get_to(character.weapon);
 	j.at("id").get_to(character.id);
+}
+void db::from_json(const json& j, stat& stat) {
+	j.at("id").get_to(stat.statId);
+	j.at("rate").get_to(stat.rate);
+	j.at("percentage").get_to(stat.percentage);
+}
+void db::from_json(const json& j, support& support) {
+	j.at("id").get_to(support.supportId);
+	j.at("name").get_to(support.name);
+	j.at("rarity").get_to(support.rarity);
+	j.at("stats").get_to(support.stats);
 }
 void db::from_json(const json& j, inventory& inventory) {
 	j.at("user_id").get_to(inventory.userId);
@@ -44,7 +56,8 @@ void db::to_json(json& j, const user& user) {
 		{"mail", user.mail}, {"name", user.name}, {"account_lvl", user.level},
 		{"energy", user.energy}, {"cristals", user.cristals},
 		{"leafs", user.leafs}, {"wishes", user.wishes},
-		{"tickets", user.tickets}, {"timer", user.timer}
+		{"tickets", user.tickets}, {"timer", user.timer},
+		{"supports", user.supports}
 	};
 }
 void db::to_json(json& j, const character& character) {

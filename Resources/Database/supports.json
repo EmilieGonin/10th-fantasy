@@ -1,0 +1,49 @@
+[
+  /*
+  Rarities :
+  1 = Rare, 2 = Epic, 3 = Legendary
+
+  Stats :
+  1 = HP, 2 = DEF, 3 = Magic Def, 4 = ATK
+  5 = Speed, 6 = Critical Rate, 7 = Critical Damage
+  8 = Physical Bonus, 9 = Magical Bonus,
+  10 = Same Phy/Mag Bonus, 11 = Reverse Phy/Mag Bonus
+  */
+
+  {
+    "id": 1,
+    "name": "Young Wild Boar",
+    "rarity": 1,
+    "stats": [
+      {
+        "id": 5,
+        "rate": 1,
+        "percentage": 0
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "",
+    "rarity": 1,
+    "stats": [
+      {
+        "id": 1,
+        "rate": 1,
+        "percentage": 0
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Lheen",
+    "rarity": 2,
+    "stats": [
+      {
+        "id": 11,
+        "rate": 10,
+        "percentage": 1
+      }
+    ]
+  }
+]
