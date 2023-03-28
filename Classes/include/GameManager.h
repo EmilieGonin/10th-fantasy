@@ -2,16 +2,18 @@
 #include "cocos2d.h"
 
 
-class GameManager 
+class GameManager
 {
 private:
 	GameManager();
 	static GameManager* _instance;
-	
-	
-
-public:
-	static GameManager* Instance();
 	int BossId;
 	int BossLvl;
+public:
+	static GameManager* Instance();
+	int getBossId();
+	int getBossLvl();
+	void setBossId(int);
+	void setBossLvl(int);
+
 };

@@ -46,21 +46,38 @@ bool BattleScene::init()
 		CD = 7
 	};
 
-	gameManager = GameManager::Instance();
+	enum Stuff {
+		WEAPON = 0,
+		HELMET = 1,
+		CHEST = 2,
+		BOOT = 3,
+		RING = 4,
+		EARRING = 5,
+		NECKLACE = 6,
+	};
 
-	switch (gameManager->BossId) {
+	enum Rarity {
+		COMMON = 0,
+		RARE = 1,
+		EPIC = 2,
+		LEGENDARY = 3,
+	};
+
+	gameManager = GameManager::Instance();
+	RaidBossBetala* boss;
+	switch (gameManager->getBossId()){
 	case 0://UwU
 		break;
 	case 1: 
-		RaidBossBetala * boss = new RaidBossBetala(gameManager->BossLvl); 
+		boss = new RaidBossBetala(gameManager->getBossLvl());
 		_enemies.push_back(boss);
 		break;
 	case 2:
-		RaidBossBetala * boss = new RaidBossBetala(gameManager->BossLvl); 
+		boss = new RaidBossBetala(gameManager->getBossLvl());
 		_enemies.push_back(boss);
 		break;
 	case 3:
-		RaidBossBetala * boss = new RaidBossBetala(gameManager->BossLvl);
+		boss = new RaidBossBetala(gameManager->getBossLvl());
 		_enemies.push_back(boss);
 		break;
 		
@@ -69,12 +86,12 @@ bool BattleScene::init()
 
 	
 	/*enemies.push_back(boss);*/
-	Gear helmet(HP, 3000);
-	Gear chest(MDEF, 0);
-	Gear legs(PDEF, 0);
-	Gear rings(PATK, 250);
-	Gear necklace(PATK, 250);
-	Gear earrings(CD, 15);
+	Gear helmet(HELMET, HP, 3000, 0, LEGENDARY);
+	Gear chest(CHEST,MDEF, 0, 0, LEGENDARY);
+	Gear legs(BOOT, PDEF, 0, 0, LEGENDARY);
+	Gear rings(RING, PATK, 250, 0, LEGENDARY);
+	Gear necklace(NECKLACE,PATK, 250, 0, LEGENDARY);
+	Gear earrings(EARRING,CD, 15, 0, LEGENDARY);
 
 	player = new Player();
 	Sword* sword = new Sword(50);
