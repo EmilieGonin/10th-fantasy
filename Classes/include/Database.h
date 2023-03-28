@@ -23,6 +23,7 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int tickets;
 		int timer;
 		int id;
+		std::vector<int> supports;
 	};
 
 	struct character {
@@ -38,15 +39,33 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int id;
 	};
 
+	struct stat {
+		int statId;
+		int rate;
+		bool percentage;
+	};
+
+	struct support {
+		int supportId;
+		std::string name;
+		int rarity;
+		int type;
+		std::vector<stat> stats;
+	};
+
 	struct inventory {
 		int userId;
-		std::vector<int> weapons;
-		std::vector<int> heads;
-		std::vector<int> chests;
-		std::vector<int> gloves;
-		std::vector<int> necklaces;
-		std::vector<int> earrings;
-		std::vector<int> rings;
+		std::vector<gear> gears;
+		int id;
+	};
+
+	struct gear {
+		int inventoryId;
+		int type;
+		int stat;
+		int amount;
+		int rarity;
+		int level;
 		int id;
 	};
 
@@ -59,11 +78,15 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 	//JSON -> STRUCT
 	void from_json(const json& j, user& user);
 	void from_json(const json& j, character& character);
+	void from_json(const json& j, stat& stat);
+	void from_json(const json& j, support& support);
 	void from_json(const json& j, inventory& inventory);
+	void from_json(const json& j, gear& gear);
 	//STRUCT -> JSON
 	void to_json(json& j, const user& user);
 	void to_json(json& j, const character& character);
 	void to_json(json& j, const inventory& inventory);
+	void to_json(json& j, const gear& gear);
 	void to_json(json& j, const error& error);
 }
 
