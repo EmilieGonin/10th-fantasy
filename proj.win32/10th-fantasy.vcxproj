@@ -834,6 +834,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\include\Database.h" />
     <ClInclude Include="..\Classes\include\Enemy.h" />
     <ClInclude Include="..\Classes\include\Entity.h" />
+    <ClInclude Include="..\Classes\include\GameManager.h" />
     <ClInclude Include="..\Classes\include\Gear.h" />
     <ClInclude Include="..\Classes\include\Player.h" />
     <ClInclude Include="..\Classes\include\CharacterMenu.h" />
@@ -860,6 +861,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\src\Database.cpp" />
     <ClCompile Include="..\Classes\src\Enemy.cpp" />
     <ClCompile Include="..\Classes\src\Entity.cpp" />
+    <ClCompile Include="..\Classes\src\GameManager.cpp" />
     <ClCompile Include="..\Classes\src\Gear.cpp" />
     <ClCompile Include="..\Classes\src\Player.cpp" />
     <ClCompile Include="..\Classes\src\CharacterMenu.cpp" />
