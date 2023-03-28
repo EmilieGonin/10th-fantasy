@@ -272,7 +272,6 @@ void RaidMenuScene::SceneChanger()
                 clean();
                 gameManager->BossId = 3;
                 Level();
-
             }
         }
     );  
