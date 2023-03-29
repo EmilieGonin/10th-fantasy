@@ -20,10 +20,9 @@ public:
     Player* player;
     cocos2d::Vec2 _mousePosition;
     CREATE_FUNC(BattleScene);
-    // a selector callback
-   // void menuCloseCallback(cocos2d::Ref* pSender);
+
     void loop(float);
-    // implement the "static create()" method manually
+
     GameManager* gameManager;
 
 protected:
