@@ -34,8 +34,6 @@ bool MainMenuScene::init()
     }
     openSubMenus = false;
 
-    _database = Database::Instance();
-
     setScene(this);
 
     Sprites();
@@ -67,7 +65,7 @@ void MainMenuScene::Sprites() {
 
     _player = Sprite::create("Sprite/remnant_violet.png");
     _player->setPosition(center());
-    _player->setScale(0.69);
+    _player->setScale(1);
 
     this->addChild(_background);
     this->addChild(_background2, 2);
@@ -80,8 +78,8 @@ void MainMenuScene::Labels() {
 }
 
 void MainMenuScene::Buttons() {
-    // BATTLE
-    Button* raidButton = newButton("", "Button/Battle.png", 3);
+
+    Button* raidButton = newButton("", "Button/battle_button.png", 3);
     raidButton->setPosition(cocos2d::Vec2(420, 30));
     raidButton->setAnchorPoint(Vec2::ZERO);
     raidButton->setScale(0.15);

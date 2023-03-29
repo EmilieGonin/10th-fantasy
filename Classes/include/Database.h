@@ -23,6 +23,7 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int tickets;
 		int timer;
 		int id;
+		std::vector<int> supports;
 	};
 
 	struct character {
@@ -38,15 +39,33 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int id;
 	};
 
+	struct stat {
+		int statId;
+		int rate;
+		int percentage;
+	};
+
+	struct support {
+		int supportId;
+		std::string name;
+		int rarity;
+		int type;
+		std::vector<stat> stats;
+	};
+
+	struct gear {
+		int inventoryId;
+		int type;
+		int stat;
+		int amount;
+		int rarity;
+		int level;
+		int id;
+	};
+
 	struct inventory {
 		int userId;
-		std::vector<int> weapons;
-		std::vector<int> heads;
-		std::vector<int> chests;
-		std::vector<int> gloves;
-		std::vector<int> necklaces;
-		std::vector<int> earrings;
-		std::vector<int> rings;
+		std::vector<gear> gears;
 		int id;
 	};
 
@@ -59,11 +78,15 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 	//JSON -> STRUCT
 	void from_json(const json& j, user& user);
 	void from_json(const json& j, character& character);
+	void from_json(const json& j, stat& stat);
+	void from_json(const json& j, support& support);
 	void from_json(const json& j, inventory& inventory);
+	void from_json(const json& j, gear& gear);
 	//STRUCT -> JSON
 	void to_json(json& j, const user& user);
 	void to_json(json& j, const character& character);
 	void to_json(json& j, const inventory& inventory);
+	void to_json(json& j, const gear& gear);
 	void to_json(json& j, const error& error);
 }
 
@@ -88,7 +111,8 @@ public:
 	bool request(std::string); //GET
 	bool request(std::string, json); //POST
 	bool patch(std::string, json); //PATCH
-	bool handleRequest(cpr::Response);
+	bool deleteRequest(std::string); //DELETE
+	bool handleRequest();
 	std::vector<std::string> split(std::string, std::string);
 
 	//Pour vérifier les données au lancement du jeu
@@ -108,6 +132,7 @@ public:
 	bool createUser();
 	bool createCharacter();
 	bool createInventory();
+	bool createGear(db::gear);
 	void createError();
 
 	//UPDATE requests
@@ -115,6 +140,15 @@ public:
 	bool updateUser();
 	bool updateCharacter();
 	bool updateInventory();
+	bool updateGear(int);
+
+	//DELETE requests
+	bool deleteUser();
+	bool deleteGear(int);
+
+	//Local Json
+	std::vector<db::support> getSupports(int);
+	db::support getSupport(int);
 
 	//Setters
 	void setEmail(std::string);

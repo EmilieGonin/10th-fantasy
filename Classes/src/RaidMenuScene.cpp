@@ -1,4 +1,5 @@
 #include "RaidMenuScene.h"
+#include "GameManager.h"
 USING_NS_CC;
 
 Scene* RaidMenuScene::createScene()
@@ -16,7 +17,7 @@ static void problemLoading(const char* filename)
 // on "init" you need to initialize your instance
 bool RaidMenuScene::init()
 {
-    //////////////////////////////
+     
     // 1. super init _firstRaid
     if (!Scene::init())
     {
@@ -26,7 +27,7 @@ bool RaidMenuScene::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-
+    _gameManager = GameManager::Instance();
     Menu();
     SceneChanger();
 
@@ -88,7 +89,7 @@ void RaidMenuScene::Menu()
 
 }
 
-void RaidMenuScene::ForestLevel()
+void RaidMenuScene::Level()
 {
     // LEVELS LABELS 
     Title = newLabel("FOREST RAID", 1);
@@ -192,6 +193,7 @@ void RaidMenuScene::Play()
     PeacefulPlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
+                _gameManager->setBossLvl(8);
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -200,6 +202,7 @@ void RaidMenuScene::Play()
     EasyPlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
+                _gameManager->setBossLvl(18);
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -208,6 +211,7 @@ void RaidMenuScene::Play()
     NormalPlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
+                _gameManager->setBossLvl(29);
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -216,6 +220,7 @@ void RaidMenuScene::Play()
     HardPlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
+                _gameManager->setBossLvl(37);
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -224,6 +229,7 @@ void RaidMenuScene::Play()
     InsanePlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
+                _gameManager->setBossLvl(44);
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -232,6 +238,7 @@ void RaidMenuScene::Play()
     UltimatePlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
+                _gameManager->setBossLvl(50);
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -245,21 +252,27 @@ void RaidMenuScene::SceneChanger()
         {
             if (type == Widget::TouchEventType::ENDED) {
                 clean();
-                ForestLevel();
+                _gameManager->setBossId(1);
+                Level();
             }
         }
     );   
     Second->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
+
                 clean();
+                _gameManager->setBossId(2);
+                Level();
             }
         }
     );  
     Third->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
-            if (type == Widget::TouchEventType::ENDED) {
+            if (type == Widget::TouchEventType::ENDED) {    
                 clean();
+                _gameManager->setBossId(3);
+                Level();
             }
         }
     );  

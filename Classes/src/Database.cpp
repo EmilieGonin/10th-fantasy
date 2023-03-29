@@ -15,6 +15,7 @@ void db::from_json(const json& j, user& user) {
 	j.at("tickets").get_to(user.tickets);
 	j.at("timer").get_to(user.timer);
 	j.at("id").get_to(user.id);
+	j.at("supports").get_to(user.supports);
 }
 void db::from_json(const json& j, character& character) {
 	j.at("user_id").get_to(character.userId);
@@ -28,23 +29,36 @@ void db::from_json(const json& j, character& character) {
 	j.at("weapon").get_to(character.weapon);
 	j.at("id").get_to(character.id);
 }
+void db::from_json(const json& j, stat& stat) {
+	j.at("id").get_to(stat.statId);
+	j.at("rate").get_to(stat.rate);
+	j.at("percentage").get_to(stat.percentage);
+}
+void db::from_json(const json& j, support& support) {
+	j.at("id").get_to(support.supportId);
+	j.at("name").get_to(support.name);
+	j.at("rarity").get_to(support.rarity);
+	j.at("type").get_to(support.type);
+	j.at("stats").get_to(support.stats);
+}
 void db::from_json(const json& j, inventory& inventory) {
 	j.at("user_id").get_to(inventory.userId);
-	j.at("weapons").get_to(inventory.weapons);
-	j.at("heads").get_to(inventory.heads);
-	j.at("chests").get_to(inventory.chests);
-	j.at("gloves").get_to(inventory.gloves);
-	j.at("necklaces").get_to(inventory.necklaces);
-	j.at("earrings").get_to(inventory.earrings);
-	j.at("rings").get_to(inventory.rings);
 	j.at("id").get_to(inventory.id);
+}
+void db::from_json(const json& j, gear& gear) {
+	j.at("type").get_to(gear.type);
+	j.at("stat").get_to(gear.stat);
+	j.at("amount").get_to(gear.amount);
+	j.at("rarity").get_to(gear.rarity);
+	j.at("level").get_to(gear.level);
 }
 void db::to_json(json& j, const user& user) {
 	j = json{
 		{"mail", user.mail}, {"name", user.name}, {"account_lvl", user.level},
 		{"energy", user.energy}, {"cristals", user.cristals},
 		{"leafs", user.leafs}, {"wishes", user.wishes},
-		{"tickets", user.tickets}, {"timer", user.timer}
+		{"tickets", user.tickets}, {"timer", user.timer},
+		{"supports", user.supports}
 	};
 }
 void db::to_json(json& j, const character& character) {
@@ -58,10 +72,14 @@ void db::to_json(json& j, const character& character) {
 }
 void db::to_json(json& j, const inventory& inventory) {
 	j = json{
-		{"user_id", inventory.userId}, {"weapons", inventory.weapons},
-		{"heads", inventory.heads}, {"chests", inventory.chests},
-		{"gloves", inventory.gloves}, {"necklaces", inventory.necklaces},
-		{"earrings", inventory.earrings}, {"rings", inventory.rings},
+		{"user_id", inventory.userId}
+	};
+}
+void db::to_json(json& j, const gear& gear) {
+	j = json{
+		{"type", gear.type}, {"stat", gear.stat},
+		{"amount", gear.amount}, {"rarity", gear.rarity},
+		{"level", gear.level}
 	};
 }
 void db::to_json(json& j, const error& error) {
@@ -223,7 +241,7 @@ std::vector<std::string> Database::split(std::string string, std::string delim) 
 
 bool Database::request(std::string url) {
 	_request = cpr::Get(cpr::Url{ url }, cpr::VerifySsl{ false });
-	return handleRequest(_request);
+	return handleRequest();
 }
 
 bool Database::request(std::string url, json payload) {
@@ -232,7 +250,7 @@ bool Database::request(std::string url, json payload) {
 		cpr::Body{ payload.dump() },
 		cpr::Header{ {"Content-Type", "application/json"} });
 
-	return handleRequest(_request);
+	return handleRequest();
 }
 
 bool Database::patch(std::string url, json payload) {
@@ -241,23 +259,28 @@ bool Database::patch(std::string url, json payload) {
 		cpr::Body{ payload.dump() },
 		cpr::Header{ {"Content-Type", "application/json"} });
 
-	return handleRequest(_request);
+	return handleRequest();
 }
 
-bool Database::handleRequest(cpr::Response r) {
-	cocos2d::log("**********"); //Help to see logs
-	json request = json::parse(r.text)["data"];
+bool Database::deleteRequest(std::string url) {
+	_request = cpr::Delete(cpr::Url{ url }, cpr::VerifySsl{ false });
+	return handleRequest();
+}
 
-	if (r.status_code == 0) { //Si la requête n'a pas pu être lancée
-		cocos2d::log(r.error.message.c_str());
+bool Database::handleRequest() {
+	cocos2d::log("**********"); //Help to see logs
+	json request = json::parse(_request.text)["data"];
+
+	if (_request.status_code == 0) { //Si la requête n'a pas pu être lancée
+		cocos2d::log(_request.error.message.c_str());
 		cocos2d::log("**********"); //Help to see logs
 		createError();
 		return false;
 	}
-	else if (r.status_code >= 400) { //Si la requête a échoué
-		std::string message = std::string("Error [" + std::to_string(r.status_code) + "] making request.");
+	else if (_request.status_code >= 400) { //Si la requête a échoué
+		std::string message = std::string("Error [" + std::to_string(_request.status_code) + "] making request.");
 		cocos2d::log(message.c_str());
-		cocos2d::log(r.text.c_str());
+		cocos2d::log(_request.text.c_str());
 		cocos2d::log("**********"); //Help to see logs
 		createError();
 		return false;
@@ -267,7 +290,7 @@ bool Database::handleRequest(cpr::Response r) {
 		return false;
 	}
 	else { //On affiche le résultat dans la console (debug only)
-		cocos2d::log(r.text.c_str());
+		cocos2d::log(_request.text.c_str());
 		cocos2d::log("**********"); //Help to see logs
 		return true;
 	}
@@ -307,6 +330,18 @@ bool Database::getInventory() {
 
 	if (request(url)) {
 		_inventory = json::parse(_request.text)["data"][0].get<db::inventory>();
+
+		//Getting inventory gears
+		url = std::string(_url + "/items/gears?filter[inventory_id][_eq]=" + std::to_string(_inventory.id));
+
+		if (request(url)) {
+			json data = json::parse(_request.text)["data"];
+
+			for (auto& elem : data) {
+				_inventory.gears.push_back(elem.get<db::gear>());
+			}
+		}
+
 		return true;
 	}
 	else {
@@ -363,6 +398,19 @@ bool Database::createInventory() {
 	}
 }
 
+bool Database::createGear(db::gear gear) {
+	std::string url = std::string(_url + "/items/gears");
+	json payload = gear;
+
+	if (request(url, payload)) {
+		_inventory.gears.push_back(json::parse(_request.text)["data"].get<db::gear>());
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 void Database::createError() {
 	cocos2d::log("creating error");
 	std::string url = std::string(_url + "/items/errors");
@@ -397,6 +445,61 @@ bool Database::updateInventory() {
 	json payload = _inventory;
 	return patch(url, payload);
 }
+
+bool Database::updateGear(int index) {
+	std::string url = std::string(_url + "/items/gears/" + std::to_string(_inventory.gears[index].id));
+	json payload = _inventory.gears[index];
+	return patch(url, payload);
+}
+
+bool Database::deleteUser() {
+	std::string url = std::string(_url + "/items/users/" + std::to_string(_user.id));
+	return deleteRequest(url);
+}
+
+bool Database::deleteGear(int index) {
+	std::string url = std::string(_url + "/items/gears/" + std::to_string(_inventory.gears[index].id));
+	_inventory.gears.erase(_inventory.gears.begin() + index);
+	return deleteRequest(url);
+}
+
+std::vector<db::support> Database::getSupports(int rarity) {
+	std::string file = FileUtils::getInstance()->getStringFromFile("Database/supports.json");
+	json data = json::parse(file);
+	std::vector<db::support> supports;
+
+	for (auto& elem : data) {
+		db::support support = elem.get<db::support>();
+
+		if (support.rarity == rarity) {
+			supports.push_back(support);
+		}
+	}
+
+	return supports;
+}
+
+db::support Database::getSupport(int index) {
+	std::string file = FileUtils::getInstance()->getStringFromFile("Database/supports.json");
+	db::support support = json::parse(file)[index].get<db::support>();
+	return support;
+}
+
+/*Supports comment
+  Rarities :
+  1 = Rare, 2 = Epic, 3 = Legendary
+
+  Type :
+  1 = Healer, 2 = Buffer, 3 = Sub DPS
+
+  Stats :
+  1 = HP, 2 = DEF, 3 = Magic Def, 4 = ATK
+  5 = Speed, 6 = Critical Rate, 7 = Critical Damage
+  8 = Physical Bonus, 9 = Magical Bonus,
+  10 = Same Phy/Mag Bonus, 11 = Reverse Phy/Mag Bonus,
+  12 = Reduce Damage, 13 = Shield,
+  14 = Ignore Defense
+  */
 
 void Database::setEmail(std::string email) {
 	_email = email;

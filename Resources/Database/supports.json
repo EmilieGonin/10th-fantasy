@@ -1,0 +1,203 @@
+[
+	{
+		"id": 1,
+		"name": "Young Wild Boar",
+		"rarity": 1,
+		"type": 3,
+		"stats": [
+			{
+				"id": 5,
+				"rate": 1,
+				"percentage": 0
+			}
+		]
+	},
+	{
+		"id": 2,
+		"name": "Name",
+		"rarity": 1,
+		"type": 1,
+		"stats": [
+			{
+				"id": 1,
+				"rate": 1,
+				"percentage": 0
+			}
+		]
+	},
+	{
+		"id": 3,
+		"name": "Slime",
+		"rarity": 1,
+		"type": 2,
+		"stats": [
+			{
+				"id": 0,
+				"rate": 0,
+				"percentage": 0
+			}
+		]
+	},
+	{
+		"id": 4,
+		"name": "Lheen",
+		"rarity": 2,
+		"type": 2,
+		"stats": [
+			{
+				"id": 0,
+				"rate": 0,
+				"percentage": 0
+			}
+		]
+	},
+	{
+		"id": 5,
+		"name": "Name",
+		"rarity": 2,
+		"type": 2,
+		"stats": [
+			{
+				"id": 11,
+				"rate": 10,
+				"percentage": 1
+			}
+		]
+	},
+	{
+		"id": 6,
+		"name": "Uggoh",
+		"rarity": 2,
+		"type": 1,
+		"stats": [
+			{
+				"id": 12,
+				"rate": 5,
+				"percentage": 1
+			},
+			{
+				"id": 1,
+				"rate": 5,
+				"percentage": 1
+			}
+		]
+	},
+	{
+		"id": 7,
+		"name": "Name",
+		"rarity": 2,
+		"type": 1,
+		"stats": [
+			{
+				"id": 0,
+				"rate": 0,
+				"percentage": 0
+			}
+		]
+	},
+	{
+		"id": 8,
+		"name": "Elf",
+		"rarity": 2,
+		"type": 3,
+		"stats": [
+			{
+				"id": 0,
+				"rate": 0,
+				"percentage": 0
+			}
+		]
+	},
+	{
+		"id": 9,
+		"name": "Thief",
+		"rarity": 2,
+		"type": 3,
+		"stats": [
+			{
+				"id": 0,
+				"rate": 0,
+				"percentage": 0
+			}
+		]
+	},
+	{
+		"id": 10,
+		"name": "Theaume",
+		"rarity": 3,
+		"type": 2,
+		"stats": [
+			{
+				"id": 1,
+				"rate": 10,
+				"percentage": 1
+			},
+			{
+				"id": 2,
+				"rate": 10,
+				"percentage": 1
+			},
+			{
+				"id": 3,
+				"rate": 10,
+				"percentage": 1
+			},
+			{
+				"id": 4,
+				"rate": 10,
+				"percentage": 1
+			},
+			{
+				"id": 5,
+				"rate": 10,
+				"percentage": 1
+			},
+			{
+				"id": 6,
+				"rate": 10,
+				"percentage": 1
+			},
+			{
+				"id": 7,
+				"rate": 10,
+				"percentage": 1
+			},
+			{
+				"id": 10,
+				"rate": 10,
+				"percentage": 1
+			}
+		]
+	},
+	{
+		"id": 11,
+		"name": "Hem-Mily",
+		"rarity": 3,
+		"type": 1,
+		"stats": [
+			{
+				"id": 1,
+				"rate": 15,
+				"percentage": 1
+			},
+			{
+				"id": 13,
+				"rate": 10,
+				"percentage": 1
+			}
+		]
+	},
+	{
+		"id": 12,
+		"name": "Djeamy",
+		"rarity": 3,
+		"type": 3,
+		"stats": [
+			{
+				"id": 14,
+				"rate": 50,
+				"percentage": 1
+			}
+		]
+	}
+]
