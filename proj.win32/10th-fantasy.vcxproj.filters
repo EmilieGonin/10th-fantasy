@@ -75,10 +75,10 @@
     <ClCompile Include="..\Classes\src\GameManager.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="RaidBossShaDo.cpp">
+    <ClCompile Include="..\Classes\src\RaidBossLaiJande.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="RaidBossLaiJande.cpp">
+    <ClCompile Include="..\Classes\src\RaidBossShaDo.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -172,10 +172,10 @@
     <ClInclude Include="..\Classes\include\GameManager.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="RaidBossShaDo.h">
+    <ClInclude Include="..\Classes\include\RaidBossLaiJande.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="RaidBossLaiJande.h">
+    <ClInclude Include="..\Classes\include\RaidBossShaDo.h">
       <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>

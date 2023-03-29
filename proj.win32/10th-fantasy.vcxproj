@@ -840,6 +840,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\include\CharacterMenu.h" />
     <ClInclude Include="..\Classes\include\RaidBoss.h" />
     <ClInclude Include="..\Classes\include\RaidBossBetala.h" />
+    <ClInclude Include="..\Classes\include\RaidBossLaiJande.h" />
+    <ClInclude Include="..\Classes\include\RaidBossShaDo.h" />
     <ClInclude Include="..\Classes\include\RaidMenuScene.h" />
     <ClInclude Include="..\Classes\include\ShopMenu.h" />
     <ClInclude Include="..\Classes\include\Skill.h" />
@@ -851,8 +853,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\Interface.h" />
     <ClInclude Include="..\Classes\MainMenuScene.h" />
     <ClInclude Include="..\Classes\SummonMenuScene.h" />
-    <ClInclude Include="RaidBossLaiJande.h" />
-    <ClInclude Include="RaidBossShaDo.h" />
     <ClInclude Include="Z:\Classes\AppDelegate.h" />
     <ClInclude Include="Z:\Classes\MainScene.h" />
     <ClInclude Include="Z:\proj.win32\main.h" />
@@ -869,6 +869,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\src\CharacterMenu.cpp" />
     <ClCompile Include="..\Classes\src\RaidBoss.cpp" />
     <ClCompile Include="..\Classes\src\RaidBossBetala.cpp" />
+    <ClCompile Include="..\Classes\src\RaidBossLaiJande.cpp" />
+    <ClCompile Include="..\Classes\src\RaidBossShaDo.cpp" />
     <ClCompile Include="..\Classes\src\RaidMenuScene.cpp" />
     <ClCompile Include="..\Classes\src\ShopMenu.cpp" />
     <ClCompile Include="..\Classes\src\Skill.cpp" />
@@ -878,8 +880,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\src\TitleScreen.cpp" />
     <ClCompile Include="..\Classes\src\Weapon.cpp" />
     <ClCompile Include="..\Classes\SummonMenuScene.cpp" />
-    <ClCompile Include="RaidBossLaiJande.cpp" />
-    <ClCompile Include="RaidBossShaDo.cpp" />
     <ClCompile Include="Z:\Classes\AppDelegate.cpp" />
     <ClCompile Include="Z:\Classes\BattleScene.cpp" />
     <ClCompile Include="Z:\Classes\MainScene.cpp" />
