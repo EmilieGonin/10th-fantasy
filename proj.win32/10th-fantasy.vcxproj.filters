@@ -102,6 +102,8 @@
     <ClInclude Include="..\Classes\MainMenuScene.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\include\ShopMenu.h">
+      <Filter>Classes\Scenes</Filter>
     <ClInclude Include="..\Classes\Interface.h">
       <Filter>Source Files\Classes</Filter>
     </ClInclude>
@@ -139,5 +141,13 @@
     <Filter Include="Source Files\Classes\include">
       <UniqueIdentifier>{3f30072d-1af2-4785-8818-2a9cd635987d}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\Resources\Sounds\game-show-suspense-waiting.wav">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="..\Resources\Sounds\melody-of-nature-main.mp3">
+      <Filter>Resources</Filter>
+    </Media>
   </ItemGroup>
 </Project>
