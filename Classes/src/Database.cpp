@@ -463,9 +463,25 @@ bool Database::deleteGear(int index) {
 	return deleteRequest(url);
 }
 
+std::vector<db::support> Database::getSupports(int rarity) {
+	std::string file = FileUtils::getInstance()->getStringFromFile("Database/supports.json");
+	json data = json::parse(file);
+	std::vector<db::support> supports;
+
+	for (auto& elem : data) {
+		db::support support = elem.get<db::support>();
+
+		if (support.rarity == rarity) {
+			supports.push_back(support);
+		}
+	}
+
+	return supports;
+}
+
 db::support Database::getSupport(int index) {
 	std::string file = FileUtils::getInstance()->getStringFromFile("Database/supports.json");
-	db::support support = json::parse(file)[index - 1].get<db::support>();
+	db::support support = json::parse(file)[index].get<db::support>();
 	return support;
 }
 

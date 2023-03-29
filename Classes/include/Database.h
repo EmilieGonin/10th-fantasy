@@ -147,6 +147,7 @@ public:
 	bool deleteGear(int);
 
 	//Local Json
+	std::vector<db::support> getSupports(int);
 	db::support getSupport(int);
 
 	//Setters

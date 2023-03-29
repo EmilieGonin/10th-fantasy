@@ -32,8 +32,6 @@ bool MainMenuScene::init()
     }
     openSubMenus = false;
 
-    _database = Database::Instance(); 
-
     setScene(this);
    
     Sprites();

@@ -75,7 +75,7 @@ bool SummonMenuScene::init()
     singleButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                //add single summon pulls
+                pull(1);
             }
         }
     );
@@ -83,7 +83,7 @@ bool SummonMenuScene::init()
     MultiButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                //add multi summon pulls
+                pull(10);
             }
         }
     );

@@ -14,7 +14,7 @@
 	},
 	{
 		"id": 2,
-		"name": "Test",
+		"name": "Name",
 		"rarity": 1,
 		"type": 1,
 		"stats": [
@@ -53,7 +53,7 @@
 	},
 	{
 		"id": 5,
-		"name": "",
+		"name": "Name",
 		"rarity": 2,
 		"type": 2,
 		"stats": [
@@ -84,7 +84,7 @@
 	},
 	{
 		"id": 7,
-		"name": "",
+		"name": "Name",
 		"rarity": 2,
 		"type": 1,
 		"stats": [
