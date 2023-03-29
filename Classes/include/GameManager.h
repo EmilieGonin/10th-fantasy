@@ -9,6 +9,7 @@ private:
 	static GameManager* _instance;
 	int BossId;
 	int BossLvl;
+	bool _loading;
 public:
 	static GameManager* Instance();
 	int getBossId();
@@ -16,4 +17,9 @@ public:
 	void setBossId(int);
 	void setBossLvl(int);
 
+	//Getters
+	bool isLoading();
+
+	//Setters
+	void loading(bool);
 };
