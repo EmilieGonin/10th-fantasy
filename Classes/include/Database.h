@@ -53,12 +53,6 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		std::vector<stat> stats;
 	};
 
-	struct inventory {
-		int userId;
-		std::vector<gear> gears;
-		int id;
-	};
-
 	struct gear {
 		int inventoryId;
 		int type;
@@ -66,6 +60,12 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int amount;
 		int rarity;
 		int level;
+		int id;
+	};
+
+	struct inventory {
+		int userId;
+		std::vector<gear> gears;
 		int id;
 	};
 
@@ -111,7 +111,8 @@ public:
 	bool request(std::string); //GET
 	bool request(std::string, json); //POST
 	bool patch(std::string, json); //PATCH
-	bool handleRequest(cpr::Response);
+	bool deleteRequest(std::string); //DELETE
+	bool handleRequest();
 	std::vector<std::string> split(std::string, std::string);
 
 	//Pour vérifier les données au lancement du jeu
@@ -131,6 +132,7 @@ public:
 	bool createUser();
 	bool createCharacter();
 	bool createInventory();
+	bool createGear(db::gear);
 	void createError();
 
 	//UPDATE requests
@@ -138,6 +140,11 @@ public:
 	bool updateUser();
 	bool updateCharacter();
 	bool updateInventory();
+	bool updateGear(int);
+
+	//DELETE requests
+	bool deleteUser();
+	bool deleteGear(int);
 
 	//Setters
 	void setEmail(std::string);
