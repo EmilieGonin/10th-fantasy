@@ -111,7 +111,8 @@ public:
 	bool request(std::string); //GET
 	bool request(std::string, json); //POST
 	bool patch(std::string, json); //PATCH
-	bool handleRequest(cpr::Response);
+	bool deleteRequest(std::string); //DELETE
+	bool handleRequest();
 	std::vector<std::string> split(std::string, std::string);
 
 	//Pour vérifier les données au lancement du jeu
@@ -139,11 +140,11 @@ public:
 	bool updateUser();
 	bool updateCharacter();
 	bool updateInventory();
-	bool updateGear();
+	bool updateGear(int);
 
 	//DELETE requests
-	void deleteUser();
-	void deleteGear();
+	bool deleteUser();
+	bool deleteGear(int);
 
 	//Setters
 	void setEmail(std::string);

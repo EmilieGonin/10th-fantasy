@@ -241,7 +241,7 @@ std::vector<std::string> Database::split(std::string string, std::string delim) 
 
 bool Database::request(std::string url) {
 	_request = cpr::Get(cpr::Url{ url }, cpr::VerifySsl{ false });
-	return handleRequest(_request);
+	return handleRequest();
 }
 
 bool Database::request(std::string url, json payload) {
@@ -250,7 +250,7 @@ bool Database::request(std::string url, json payload) {
 		cpr::Body{ payload.dump() },
 		cpr::Header{ {"Content-Type", "application/json"} });
 
-	return handleRequest(_request);
+	return handleRequest();
 }
 
 bool Database::patch(std::string url, json payload) {
@@ -259,23 +259,28 @@ bool Database::patch(std::string url, json payload) {
 		cpr::Body{ payload.dump() },
 		cpr::Header{ {"Content-Type", "application/json"} });
 
-	return handleRequest(_request);
+	return handleRequest();
 }
 
-bool Database::handleRequest(cpr::Response r) {
-	cocos2d::log("**********"); //Help to see logs
-	json request = json::parse(r.text)["data"];
+bool Database::deleteRequest(std::string url) {
+	_request = cpr::Delete(cpr::Url{ url }, cpr::VerifySsl{ false });
+	return handleRequest();
+}
 
-	if (r.status_code == 0) { //Si la requête n'a pas pu être lancée
-		cocos2d::log(r.error.message.c_str());
+bool Database::handleRequest() {
+	cocos2d::log("**********"); //Help to see logs
+	json request = json::parse(_request.text)["data"];
+
+	if (_request.status_code == 0) { //Si la requête n'a pas pu être lancée
+		cocos2d::log(_request.error.message.c_str());
 		cocos2d::log("**********"); //Help to see logs
 		createError();
 		return false;
 	}
-	else if (r.status_code >= 400) { //Si la requête a échoué
-		std::string message = std::string("Error [" + std::to_string(r.status_code) + "] making request.");
+	else if (_request.status_code >= 400) { //Si la requête a échoué
+		std::string message = std::string("Error [" + std::to_string(_request.status_code) + "] making request.");
 		cocos2d::log(message.c_str());
-		cocos2d::log(r.text.c_str());
+		cocos2d::log(_request.text.c_str());
 		cocos2d::log("**********"); //Help to see logs
 		createError();
 		return false;
@@ -285,7 +290,7 @@ bool Database::handleRequest(cpr::Response r) {
 		return false;
 	}
 	else { //On affiche le résultat dans la console (debug only)
-		cocos2d::log(r.text.c_str());
+		cocos2d::log(_request.text.c_str());
 		cocos2d::log("**********"); //Help to see logs
 		return true;
 	}
@@ -441,12 +446,21 @@ bool Database::updateInventory() {
 	return patch(url, payload);
 }
 
-void Database::deleteUser() {
-	//
+bool Database::updateGear(int index) {
+	std::string url = std::string(_url + "/items/gears/" + std::to_string(_inventory.gears[index].id));
+	json payload = _inventory.gears[index];
+	return patch(url, payload);
 }
 
-void Database::deleteGear() {
-	//
+bool Database::deleteUser() {
+	std::string url = std::string(_url + "/items/users/" + std::to_string(_user.id));
+	return deleteRequest(url);
+}
+
+bool Database::deleteGear(int index) {
+	std::string url = std::string(_url + "/items/gears/" + std::to_string(_inventory.gears[index].id));
+	_inventory.gears.erase(_inventory.gears.begin() + index);
+	return deleteRequest(url);
 }
 
 void Database::setEmail(std::string email) {
