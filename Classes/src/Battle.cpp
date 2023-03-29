@@ -1,5 +1,6 @@
 #include "Battle.h"
 #include "MainMenuScene.h"
+
 #include <iostream>
 
 Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
@@ -14,6 +15,8 @@ Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
 
 	myLifeBar = cocos2d::DrawNode::create();
 	enemyLifeBar = cocos2d::DrawNode::create();
+
+	
 	
 	/*rectangle[0] = cocos2d::Vec2(0, -8);
 	rectangle[1] = cocos2d::Vec2(100, -8);
@@ -65,8 +68,15 @@ void Battle::attack(Entity* attacker, Entity* target, Skill* skillUsed) {
 		multiplicatorType = *attacker->getTotalStats()[MATK];
 	}
 	float atk = *attacker->getTotalStats()[ATK];
-	int damage = (*attacker->getTotalStats()[ATK] + (*attacker->getTotalStats()[ATK] + multiplicatorType) - (usedDef / 2)) * skillUsed->getMultiplier();
+	int damage = (*attacker->getTotalStats()[ATK] + (*attacker->getTotalStats()[ATK] * multiplicatorType) - (usedDef / 2)) * skillUsed->getMultiplier();
+	if (damage <= 0) {
+		damage = 0;
+	}
 	target->looseHp(damage);
+	myDamage = newLabel(std::to_string(damage));
+	myDamage->setPosition(Vec2(target->getSprite()->getPosition().x, target->getSprite()->getPosition().y + 200));
+
+	//addChild(mydamagetext);
 	skillUsed->_cooldown = skillUsed->_maxCooldown;
 
 	selectedSkill = -1;
@@ -112,7 +122,7 @@ void Battle::play() {
 				attack(_player, _enemies[selectedEnemy], _player->getSkills()[selectedSkill]);
 				for (int a = 0; a < _player->getSkills().size(); a++)
 				{
-					if (_player->getSkills()[a]->_maxCooldown == 0 || _player->getSkills()[a]->_cooldown > 0)
+					if (_player->getSkills()[a]->_cooldown > 0)
 					{
 						_player->getSkills()[a]->_cooldown -= 1;
 					}
@@ -147,6 +157,43 @@ void Battle::battleCheck() {
 	}
 	
 }
+/*
+Gear Battle::drop() {
+
+	int rarity = rand() % 4;
+		switch (rarity)
+		{
+		case 0:
+		default:
+			break;
+		}
+
+	int type = rand() % 6;
+	switch (type)
+	{
+	case 0:
+	default:
+		break;
+	}
+
+	int stat = rand() % statN;
+	switch (stat)
+	{
+	case 0:
+	default:
+		break;
+	}
+
+	int amount = rand() % MaxStat;
+	switch (Amount)
+	{
+	case 0:
+	default:
+		break;
+	}
+
+
+}*/
 
 bool Battle::getBattleState() { return _battle; }
 bool Battle::getMyTurn() { return _myTurn; }

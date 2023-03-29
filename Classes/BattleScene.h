@@ -5,6 +5,7 @@
 #include "cocos2d.h"
 #include "Battle.h"
 #include "Entity.h"
+#include "GameManager.h"
 #include <iostream>
 #include <vector>
 
@@ -23,7 +24,7 @@ public:
    // void menuCloseCallback(cocos2d::Ref* pSender);
     void loop(float);
     // implement the "static create()" method manually
-  
+    GameManager* gameManager;
 
 protected:
     void MouseUp(cocos2d::Event*);

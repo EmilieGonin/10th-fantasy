@@ -26,8 +26,7 @@ bool SummonMenuScene::init()
 
     setScene(this);
 
-    cocos2d::Label* Banner = newLabel("Current Banner", 2);
-    Banner->setPosition(250, 580);
+
 
     cocos2d::Label* Single = newLabel("Single Summons", 2);
     Single->setPosition(120, 440);
@@ -39,10 +38,10 @@ bool SummonMenuScene::init()
     Multi->setAnchorPoint(Vec2::ZERO);
     Multi->setScale(0.5);
 
-    _banner = Sprite::create("Button/Rectangle.png");
+    _banner = Sprite::create("Banners/djeamy_banner.png");
     _banner->setAnchorPoint(Vec2::ZERO);
-    _banner->setPosition(100, 500);
-    _banner->setScale(0.3);
+    _banner->setPosition(10, 500);
+    _banner->setScale(0.5);
 
     //Here until Background is added
     _back = Sprite::create("Button/Rectangle.png");
@@ -76,7 +75,7 @@ bool SummonMenuScene::init()
     singleButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                //add single summon pulls
+                pull(1);
             }
         }
     );
@@ -84,7 +83,7 @@ bool SummonMenuScene::init()
     MultiButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                //add multi summon pulls
+                pull(10);
             }
         }
     );
