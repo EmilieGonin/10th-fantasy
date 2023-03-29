@@ -325,6 +325,18 @@ bool Database::getInventory() {
 
 	if (request(url)) {
 		_inventory = json::parse(_request.text)["data"][0].get<db::inventory>();
+
+		//Getting inventory gears
+		url = std::string(_url + "/items/gears?filter[inventory_id][_eq]=" + std::to_string(_inventory.id));
+
+		if (request(url)) {
+			json data = json::parse(_request.text)["data"];
+
+			for (auto& elem : data) {
+				_inventory.gears.push_back(elem.get<db::gear>());
+			}
+		}
+
 		return true;
 	}
 	else {
@@ -381,6 +393,19 @@ bool Database::createInventory() {
 	}
 }
 
+bool Database::createGear(db::gear gear) {
+	std::string url = std::string(_url + "/items/gears");
+	json payload = gear;
+
+	if (request(url, payload)) {
+		_inventory.gears.push_back(json::parse(_request.text)["data"].get<db::gear>());
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 void Database::createError() {
 	cocos2d::log("creating error");
 	std::string url = std::string(_url + "/items/errors");
@@ -414,6 +439,14 @@ bool Database::updateInventory() {
 	std::string url = std::string(_url + "/items/inventories/" + std::to_string(_inventory.id));
 	json payload = _inventory;
 	return patch(url, payload);
+}
+
+void Database::deleteUser() {
+	//
+}
+
+void Database::deleteGear() {
+	//
 }
 
 void Database::setEmail(std::string email) {

@@ -53,12 +53,6 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		std::vector<stat> stats;
 	};
 
-	struct inventory {
-		int userId;
-		std::vector<gear> gears;
-		int id;
-	};
-
 	struct gear {
 		int inventoryId;
 		int type;
@@ -66,6 +60,12 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int amount;
 		int rarity;
 		int level;
+		int id;
+	};
+
+	struct inventory {
+		int userId;
+		std::vector<gear> gears;
 		int id;
 	};
 
@@ -131,6 +131,7 @@ public:
 	bool createUser();
 	bool createCharacter();
 	bool createInventory();
+	bool createGear(db::gear);
 	void createError();
 
 	//UPDATE requests
@@ -138,6 +139,11 @@ public:
 	bool updateUser();
 	bool updateCharacter();
 	bool updateInventory();
+	bool updateGear();
+
+	//DELETE requests
+	void deleteUser();
+	void deleteGear();
 
 	//Setters
 	void setEmail(std::string);
