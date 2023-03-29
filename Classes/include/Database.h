@@ -42,7 +42,7 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 	struct stat {
 		int statId;
 		int rate;
-		bool percentage;
+		int percentage;
 	};
 
 	struct support {
@@ -145,6 +145,10 @@ public:
 	//DELETE requests
 	bool deleteUser();
 	bool deleteGear(int);
+
+	//Local Json
+	std::vector<db::support> getSupports(int);
+	db::support getSupport(int);
 
 	//Setters
 	void setEmail(std::string);

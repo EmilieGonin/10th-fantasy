@@ -463,6 +463,44 @@ bool Database::deleteGear(int index) {
 	return deleteRequest(url);
 }
 
+std::vector<db::support> Database::getSupports(int rarity) {
+	std::string file = FileUtils::getInstance()->getStringFromFile("Database/supports.json");
+	json data = json::parse(file);
+	std::vector<db::support> supports;
+
+	for (auto& elem : data) {
+		db::support support = elem.get<db::support>();
+
+		if (support.rarity == rarity) {
+			supports.push_back(support);
+		}
+	}
+
+	return supports;
+}
+
+db::support Database::getSupport(int index) {
+	std::string file = FileUtils::getInstance()->getStringFromFile("Database/supports.json");
+	db::support support = json::parse(file)[index].get<db::support>();
+	return support;
+}
+
+/*Supports comment
+  Rarities :
+  1 = Rare, 2 = Epic, 3 = Legendary
+
+  Type :
+  1 = Healer, 2 = Buffer, 3 = Sub DPS
+
+  Stats :
+  1 = HP, 2 = DEF, 3 = Magic Def, 4 = ATK
+  5 = Speed, 6 = Critical Rate, 7 = Critical Damage
+  8 = Physical Bonus, 9 = Magical Bonus,
+  10 = Same Phy/Mag Bonus, 11 = Reverse Phy/Mag Bonus,
+  12 = Reduce Damage, 13 = Shield,
+  14 = Ignore Defense
+  */
+
 void Database::setEmail(std::string email) {
 	_email = email;
 }
