@@ -68,9 +68,13 @@ void Battle::attack(Entity* attacker, Entity* target, Skill* skillUsed) {
 		multiplicatorType = *attacker->getTotalStats()[MATK];
 	}
 	float atk = *attacker->getTotalStats()[ATK];
-	int damage = (*attacker->getTotalStats()[ATK] + (*attacker->getTotalStats()[ATK] * multiplicatorType) - (usedDef / 2)) * skillUsed->getMultiplier();
+	int damage = ((*attacker->getTotalStats()[ATK] * multiplicatorType) * (1000/(1000 + usedDef ))) * skillUsed->getMultiplier();
 	if (damage <= 0) {
 		damage = 0;
+	}
+	int cr = rand() % 100;
+	if(cr < *attacker->getTotalStats()[CR]) {
+		damage = damage * *attacker->getTotalStats()[CD];
 	}
 	target->looseHp(damage);
 	myDamage = newLabel(std::to_string(damage));

@@ -7,6 +7,8 @@
 #include "Sword.h"
 #include "Battle.h"
 #include "RaidBossBetala.h"
+#include "RaidBossShaDo.h"
+#include "RaidBossLaiJande.h"
 #include <vector>
 USING_NS_CC;
 
@@ -64,7 +66,8 @@ bool BattleScene::init()
 	};
 
 	gameManager = GameManager::Instance();
-	RaidBossBetala* boss;
+	RaidBoss* boss;
+	
 	switch (gameManager->getBossId()){
 	case 0://UwU
 		break;
@@ -73,11 +76,11 @@ bool BattleScene::init()
 		_enemies.push_back(boss);
 		break;
 	case 2:
-		boss = new RaidBossBetala(gameManager->getBossLvl());
+		boss = new RaidBossShaDo(gameManager->getBossLvl());
 		_enemies.push_back(boss);
 		break;
 	case 3:
-		boss = new RaidBossBetala(gameManager->getBossLvl());
+		boss = new RaidBossLaiJande(gameManager->getBossLvl());
 		_enemies.push_back(boss);
 		break;
 		
