@@ -21,6 +21,7 @@ public:
     Sprite* _dropDownMenu;
     Sprite* _inventory;
     Sprite* _settings;
+    Sprite* _textBox;
     std::string username;
 
     // a selector callback
@@ -29,6 +30,10 @@ public:
     void Buttons();
     void Sprites();
     void Labels();
+    void Tuto();
+    void TutoNextButton();
+    void TutoText(std::string, int, int);
+    void TutoTextBox(int, int);
     void BackButton(int, int, float, int);
     void OpenInventory();
 

@@ -24,6 +24,7 @@ public:
 	Button* newButton(std::string, std::string, int);
 	Label* newLabel(std::string);
 	Label* newLabel(std::string, int);
+	Label* newLabel(std::string, int, int, int);
 	Sprite* newSprite(std::string);
 
 	//Des wrappers pour set les positions

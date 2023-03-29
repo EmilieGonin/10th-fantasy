@@ -23,6 +23,14 @@ int GameManager::getBossLvl()
 	return BossLvl;
 }
 
+bool GameManager::getTutoCompleted() {
+	return TutoCompleted;
+}
+
+int GameManager::getTutoPhases() {
+	return TutoPhases;
+}
+
 void GameManager::setBossId(int id)
 {
 	BossId = id;
@@ -31,4 +39,12 @@ void GameManager::setBossId(int id)
 void GameManager::setBossLvl(int lvl)
 {
 	BossLvl = lvl;
+}
+
+void GameManager::setTutoCompleted(bool tuto) {
+	TutoCompleted = tuto;
+}
+
+void GameManager::setTutoPhases(int phase) {
+	TutoPhases += phase;
 }

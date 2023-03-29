@@ -1,5 +1,6 @@
 #pragma once
 
+#include "GameManager.h"
 #include "cocos2d.h"
 #include <vector>
 #include "database.h"
@@ -14,6 +15,7 @@ protected:
 	cocos2d::Director* _director;
 	cocos2d::Scheduler* _scheduler;
 	Database* _database;
+	GameManager* _gameManager;
 	TextField* _textField;
 
 

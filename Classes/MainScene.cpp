@@ -9,7 +9,7 @@
 MainScene::MainScene() {
 	srand(time(0)); //Initialize rand seed once
 	_database = Database::Instance();
-
+	_gameManager = GameManager::Instance();
 	_energy = 30;
 	_ready = false;
 	_director = cocos2d::Director::getInstance();
