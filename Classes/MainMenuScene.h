@@ -23,6 +23,8 @@ public:
     Sprite* _settings;
     std::string username;
 
+    float musicVol;
+
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
 
@@ -30,7 +32,10 @@ public:
     void Sprites();
     void Labels();
     void BackButton(int, int, float, int);
+    void Account();
     void OpenInventory();
+    void Settings();
+    void Sounds();
 
 
     // implement the "static create()" method manually
