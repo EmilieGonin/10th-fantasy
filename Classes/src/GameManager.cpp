@@ -32,3 +32,6 @@ void GameManager::setBossLvl(int lvl)
 {
 	BossLvl = lvl;
 }
+
+bool GameManager::isLoading() { return _loading; }
+void GameManager::loading(bool loading) { _loading = loading; }

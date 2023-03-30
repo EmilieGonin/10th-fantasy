@@ -4,12 +4,12 @@
 RaidBossBetala::RaidBossBetala(int lvl) {
 	mySprite = cocos2d::Sprite::create("sprite/betala.png");
 	_name = "Betala";
-	_basehp = _totalHp = 5000 + 400 * lvl;
-	_basedef = _totalDef = 45 + 5 * lvl;
-	_baseMagicDef = _totalMagicDef = 35 + 5 * lvl;
-	_baseatk =  _totalAtk = 200 + 10 * lvl;
-
-	_lvl = lvl;// 50 lvl
+	_basehp = _totalHp = 5000 + 550 * lvl  ;
+	_basedef = _totalDef = 200 + 35 * lvl;
+	_baseMagicDef = _totalMagicDef = 200 + 30 * lvl;
+	_baseatk =  _totalAtk = 100 + 67 * lvl;
+	
+	_lvl = lvl;
 	_battleHp = _totalHp;
 
 	SkillSlash* Slash = new SkillSlash();

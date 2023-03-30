@@ -7,6 +7,7 @@
 #include <optional>
 #include <fstream>
 #include "Interface.h"
+#include "GameManager.h"
 
 using json = nlohmann::json; //On raccourcis le namespace
 using namespace cocos2d::ui;
@@ -96,6 +97,7 @@ private:
 	Database();
 	static Database* _instance;
 	cocos2d::Scene* _scene;
+	GameManager* _gameManager;
 	db::user _user;
 	db::character _character;
 	db::inventory _inventory;
