@@ -35,6 +35,7 @@ public:
 	std::vector<int*> getTotalStats();
 
 	//Setters
+	void setBattleHp(int);
 	void looseHp(int);
 
 	enum Stats {

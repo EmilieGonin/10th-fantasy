@@ -36,16 +36,45 @@ Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
 	enemyLifeBar->setAnchorPoint(cocos2d::Vec2(0.0, 0.0));
 	enemyLifeBar->setPosition(cocos2d::Vec2(200, 650));
 
-	
+	_player->update();
 	//myLifeBar->drawPolygon(rectangle, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
 	//enemyLifeBar->drawPolygon(rectangle2, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
 
-	
+	//Support Time 
+
+	for (int index = 0; index < _player->getSupport().size(); index++)
+	{
+		if (_player->getSupport()[index]->getSupportStat()->type == 2)
+		{
+			std::vector<db::stat> effect = _player->getSupport()[index]->getSupportStat()->stats;
+			for (int statIndex = 0; statIndex < effect.size(); statIndex++)
+			{
+				if (effect[statIndex].percentage == 0)
+				{
+					CCLOG("going up");
+					CCLOG("%d", effect[statIndex].statId);
+					CCLOG("%d", *_player->getTotalStats()[effect[statIndex].statId]);
+					*_player->getTotalStats()[effect[statIndex].statId] += effect[statIndex].rate;
+					CCLOG("%d", *_player->getTotalStats()[effect[statIndex].statId]);
+				}
+				else if (effect[statIndex].percentage == 1)
+				{
+
+					float rate = (effect[statIndex].rate / 100.0000);
+					float amount = *_player->getTotalStats()[effect[statIndex].statId] * rate;
+					CCLOG("%f", rate);
+					*_player->getTotalStats()[effect[statIndex].statId] += (int)amount;
+					CCLOG("%d", *_player->getTotalStats()[effect[statIndex].statId]);
+				}
+			}
+		}
+	}
 
 	for (int i = 0; i < _enemies.size(); i++) {
 		
 		_battleOrder.push_back(_enemies[i]);
 	}
+	
 	_battleOrder.push_back(_player);
 	play();
 }	
@@ -59,6 +88,8 @@ void Battle::attack(Entity* attacker, Entity* target, Skill* skillUsed) {
 	float multiplicatorType;
 
 	if (attacker->getDamageType() == 0) {
+
+
 		usedDef = *target->getTotalStats()[PDEF];
 		multiplicatorType = *attacker->getTotalStats()[PATK];
 		std::cout << "Physical damage" << std::endl;
@@ -68,7 +99,9 @@ void Battle::attack(Entity* attacker, Entity* target, Skill* skillUsed) {
 		multiplicatorType = *attacker->getTotalStats()[MATK];
 	}
 	float atk = *attacker->getTotalStats()[ATK];
+
 	int damage = ((*attacker->getTotalStats()[ATK] * multiplicatorType) * (1000/(1000 + usedDef ))) * skillUsed->getMultiplier();
+
 	if (damage <= 0) {
 		damage = 0;
 	}
@@ -155,6 +188,7 @@ void Battle::battleCheck() {
 	}
 	if (_battleOrder.size() == 1 && _player->getBattleHP() > 0) {
 		CCLOG("I WIN");
+
 		_battle = false;
 		_win = true;
 		cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
@@ -223,6 +257,7 @@ void Battle::updateLifeBar()
 
 	
 }
+
 
 void Battle::setSelected(int selected) 
 {
