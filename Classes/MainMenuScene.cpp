@@ -274,18 +274,19 @@ void MainMenuScene::OpenInventory() {
 
 
 void MainMenuScene::newTutoNextButton() {
-    Button* nextButton = newButton("", "Button/Back.png", 11);
-    nextButton->setPosition(cocos2d::Vec2(110, 330));
-    nextButton->setAnchorPoint(Vec2::ZERO);
-    nextButton->setScale(0.05);
+	Button* nextButton = newButton("", "Button/Back.png", 11);
+	nextButton->setPosition(cocos2d::Vec2(110, 330));
+	nextButton->setAnchorPoint(Vec2::ZERO);
+	nextButton->setScale(0.05);
 
-    nextButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
-        {
-            if (type == Widget::TouchEventType::ENDED) {
-                cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-            }
-        }
-    );
+	nextButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+		{
+			if (type == Widget::TouchEventType::ENDED) {
+				cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+			}
+		}
+	);
+}
 
 void MainMenuScene::Settings() {
 	Button* settingsButton = newButton("", "Button/Settings.png", 4);
