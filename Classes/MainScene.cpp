@@ -10,7 +10,7 @@ MainScene::MainScene() {
 	_database = Database::Instance();
 	_gameManager = GameManager::Instance();
 	_director = cocos2d::Director::getInstance();
-	this->schedule(SEL_SCHEDULE(&MainScene::timer), 5);
+	this->schedule(SEL_SCHEDULE(&MainScene::timer), 5); //Change to 5min!!
 }
 
 void MainScene::log(std::string value) {
@@ -82,7 +82,12 @@ void MainScene::timer(float delta) {
 	int limit = 50; //La limite d'énergie en fonction du niveau du joueur (database)
 
 	if (_database->isLogged() && _database->user()->energy < limit) {
-		log("energy before refill : " + _database->user()->energy);
+		log("energy before refill : " + std::to_string(_database->user()->energy));
 		_database->user()->energy++;
+		_database->updateUser();
 	}
+}
+
+bool MainScene::hasEnoughEnergy(int needed) {
+	return _database->user()->energy >= needed;
 }
