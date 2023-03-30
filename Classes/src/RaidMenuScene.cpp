@@ -121,7 +121,8 @@ void RaidMenuScene::Level()
 
 
     // LEVELS SPRITE
-    PeacefulImg = newSprite("Rectangle.png");
+    PeacefulImg = newSprite(
+    );
     PeacefulImg->setPosition(cocos2d::Vec2(centerWidth(), 780));
     PeacefulImg->setScale(0.4, 0.2);
 

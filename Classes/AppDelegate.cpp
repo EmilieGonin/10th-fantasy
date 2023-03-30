@@ -53,8 +53,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
 
         //glview = GLViewImpl::createWithFullScreen("Eevings");
-        glview = GLViewImpl::createWithRect("Eevings", Rect(0, 0, 540, 950));
-#else
+        glview = GLViewImpl::createWithRect("10th Fantasy", Rect(0, 0, 540, 950));
+#else   
         glview = GLViewImpl::create("Eevings");
 #endif
         director->setOpenGLView(glview);

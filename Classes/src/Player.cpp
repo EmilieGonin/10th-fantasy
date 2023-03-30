@@ -27,7 +27,7 @@ Player::~Player() {};
 
 
 
-
+	
 void Player::levelup() {
 	_lvl += 1;
 	_totalHp = _basehp += 75; // 75hp per lvl
@@ -52,15 +52,23 @@ void Player::equipWeapon(Weapon* weapon)
 
 }
 
+
+void Player::equipSupport(Support* support)
+{
+	_mySupport.push_back(support);
+}
+
 void Player::update() {
 	_battleHp = _totalHp;
 	if(_myStuff.size() != 0)
 	{
 		for (int i = 0; i < _myStuff.size(); i++) {
 			
-			*_finalStats[_myStuff[i]->getStatType()] += _myStuff[i]->getAmount();
+			*_finalStats[_myStuff[i]->getGear()->stat] += _myStuff[i]->getGear()->amount;
 
 		}
 	}
 }
+
+std::vector<Support*> Player::getSupport() { return _mySupport; }
 

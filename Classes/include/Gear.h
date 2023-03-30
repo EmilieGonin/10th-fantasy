@@ -1,22 +1,11 @@
 #pragma once
-
+#include "Database.h"
 class Gear
 {
 protected:
-	int _id = 0;
-	int _type;
-	int _statType;
-	int _amount;
-	int _rarity;
-	int _level;
-
+	db::gear* gear;
 public:
-	Gear(int,int, int, int, int);
+	Gear(db::gear*);
 	~Gear();
-	int getId();
-	int getType();
-	int getStatType();
-	int getAmount();
-	int getRarity();
-	int getLevel();
+	db::gear* getGear();
 };
