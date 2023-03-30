@@ -201,11 +201,9 @@ void Battle::battleCheck() {
 	
 }
 
-Gear Battle::drop() {
-
-
-
-}
+//Gear Battle::drop() {
+//	//
+//}
 
 bool Battle::getBattleState() { return _battle; }
 bool Battle::getMyTurn() { return _myTurn; }

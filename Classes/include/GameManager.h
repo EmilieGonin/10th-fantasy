@@ -7,43 +7,29 @@ class GameManager
 private:
 	GameManager();
 	static GameManager* _instance;
-	int BossId;
-	int BossLvl;
-
-	int Difficulty;
-
-
-	//tuto bools
-	bool TutoCompleted = false;
-	int TutoPhases = 0;
-
-
+	int _bossId;
+	int _bossLvl;
+	int _difficulty;
+	bool _tutoCompleted;
+	int _tutoPhases;
 	bool _loading;
   
 public:
 	static GameManager* Instance();
+
 	//getters
 	int getBossId();
 	int getBossLvl();
-
 	int getDifficulty();
-	void setBossId(int);
-	void setBossLvl(int);
-	void setDifficulty(int);
-
 	bool getTutoCompleted();
 	int getTutoPhases();
+	bool isLoading();
+
 	//setters
 	void setBossId(int);
 	void setBossLvl(int);
+	void setDifficulty(int);
 	void setTutoCompleted(bool);
 	void setTutoPhases(int);
-
-
-
-	//Getters
-	bool isLoading();
-
-	//Setters
 	void loading(bool);
 };
