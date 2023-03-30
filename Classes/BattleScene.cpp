@@ -37,7 +37,7 @@ bool BattleScene::init()
 		return false;
 	}
 
-	enum Stats {
+	/*enum Stats {
 		ATK = 0,
 		MATK = 1,
 		PATK = 2,
@@ -63,75 +63,75 @@ bool BattleScene::init()
 		RARE = 1,
 		EPIC = 2,
 		LEGENDARY = 3,
-	};
+	};*/
 
 	gameManager = GameManager::Instance();
-	RaidBoss* boss;
+	
 	
 	switch (gameManager->getBossId()){
 	case 0://UwU
 		break;
 	case 1: 
-		boss = new RaidBossBetala(gameManager->getBossLvl());
-		_enemies.push_back(boss);
+		gameManager->setBoss(new RaidBossBetala(gameManager->getBossLvl()));
+		_enemies.push_back(gameManager->getBoss());
 		break;
 	case 2:
-		boss = new RaidBossShaDo(gameManager->getBossLvl());
-		_enemies.push_back(boss);
+		gameManager->setBoss(new RaidBossShaDo(gameManager->getBossLvl()));
+		_enemies.push_back(gameManager->getBoss());
 		break;
 	case 3:
-		boss = new RaidBossLaiJande(gameManager->getBossLvl());
-		_enemies.push_back(boss);
+		gameManager->setBoss(new RaidBossLaiJande(gameManager->getBossLvl()));
+		_enemies.push_back(gameManager->getBoss());
 		break;
 		
 	}
 	
 	db::gear Helmet;
-	Helmet.type = HELMET;
-	Helmet.stat = HP;
+	Helmet.type = gameManager->HELMET;
+	Helmet.stat = gameManager->HP;
 	Helmet.amount = 3000;
-	Helmet.rarity = LEGENDARY;
+	Helmet.rarity = gameManager->LEGENDARY;
 	Helmet.level = 0;
 
 	db::gear Chest;
-	Chest.type = CHEST;
-	Chest.stat = PDEF;
+	Chest.type = gameManager->CHEST;
+	Chest.stat = gameManager->PDEF;
 	Chest.amount = 25;
-	Chest.rarity = LEGENDARY;
+	Chest.rarity = gameManager->LEGENDARY;
 	Chest.level = 0;
 
 	db::gear Boots;
-	Boots.type = BOOT;
-	Boots.stat = HP;
+	Boots.type = gameManager->BOOT;
+	Boots.stat = gameManager->HP;
 	Boots.amount = 200;
-	Boots.rarity = LEGENDARY;
+	Boots.rarity = gameManager->LEGENDARY;
 	Boots.level = 0;
 
 	db::gear Rings;
-	Rings.type = RING;
-	Rings.stat = PATK;
+	Rings.type = gameManager->RING;
+	Rings.stat = gameManager->PATK;
 	Rings.amount = 250;
-	Rings.rarity = LEGENDARY;
+	Rings.rarity = gameManager->LEGENDARY;
 	Rings.level = 0;
 
 	db::gear Necklace;
-	Necklace.type = NECKLACE;
-	Necklace.stat = PATK;
+	Necklace.type = gameManager->NECKLACE;
+	Necklace.stat = gameManager->PATK;
 	Necklace.amount = 250;
-	Necklace.rarity = LEGENDARY;
+	Necklace.rarity = gameManager->LEGENDARY;
 	Necklace.level = 0;
 
 	db::gear Earrings;
-	Earrings.type = EARRING;
-	Earrings.stat = CD;
+	Earrings.type = gameManager->EARRING;
+	Earrings.stat = gameManager->CD;
 	Earrings.amount = 15;
-	Earrings.rarity = LEGENDARY;
+	Earrings.rarity = gameManager->LEGENDARY;
 	Earrings.level = 0;
 	
 	std::vector<db::stat> effect;
 	db::stat EffectTheaume;
 	EffectTheaume.percentage = 1;
-	EffectTheaume.statId = ATK;
+	EffectTheaume.statId = gameManager->ATK;
 	EffectTheaume.rate = 50;
 	effect.push_back(EffectTheaume);
 	
