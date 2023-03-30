@@ -33,12 +33,35 @@ bool MainMenuScene::init()
     openSubMenus = false;
 
     setScene(this);
-   
+
     Sprites();
     Labels();
     Buttons();
 
+    if (!_gameManager->getTutoCompleted()) {
+        Tuto();
+    }
     return true;
+}
+
+void MainMenuScene::Tuto() {
+    TutoTextBox(100, 280);
+    TutoNextButton();
+    if (_gameManager->getTutoPhases() == 0) {
+        Interface::newLabel("Hello and welcome to our headquarters! I'll help you make yourself at home.", 100, 450, 5);
+    }
+    else if (_gameManager->getTutoPhases() == 1) {
+        Interface::newLabel("", 0, 0, 5);
+    }
+    else if (_gameManager->getTutoPhases() == 2) {
+        Interface::newLabel("", 0, 0, 5);
+    }
+    else if (_gameManager->getTutoPhases() == 3) {
+        Interface::newLabel("", 0, 0, 5);
+    }
+    else if (_gameManager->getTutoPhases() == 4) {
+        Interface::newLabel("", 0, 0, 5);
+    }
 }
 
 void MainMenuScene::Sprites() {
@@ -82,7 +105,7 @@ void MainMenuScene::Buttons() {
 
     raidButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
-            if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
+            if (type == Widget::TouchEventType::ENDED && openSubMenus == false && _gameManager->getTutoCompleted()) {
                 cocos2d::Director::getInstance()->replaceScene(RaidMenuScene::create());  // Leann's raid menu
             }
         }
@@ -95,7 +118,7 @@ void MainMenuScene::Buttons() {
 
     shopButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
-            if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
+            if (type == Widget::TouchEventType::ENDED && openSubMenus == false && _gameManager->getTutoCompleted()) {
                 cocos2d::Director::getInstance()->replaceScene(ShopMenu::create());  // Leann's raid menu
             }
         }
@@ -108,7 +131,7 @@ void MainMenuScene::Buttons() {
 
     summonButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
-            if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
+            if (type == Widget::TouchEventType::ENDED && openSubMenus == false && _gameManager->getTutoCompleted()) {
                 cocos2d::Director::getInstance()->replaceScene(SummonMenuScene::create());
             }
         }
@@ -121,7 +144,7 @@ void MainMenuScene::Buttons() {
 
     characterButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
-            if (type == Widget::TouchEventType::ENDED) {
+            if (type == Widget::TouchEventType::ENDED && _gameManager->getTutoCompleted()) {
                 cocos2d::Director::getInstance()->replaceScene(CharacterMenu::create());
             }
         }
@@ -134,7 +157,7 @@ void MainMenuScene::Buttons() {
 
     profileButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
-            if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
+            if (type == Widget::TouchEventType::ENDED && openSubMenus == false && _gameManager->getTutoCompleted()) {
 
                 openSubMenus = true;
 
@@ -163,7 +186,7 @@ void MainMenuScene::Buttons() {
 
     dropDownButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
-            if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
+            if (type == Widget::TouchEventType::ENDED && openSubMenus == false && _gameManager->getTutoCompleted()) {
 
                 OpenInventory();
 
@@ -183,7 +206,7 @@ void MainMenuScene::Buttons() {
 
     settingsButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
-            if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
+            if (type == Widget::TouchEventType::ENDED && openSubMenus == false && _gameManager->getTutoCompleted()) {
                 openSubMenus = true;
 
                 BackButton(10, 920, 0.05, 6);
@@ -206,11 +229,11 @@ void MainMenuScene::BackButton(int x, int y, float scale, int layer) {
     backButton->setPosition(cocos2d::Vec2(x, y));
     backButton->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
     backButton->setScale(scale);
+
     backButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
                 cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-                openSubMenus = false;
             }
         }
     );
@@ -234,6 +257,34 @@ void MainMenuScene::OpenInventory() {
                 _inventory->setScale(0.5);
                 _inventory->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
                 this->addChild(_inventory, 3);
+            }
+        }
+    );
+}
+
+void MainMenuScene::TutoTextBox(int x, int y) {
+    _textBox = Sprite::create("Button/Rectangle.png");
+    _textBox->setPosition(x, y);
+    _textBox->setScale(0.5);
+    _textBox->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+
+    this->addChild(_textBox, 4);
+}
+
+void MainMenuScene::TutoNextButton() {
+    Button* nextButton = newButton("", "Button/Back.png", 5);
+    nextButton->setPosition(cocos2d::Vec2(120, 310));
+    nextButton->setAnchorPoint(Vec2::ZERO);
+    nextButton->setScale(0.05);
+
+    nextButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+                _gameManager->setTutoPhases(1);
+                if (_gameManager->getTutoPhases() == 10) {
+                    _gameManager->setTutoCompleted(true); 
+                }
             }
         }
     );

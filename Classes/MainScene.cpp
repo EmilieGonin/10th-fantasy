@@ -8,6 +8,7 @@
 
 MainScene::MainScene() {
 	_database = Database::Instance();
+	_gameManager = GameManager::Instance();
 	_director = cocos2d::Director::getInstance();
 	this->schedule(SEL_SCHEDULE(&MainScene::timer), 5);
 }
