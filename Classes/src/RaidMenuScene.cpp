@@ -14,15 +14,16 @@ static void problemLoading(const char* filename)
     printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
-// on "init" you need to initialize your instance
 bool RaidMenuScene::init()
 {
-     
-    // 1. super init _firstRaid
-    if (!Scene::init())
-    {
-        return false;
-    }
+    if (!Scene::init()) { return false; }
+
+    _difficulties[0] = { 8, 3 }; //Peaceful
+    _difficulties[1] = { 18, 5 }; //Easy
+    _difficulties[2] = { 29, 10 }; //Normal
+    _difficulties[3] = { 37, 15 }; //Hard
+    _difficulties[4] = { 44, 20 }; //Insane
+    _difficulties[5] = { 50, 25 }; //Ultimate
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -30,7 +31,6 @@ bool RaidMenuScene::init()
     _gameManager = GameManager::Instance();
     Menu();
     SceneChanger();
-
 
     //auto bg = newButton("BattleScene.png");
     //bg->setPosition(0, 0);
@@ -174,9 +174,7 @@ void RaidMenuScene::Play()
     PeacefulPlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                _gameManager->setBossLvl(8);
-                _gameManager->setDifficulty(1);
-                cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
+                loadBattle(1);
             }
         }
     );   
@@ -184,9 +182,7 @@ void RaidMenuScene::Play()
     EasyPlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                _gameManager->setBossLvl(18);
-                _gameManager->setDifficulty(2);
-                cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
+                loadBattle(2);
             }
         }
     );   
@@ -194,9 +190,7 @@ void RaidMenuScene::Play()
     NormalPlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                _gameManager->setBossLvl(29);
-                _gameManager->setDifficulty(3);
-                cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
+                loadBattle(3);
             }
         }
     );   
@@ -204,9 +198,7 @@ void RaidMenuScene::Play()
     HardPlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                _gameManager->setBossLvl(37);
-                _gameManager->setDifficulty(4);
-                cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
+                loadBattle(4);
             }
         }
     );  
@@ -214,20 +206,14 @@ void RaidMenuScene::Play()
     InsanePlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                _gameManager->setBossLvl(44);
-                _gameManager->setDifficulty(5);
-                cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
+                loadBattle(5);
             }
         }
     );   
     
     UltimatePlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
-            if (type == Widget::TouchEventType::ENDED) {
-                _gameManager->setBossLvl(50);
-                _gameManager->setDifficulty(6);
-                cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
-            }
+            loadBattle(6);
         }
     );
 }
@@ -272,15 +258,14 @@ void RaidMenuScene::SceneChanger()
     );
 }
 
-
-
-void RaidMenuScene::menuCloseCallback(Ref* pSender)
-{
-    //Close the cocos2d-x game scene and quit the application
-    Director::getInstance()->end();
-
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
+void RaidMenuScene::loadBattle(int difficulty) {
+    if (hasEnoughEnergy(_difficulties[difficulty - 1].energy)) {
+        _database->user()->energy -= _difficulties[difficulty - 1].energy;
+        _gameManager->setBossLvl(_difficulties[difficulty - 1].level);
+        _gameManager->setDifficulty(difficulty);
+        _director->replaceScene(BattleScene::create());
+    }
+    else {
+        log("not enough energy");
+    }
 }

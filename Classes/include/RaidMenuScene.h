@@ -41,6 +41,13 @@ protected:
     cocos2d::Label* Insane;
     cocos2d::Label* Ultimate;
 
+    struct Difficulty {
+        int level;
+        int energy;
+    };
+
+    Difficulty _difficulties[6];
+
 public:
     static cocos2d::Scene* createScene();
     virtual bool init();
@@ -48,8 +55,7 @@ public:
     void Level();
     void SceneChanger();
     void Play();
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
+    void loadBattle(int);
 
     GameManager* _gameManager;
 
