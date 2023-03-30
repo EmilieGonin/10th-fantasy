@@ -38,12 +38,12 @@ RaidBoss* GameManager::getBoss() { return _boss; }
 //Setters
 void GameManager::setBossId(int id) { _bossId = id; }
 void GameManager::setBossLvl(int lvl) { _bossLvl = lvl; }
-void GameManager::setDifficulty(int difficulty) {
-	_difficulty = difficulty;
-	_boss->setRarities(difficulty);
-}
+void GameManager::setDifficulty(int difficulty) { _difficulty = difficulty; }
 void GameManager::setTutoCompleted(bool tuto) { _tutoCompleted = tuto; }
 void GameManager::setTutoPhases(int phase) { _tutoPhases += phase; }
 void GameManager::loading(bool loading) { _loading = loading; }
-void GameManager::setBoss(RaidBoss* boss){ _boss = boss; }
+void GameManager::setBoss(RaidBoss* boss){
+	_boss = boss;
+	_boss->setRarities(_difficulty);
+}
 
