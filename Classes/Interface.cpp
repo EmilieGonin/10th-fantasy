@@ -128,6 +128,13 @@ float Interface::centerHeight() {
 	return size.height / 2;
 }
 
+float Interface::top(float height) {
+	//height = height of the element
+	//use getLineHeight() for labels
+	Size size = Director::getInstance()->getVisibleSize();
+	return size.height - height;
+}
+
 void Interface::clean() {
 	if (!_textFields.empty()) {
 		for (TextField* item : _textFields) {
