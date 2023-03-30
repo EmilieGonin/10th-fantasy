@@ -54,6 +54,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
         //glview = GLViewImpl::createWithFullScreen("Eevings");
         glview = GLViewImpl::createWithRect("10th Fantasy", Rect(0, 0, 540, 950));
+        glview->setViewPortInPoints(0, 0, 0, 0);
 #else   
         glview = GLViewImpl::create("Eevings");
 #endif
