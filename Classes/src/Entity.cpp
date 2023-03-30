@@ -34,6 +34,7 @@ std::vector<int*> Entity::getBaseStats() { return _baseStats; }
 std::vector<int*> Entity::getTotalStats() { return _finalStats; }
 
 cocos2d::Sprite* Entity::getSprite() { return mySprite; }
+
 void Entity::looseHp(int amount) {
 	_battleHp -= amount;
 	if (_battleHp < 0)
@@ -41,3 +42,5 @@ void Entity::looseHp(int amount) {
 		_battleHp = 0;
 	}
 }
+
+void Entity::setBattleHp(int hp) { _battleHp = hp; }

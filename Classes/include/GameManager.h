@@ -9,9 +9,13 @@ private:
 	static GameManager* _instance;
 	int BossId;
 	int BossLvl;
+
 	//tuto bools
 	bool TutoCompleted = false;
 	int TutoPhases = 0;
+
+	bool _loading;
+  
 public:
 	static GameManager* Instance();
 	//getters
@@ -26,4 +30,9 @@ public:
 	void setTutoPhases(int);
 
 
+	//Getters
+	bool isLoading();
+
+	//Setters
+	void loading(bool);
 };

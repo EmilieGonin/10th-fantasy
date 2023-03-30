@@ -48,3 +48,6 @@ void GameManager::setTutoCompleted(bool tuto) {
 void GameManager::setTutoPhases(int phase) {
 	TutoPhases += phase;
 }
+
+bool GameManager::isLoading() { return _loading; }
+void GameManager::loading(bool loading) { _loading = loading; }

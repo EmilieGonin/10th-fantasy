@@ -94,6 +94,7 @@ Database* Database::_instance = new Database();
 
 Database::Database() {
 	_url = "https://49g5s1t0.directus.app"; //To encrypt
+	_logged = false;
 }
 
 Database* Database::Instance() {
@@ -102,6 +103,7 @@ Database* Database::Instance() {
 
 void Database::init(cocos2d::Scene* scene) {
 	setScene(scene);
+	_gameManager = GameManager::Instance();
 
 	if (!checkSave()) {
 		signup();
@@ -197,6 +199,7 @@ void Database::login() {
 }
 
 bool Database::checkSave() {
+	_gameManager->loading(true);
 	bool dataFound = false;
 	std::ifstream file("user.txt");
 
@@ -217,6 +220,7 @@ bool Database::checkSave() {
 	}
 
 	file.close();
+	_gameManager->loading(false);
 	return dataFound;
 }
 
@@ -240,11 +244,13 @@ std::vector<std::string> Database::split(std::string string, std::string delim) 
 }
 
 bool Database::request(std::string url) {
+	_gameManager->loading(true);
 	_request = cpr::Get(cpr::Url{ url }, cpr::VerifySsl{ false });
 	return handleRequest();
 }
 
 bool Database::request(std::string url, json payload) {
+	_gameManager->loading(true);
 	_request = cpr::Post(
 		cpr::Url{ url }, cpr::VerifySsl{ false },
 		cpr::Body{ payload.dump() },
@@ -254,6 +260,7 @@ bool Database::request(std::string url, json payload) {
 }
 
 bool Database::patch(std::string url, json payload) {
+	_gameManager->loading(true);
 	_request = cpr::Patch(
 		cpr::Url{ url }, cpr::VerifySsl{ false },
 		cpr::Body{ payload.dump() },
@@ -263,11 +270,13 @@ bool Database::patch(std::string url, json payload) {
 }
 
 bool Database::deleteRequest(std::string url) {
+	_gameManager->loading(true);
 	_request = cpr::Delete(cpr::Url{ url }, cpr::VerifySsl{ false });
 	return handleRequest();
 }
 
 bool Database::handleRequest() {
+	_gameManager->loading(false);
 	cocos2d::log("**********"); //Help to see logs
 	json request = json::parse(_request.text)["data"];
 
@@ -302,6 +311,7 @@ bool Database::getUser() {
 	if (request(url)) {
 		_user = json::parse(_request.text)["data"][0].get<db::user>();
 		if (getCharacter()) {
+			_logged = true;
 			return getInventory();
 		}
 		else {
@@ -463,10 +473,51 @@ bool Database::deleteGear(int index) {
 	return deleteRequest(url);
 }
 
-void Database::setEmail(std::string email) {
-	_email = email;
+std::vector<db::support> Database::getSupports(int rarity) {
+	_gameManager->loading(true);
+	std::string file = FileUtils::getInstance()->getStringFromFile("Database/supports.json");
+	json data = json::parse(file);
+	std::vector<db::support> supports;
+
+	for (auto& elem : data) {
+		db::support support = elem.get<db::support>();
+
+		if (support.rarity == rarity) {
+			supports.push_back(support);
+		}
+	}
+
+	_gameManager->loading(false);
+	return supports;
 }
+
+db::support Database::getSupport(int index) {
+	_gameManager->loading(true);
+	std::string file = FileUtils::getInstance()->getStringFromFile("Database/supports.json");
+	db::support support = json::parse(file)[index].get<db::support>();
+	_gameManager->loading(false);
+	return support;
+}
+
+/*Supports comment
+  Rarities :
+  1 = Rare, 2 = Epic, 3 = Legendary
+
+  Type :
+  1 = Healer, 2 = Buffer, 3 = Sub DPS
+
+  Stats :
+  1 = HP, 2 = DEF, 3 = Magic Def, 4 = ATK
+  5 = Speed, 6 = Critical Rate, 7 = Critical Damage
+  8 = Physical Bonus, 9 = Magical Bonus,
+  10 = Same Phy/Mag Bonus, 11 = Reverse Phy/Mag Bonus,
+  12 = Reduce Damage, 13 = Shield,
+  14 = Ignore Defense
+  */
+
+void Database::setEmail(std::string email) { _email = email; }
 
 db::user* Database::user() { return &_user; }
 db::character* Database::character() { return &_character; }
 db::inventory* Database::inventory() { return &_inventory; }
+bool Database::isLogged() { return _logged; }
