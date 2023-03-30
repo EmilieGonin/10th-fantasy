@@ -11,7 +11,7 @@ private:
 	int _bossLvl;
 	int _difficulty;
 	bool _tutoCompleted;
-	int _tutoPhases;
+	int _phases;
 	bool _loading;
   
 public:
@@ -22,7 +22,7 @@ public:
 	int getBossLvl();
 	int getDifficulty();
 	bool getTutoCompleted();
-	int getTutoPhases();
+	int getTextPhases();
 	bool isLoading();
 
 	//setters
@@ -30,6 +30,6 @@ public:
 	void setBossLvl(int);
 	void setDifficulty(int);
 	void setTutoCompleted(bool);
-	void setTutoPhases(int);
+	void setTextPhases(int);
 	void loading(bool);
 };

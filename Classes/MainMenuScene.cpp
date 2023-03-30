@@ -21,6 +21,10 @@ static void problemLoading(const char* filename)
     printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
+MainMenuScene::MainMenuScene() {
+    _database = Database::Instance();
+}
+
 // on "init" you need to initialize your instance
 bool MainMenuScene::init()
 {
@@ -38,29 +42,32 @@ bool MainMenuScene::init()
     Labels();
     Buttons();
 
-    if (!_gameManager->getTutoCompleted()) {
+   if (!_gameManager->getTutoCompleted()) {
         Tuto();
     }
     return true;
 }
 
 void MainMenuScene::Tuto() {
-    TutoTextBox(100, 280);
-    TutoNextButton();
-    if (_gameManager->getTutoPhases() == 0) {
-        Interface::newLabel("Hello and welcome to our headquarters! I'll help you make yourself at home.", 100, 450, 5);
+    _gameManager->setTextPhases(1);
+    newTutoNextButton();
+    if (_gameManager->getTextPhases() == 1) {
+       newTextBox("Hello and welcome to our headquarters! I'll help you make yourself at home."); // need to figure out a way to return to next line
     }
-    else if (_gameManager->getTutoPhases() == 1) {
-        Interface::newLabel("", 0, 0, 5);
+    else if (_gameManager->getTextPhases() == 2) {
+        newTextBox("At the bottom you will find the raid menu! It is filled with hardships but is very rewarding");
     }
-    else if (_gameManager->getTutoPhases() == 2) {
-        Interface::newLabel("", 0, 0, 5);
+    else if (_gameManager->getTextPhases() == 3) {
+        newTextBox("You will also find the shop and summoning book. In order to complete tough tasks you'll need help!");
     }
-    else if (_gameManager->getTutoPhases() == 3) {
-        Interface::newLabel("", 0, 0, 5);
+    else if (_gameManager->getTextPhases() == 4) {
+        newTextBox("At the top right you will find a dropdown menu with the settings and your inventory.");
     }
-    else if (_gameManager->getTutoPhases() == 4) {
-        Interface::newLabel("", 0, 0, 5);
+    else if (_gameManager->getTextPhases() == 5) {
+        newTextBox("Finally, at the top left you will find your beautiful self, anyways I better get going good luck adventurer!");
+    }
+    if (_gameManager->getTextPhases() == 5) {
+        _gameManager->setTutoCompleted(true);
     }
 }
 
@@ -262,18 +269,9 @@ void MainMenuScene::OpenInventory() {
     );
 }
 
-void MainMenuScene::TutoTextBox(int x, int y) {
-    _textBox = Sprite::create("Button/Rectangle.png");
-    _textBox->setPosition(x, y);
-    _textBox->setScale(0.5);
-    _textBox->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-
-    this->addChild(_textBox, 4);
-}
-
-void MainMenuScene::TutoNextButton() {
-    Button* nextButton = newButton("", "Button/Back.png", 5);
-    nextButton->setPosition(cocos2d::Vec2(120, 310));
+void MainMenuScene::newTutoNextButton() {
+    Button* nextButton = newButton("", "Button/Back.png", 11);
+    nextButton->setPosition(cocos2d::Vec2(110, 330));
     nextButton->setAnchorPoint(Vec2::ZERO);
     nextButton->setScale(0.05);
 
@@ -281,10 +279,6 @@ void MainMenuScene::TutoNextButton() {
         {
             if (type == Widget::TouchEventType::ENDED) {
                 cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-                _gameManager->setTutoPhases(1);
-                if (_gameManager->getTutoPhases() == 10) {
-                    _gameManager->setTutoCompleted(true); 
-                }
             }
         }
     );

@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include "GameManager.h"
 
 using namespace cocos2d::ui;
 using namespace cocos2d;
@@ -13,6 +14,8 @@ protected:
 	std::vector<Button*> _buttons;
 	std::vector<Label*> _labels;
 	std::vector<Sprite*> _sprites;
+
+	int _nextText;
 
 public:
 	Interface();
@@ -34,6 +37,7 @@ public:
 
 	//On retire tous les éléments d'interface créés
 	void clean();
+	void newTextBox(std::string);
 
 	//Setters
 	void setScene(Scene*);

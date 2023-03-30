@@ -5,6 +5,7 @@
 class MainMenuScene : public MainScene, Interface
 {
 public:
+    MainMenuScene();
     static cocos2d::Scene* createScene();
     virtual bool init();
 
@@ -31,9 +32,7 @@ public:
     void Sprites();
     void Labels();
     void Tuto();
-    void TutoNextButton();
-    void TutoText(std::string, int, int);
-    void TutoTextBox(int, int);
+    void newTutoNextButton();
     void BackButton(int, int, float, int);
     void OpenInventory();
 
