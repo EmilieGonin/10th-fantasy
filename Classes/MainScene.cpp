@@ -49,21 +49,30 @@ void MainScene::pull(int num) {
 			rarity = 1; //Rare (90%)
 		}
 
-		std::vector<db::support> supports = _database->getSupports(rarity);
-		db::support pulled = supports[rand(supports.size()) - 1];
+		db::support pulled;
+
+		if (rarity == 3) {
+			pulled = _database->getSupport(10);
+		}
+		else {
+			std::vector<db::support> supports = _database->getSupports(rarity);
+			pulled = supports[rand(supports.size()) - 1];
+		}
 
 		std::vector<int> userSupports = _database->user()->supports;
 		bool alreadyPulled = std::count(userSupports.begin(), userSupports.end(), pulled.supportId);
 
 		if (alreadyPulled) {
 			//convert into currency
-			log("already pulled");
+			_database->user()->cristals += 50 * rarity;
+			log("already pulled - cristals obtained : " + std::to_string(50 * rarity));
 		}
 		else {
+			log("new character pulled");
 			_database->user()->supports.push_back(pulled.supportId);
-			_database->updateUser();
 		}
 
+		_database->updateUser();
 		log(pulled.name);
 	}
 }
@@ -71,10 +80,9 @@ void MainScene::pull(int num) {
 //Lancée au démarrage de l'application pour setup le timer
 void MainScene::timer(float delta) {
 	int limit = 50; //La limite d'énergie en fonction du niveau du joueur (database)
-	log("energy");
-	log(std::to_string(_database->user()->energy));
 
 	if (_database->isLogged() && _database->user()->energy < limit) {
+		log("energy before refill : " + _database->user()->energy);
 		_database->user()->energy++;
 	}
 }
