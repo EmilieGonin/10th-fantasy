@@ -952,7 +952,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Resources\Background\characterbg.png" />
+    <Image Include="..\Resources\Button\moinsbtn.png" />
     <Image Include="..\Resources\Button\playbtn.png" />
+    <Image Include="..\Resources\Button\plusbtn.png" />
     <Image Include="..\Resources\Characters\djeamy.png" />
     <Image Include="..\Resources\Characters\elf.png" />
     <Image Include="..\Resources\Characters\firemage.png" />

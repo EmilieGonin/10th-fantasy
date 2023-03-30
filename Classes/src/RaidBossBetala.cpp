@@ -2,7 +2,7 @@
 #include "SkillSlash.h"
 
 RaidBossBetala::RaidBossBetala(int lvl) {
-	mySprite = cocos2d::Sprite::create("sprite/betala.png");
+	mySprite = cocos2d::Sprite::create("sprite/betala_boss.png");
 	_name = "Betala";
 	_basehp = _totalHp = 5000 + 400 * lvl;
 	_basedef = _totalDef = 45 + 5 * lvl;

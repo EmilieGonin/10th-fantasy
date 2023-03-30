@@ -39,7 +39,7 @@ bool MainMenuScene::init()
     Sprites();
     Labels();
     Buttons();
-    //Sounds();
+    Sounds();
 
     return true;
 }
@@ -82,12 +82,13 @@ void MainMenuScene::Buttons() {
     Button* raidButton = newButton("", "Button/battle_button.png", 3);
     raidButton->setPosition(cocos2d::Vec2(420, 30));
     raidButton->setAnchorPoint(Vec2::ZERO);
-    raidButton->setScale(0.15);
+    raidButton->setScale(0.2);
 
     raidButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
-                cocos2d::Director::getInstance()->replaceScene(RaidMenuScene::create());  // Leann's raid menu
+                cocos2d::Director::getInstance()->replaceScene(RaidMenuScene::create());  
+                AudioEngine::pause(audioID);
             }
         }
     );
@@ -100,7 +101,8 @@ void MainMenuScene::Buttons() {
     shopButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
-                cocos2d::Director::getInstance()->replaceScene(ShopMenu::create());  // Leann's raid menu
+                cocos2d::Director::getInstance()->replaceScene(ShopMenu::create());  
+                AudioEngine::pause(audioID);
             }
         }
     );
@@ -114,6 +116,7 @@ void MainMenuScene::Buttons() {
         {
             if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
                 cocos2d::Director::getInstance()->replaceScene(SummonMenuScene::create());
+                AudioEngine::pause(audioID);
             }
         }
     );
@@ -128,6 +131,7 @@ void MainMenuScene::Buttons() {
         {
             if (type == Widget::TouchEventType::ENDED) {
                 cocos2d::Director::getInstance()->replaceScene(CharacterMenu::create());
+                AudioEngine::pause(audioID);
             }
         }
     );
@@ -144,7 +148,6 @@ void MainMenuScene::Buttons() {
 
                 Account();
                 OpenInventory();
-
                 Settings();
                 _dropDownMenu = Sprite::create("DropDownMenu.png");
                 _dropDownMenu->setPosition(540, 900);
@@ -186,12 +189,24 @@ void MainMenuScene::Account()
 
                 BackButton(200, 850, 0.03, 5);
 
-                username = "Username: " + _database->user()->name;
+                //username = "Username: " + _database->user()->name;
 
-                cocos2d::Label* user = newLabel(username, 5);
-                user->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
-                user->setScale(0.8);
-                user->setPosition(215, 800);
+                //cocos2d::Label* user = newLabel(username, 5);
+                //user->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+                //user->setScale(0.8);
+                //user->setPosition(215, 800);
+
+                Button* editButton = newButton("", "Button/editbtn.png", 5);
+                editButton->setPosition(cocos2d::Vec2(300, 800));
+                editButton->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+                editButton->setScale(0.15);
+                editButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+                    {
+                        if (type == Widget::TouchEventType::ENDED) {
+
+                        }
+                    }
+                );
 
                 _background4 = Sprite::create("Button/Rectangle.png");
                 _background4->setPosition(200, 850);
@@ -237,14 +252,34 @@ void MainMenuScene::Settings() {
             if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
                 openSubMenus = true;
 
-                Button* increaseButton = newButton("", "Button/DropDown.png", 6);
-                increaseButton->setPosition(cocos2d::Vec2(40, 800));
+                SoundsRect(80, 807);
+
+                Button* increaseButton = newButton("", "Button/plusbtn.png", 6);
+                increaseButton->setPosition(cocos2d::Vec2(400, 807));
                 increaseButton->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
-                increaseButton->setScale(0.045);
+                increaseButton->setScale(0.08);
                 increaseButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
                     {
                         if (type == Widget::TouchEventType::ENDED) {
-                            // backgoundMusic = cocos2d::AudioEngine::setVolume();
+                            cocos2d::AudioEngine::setVolume(audioID, musicVol+=0.10f);
+
+                            SoundsRect(x+=40, 807);
+                        }
+                    }
+                );   
+
+                Button* decreaseButton = newButton("", "Button/moinsbtn.png", 6);
+                decreaseButton->setPosition(cocos2d::Vec2(40, 800));
+                decreaseButton->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+                decreaseButton->setScale(0.25);
+                decreaseButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+                    {
+                        if (type == Widget::TouchEventType::ENDED) {
+                            cocos2d::AudioEngine::setVolume(audioID, musicVol-=0.10f);
+                            //SoundsRect(420, 807, 6);
+                            this->removeChild(sound, true);
+                            //this->removeChildByTag();
+
                         }
                     }
                 );
@@ -264,12 +299,19 @@ void MainMenuScene::Settings() {
 }
 
 void MainMenuScene::Sounds() {
-    musicVol = 1.0f;
-    auto backgoundMusic = cocos2d::AudioEngine::INVALID_AUDIO_ID;
+    musicVol = 0.1f;
+    audioID = AudioEngine::play2d("Audio/melody-of-nature-main.mp3", true, musicVol);
+   
+}
 
-    if (backgoundMusic == cocos2d::AudioEngine::INVALID_AUDIO_ID) {
-        backgoundMusic = cocos2d::AudioEngine::play2d("Sounds/melody-of-nature-main.mp3", true, musicVol);
-    }
+void MainMenuScene::SoundsRect(int x, int y)
+{
+    sound = newSprite("white_rect.png");
+    sound->setPosition(cocos2d::Vec2(x, y));
+    sound->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+    sound->setScale(0.3);
+    sound->setLocalZOrder(6);
+
 }
 
 void MainMenuScene::menuCloseCallback(Ref* pSender)

@@ -21,10 +21,13 @@ public:
     Sprite* _dropDownMenu;
     Sprite* _inventory;
     Sprite* _settings;
+    Sprite* sound;
     std::string username;
+    
+    int x = 80;
 
     float musicVol;
-
+    unsigned int audioID;
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
 
@@ -36,6 +39,8 @@ public:
     void OpenInventory();
     void Settings();
     void Sounds();
+    
+    void SoundsRect(int, int);
 
 
     // implement the "static create()" method manually
