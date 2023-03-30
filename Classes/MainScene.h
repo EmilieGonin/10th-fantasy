@@ -4,7 +4,6 @@
 #include "cocos2d.h"
 #include <vector>
 #include "database.h"
-#include "Interface.h"
 
 
 class MainScene : public cocos2d::Scene

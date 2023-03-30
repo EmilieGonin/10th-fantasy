@@ -4,7 +4,6 @@
 #include "Battle.h"
 #include "MainMenuScene.h"
 #include "BattleScene.h"
-#include "Interface.h"
 
 MainScene::MainScene() {
 	_database = Database::Instance();

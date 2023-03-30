@@ -82,7 +82,7 @@ Label* Interface::newLabel(std::string string, int layer) {
 }
 
 Label* Interface::newLabel(std::string string, int posX, int posY, int layer) {
-	Label* label = Label::createWithTTF(string, "fonts/arial.ttf", 25);
+	Label* label = Label::createWithTTF(string, "fonts/arial.ttf", 20);
 	_labels.push_back(label);
 	label->setPosition(posX, posY);
 	label->setAnchorPoint(Vec2::ZERO);
@@ -91,11 +91,20 @@ Label* Interface::newLabel(std::string string, int posX, int posY, int layer) {
 		_scene->addChild(label, layer);
 	}
 
-	//if (string.size() >= 31) {
-	//	label[31].;
-	//}
-
 	return label;
+}
+
+void Interface::newTextBox(std::string story) {
+	Sprite* _textBox = Sprite::create("Button/Rectangle.png");
+	_textBox->setPosition(100, 280);
+	_textBox->setScale(0.5);
+	_textBox->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+
+	newLabel(story, 100, 450, 11);
+
+	if (_scene != nullptr) {
+		_scene->addChild(_textBox, 10);
+	}
 }
 
 Sprite* Interface::newSprite(std::string filename)
