@@ -79,7 +79,7 @@ void MainScene::pull(int num) {
 
 //Lancée au démarrage de l'application pour setup le timer
 void MainScene::timer(float delta) {
-	int limit = 50; //La limite d'énergie en fonction du niveau du joueur (database)
+	int limit = 50 + ((3 * _database->user()->level) - 3);
 
 	if (_database->isLogged() && _database->user()->energy < limit) {
 		log("energy before refill : " + std::to_string(_database->user()->energy));
