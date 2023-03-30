@@ -494,7 +494,7 @@ std::vector<db::support> Database::getSupports(int rarity) {
 db::support Database::getSupport(int index) {
 	_gameManager->loading(true);
 	std::string file = FileUtils::getInstance()->getStringFromFile("Database/supports.json");
-	db::support support = json::parse(file)[index].get<db::support>();
+	db::support support = json::parse(file)[index - 1 ].get<db::support>();
 	_gameManager->loading(false);
 	return support;
 }

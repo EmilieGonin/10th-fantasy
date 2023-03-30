@@ -5,5 +5,6 @@ class RaidBossShaDo : public RaidBoss
 {
 public:
 	RaidBossShaDo(int);
+	
 };
 

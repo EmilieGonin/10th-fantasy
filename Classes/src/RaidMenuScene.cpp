@@ -194,6 +194,7 @@ void RaidMenuScene::Play()
         {
             if (type == Widget::TouchEventType::ENDED) {
                 _gameManager->setBossLvl(8);
+                _gameManager->setDifficulty(1);
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -203,6 +204,7 @@ void RaidMenuScene::Play()
         {
             if (type == Widget::TouchEventType::ENDED) {
                 _gameManager->setBossLvl(18);
+                _gameManager->setDifficulty(2);
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -212,6 +214,7 @@ void RaidMenuScene::Play()
         {
             if (type == Widget::TouchEventType::ENDED) {
                 _gameManager->setBossLvl(29);
+                _gameManager->setDifficulty(3);
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -221,6 +224,7 @@ void RaidMenuScene::Play()
         {
             if (type == Widget::TouchEventType::ENDED) {
                 _gameManager->setBossLvl(37);
+                _gameManager->setDifficulty(4);
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -230,6 +234,7 @@ void RaidMenuScene::Play()
         {
             if (type == Widget::TouchEventType::ENDED) {
                 _gameManager->setBossLvl(44);
+                _gameManager->setDifficulty(5);
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }
@@ -239,6 +244,7 @@ void RaidMenuScene::Play()
         {
             if (type == Widget::TouchEventType::ENDED) {
                 _gameManager->setBossLvl(50);
+                _gameManager->setDifficulty(6);
                 cocos2d::Director::getInstance()->replaceScene(BattleScene::create());  // Leann's raid menu
             }
         }

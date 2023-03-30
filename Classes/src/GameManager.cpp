@@ -4,6 +4,7 @@ GameManager::GameManager()
 {
 	BossId = 0;
 	BossLvl = 0;
+	Difficulty = 0;
 }
 
 GameManager* GameManager::_instance = new GameManager();
@@ -21,6 +22,12 @@ int GameManager::getBossId()
 int GameManager::getBossLvl()
 {
 	return BossLvl;
+
+}
+
+int GameManager::getDifficulty()
+{
+	return Difficulty;
 }
 
 bool GameManager::getTutoCompleted() {
@@ -41,12 +48,18 @@ void GameManager::setBossLvl(int lvl)
 	BossLvl = lvl;
 }
 
+
+void GameManager::setDifficulty(int difficulty)
+{
+	Difficulty = difficulty;
+
 void GameManager::setTutoCompleted(bool tuto) {
 	TutoCompleted = tuto;
 }
 
 void GameManager::setTutoPhases(int phase) {
 	TutoPhases += phase;
+
 }
 
 bool GameManager::isLoading() { return _loading; }

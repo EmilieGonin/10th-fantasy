@@ -13,6 +13,7 @@ class Player : public Entity
 {
 protected:	
 	std::vector<Gear*> _myStuff;
+	std::vector<int> stats;
 	std::vector<Support*> _mySupport;
 	Weapon* _weapon;
 	
