@@ -2,7 +2,6 @@
 #include "Entity.h"
 #include "Enemy.h"
 #include "Skill.h"
-#include "GameManager.h"
 #include <vector>
 class RaidBoss : public Enemy
 {
@@ -13,7 +12,7 @@ protected:
 	std::vector<int> _dropType;
 	void setDrop(int);
 	std::vector<int> getDrops();
-	GameManager *gameManager;
+
 	enum RarityName {
 		common = 0,
 		rare = 1,
