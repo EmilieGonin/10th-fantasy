@@ -108,11 +108,11 @@ bool BattleScene::init()
 	Boots.level = 0;
 
 	db::gear Rings;
-	Boots.type = RING;
-	Boots.stat = PATK;
-	Boots.amount = 250;
-	Boots.rarity = LEGENDARY;
-	Boots.level = 0;
+	Rings.type = RING;
+	Rings.stat = PATK;
+	Rings.amount = 250;
+	Rings.rarity = LEGENDARY;
+	Rings.level = 0;
 
 	db::gear Necklace;
 	Necklace.type = NECKLACE;
@@ -147,6 +147,7 @@ bool BattleScene::init()
 	Sword* sword = new Sword(50);
 
 	db::support support = _database->getSupport(10);
+	player->equipSupport(new Support(&support));
 	player->equipSupport(new Support(&support));
 	player->equip(&helmet);	
 	player->equip(&chest);

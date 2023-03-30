@@ -4,6 +4,7 @@ GameManager::GameManager()
 {
 	BossId = 0;
 	BossLvl = 0;
+	Difficulty = 0;
 }
 
 GameManager* GameManager::_instance = new GameManager();
@@ -21,6 +22,12 @@ int GameManager::getBossId()
 int GameManager::getBossLvl()
 {
 	return BossLvl;
+
+}
+
+int GameManager::getDifficulty()
+{
+	return Difficulty;
 }
 
 void GameManager::setBossId(int id)
@@ -31,6 +38,11 @@ void GameManager::setBossId(int id)
 void GameManager::setBossLvl(int lvl)
 {
 	BossLvl = lvl;
+}
+
+void GameManager::setDifficulty(int difficulty)
+{
+	Difficulty = difficulty;
 }
 
 bool GameManager::isLoading() { return _loading; }

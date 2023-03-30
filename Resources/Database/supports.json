@@ -128,6 +128,11 @@
 		"type": 2,
 		"stats": [
 			{
+				"id": 0,
+				"rate": 10,
+				"percentage": 1
+			},
+			{
 				"id": 1,
 				"rate": 10,
 				"percentage": 1
@@ -161,11 +166,6 @@
 				"id": 7,
 				"rate": 10,
 				"percentage": 1
-			},
-			{
-				"id": 10,
-				"rate": 10,
-				"percentage": 1
 			}
 		]
 	},
@@ -176,7 +176,7 @@
 		"type": 1,
 		"stats": [
 			{
-				"id": 1,
+				"id": 5,
 				"rate": 15,
 				"percentage": 1
 			},
