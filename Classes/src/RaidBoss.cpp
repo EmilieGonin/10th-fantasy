@@ -9,7 +9,6 @@ RaidBoss::RaidBoss()
 }
 
 void RaidBoss::setRarities(int difficulty) {
-
 	switch (difficulty)
 	{
 	case 1:
@@ -36,6 +35,7 @@ void RaidBoss::setRarities(int difficulty) {
 	case 6:
 		_rarities[epic] = 80;
 		_rarities[legendary] = 20;
+		break;
 	}
 }
 void RaidBoss::setDrop(int bossType)
