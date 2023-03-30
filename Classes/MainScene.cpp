@@ -8,16 +8,9 @@
 
 MainScene::MainScene() {
 	_database = Database::Instance();
-
-	_energy = 30;
-	_ready = false;
+	_gameManager = GameManager::Instance();
 	_director = cocos2d::Director::getInstance();
-	_scheduler = _director->getScheduler();
-
-}
-
-void MainScene::testing() { //Debug only
-	
+	this->schedule(SEL_SCHEDULE(&MainScene::timer), 5);
 }
 
 void MainScene::log(std::string value) {
@@ -76,34 +69,12 @@ void MainScene::pull(int num) {
 }
 
 //Lancée au démarrage de l'application pour setup le timer
-void MainScene::setTimer() {
-	log("Starting timer...");
-	_ready = true;
+void MainScene::timer(float delta) {
 	int limit = 50; //La limite d'énergie en fonction du niveau du joueur (database)
-	clock_t start, now, timePassed;
+	log("energy");
+	log(std::to_string(_database->user()->energy));
 
-	while (_energy < limit) { //Sera remplacé par while game is open
-		if (_energy < limit) {
-			start = clock();
-			timePassed = 0; //Le temps du timer précédent si on a pu le stocker à la fermeture du jeu
-			int duration = 3000 - timePassed; //en ms, à remplacer par 300000 (5min)
-
-			do {
-				now = clock();
-
-				//Données à stocker si on peut lancer une fonction lors de la fermeture du jeu
-				timePassed = now - start;
-			} while (timePassed < duration);
-
-			_energy++;
-			log("energy :");
-			log(_energy);
-			log("time passed");
-			log(timePassed / 1000);
-		}
+	if (_database->isLogged() && _database->user()->energy < limit) {
+		_database->user()->energy++;
 	}
-}
-
-void MainScene::update(float delta) {
-	//
 }
