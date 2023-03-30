@@ -7,6 +7,7 @@ class GameManager
 private:
 	GameManager();
 	static GameManager* _instance;
+	std::string bossSprites[3];
 	int _bossId;
 	int _bossLvl;
 	int _difficulty;
@@ -20,6 +21,7 @@ public:
 	//getters
 	int getBossId();
 	int getBossLvl();
+	std::string getSprite();
 	int getDifficulty();
 	bool getTutoCompleted();
 	int getTutoPhases();
@@ -33,3 +35,4 @@ public:
 	void setTutoPhases(int);
 	void loading(bool);
 };
+

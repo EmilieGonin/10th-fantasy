@@ -3,6 +3,7 @@
 GameManager* GameManager::_instance = new GameManager();
 
 GameManager::GameManager()
+
 {
 	_bossId = 0;
 	_bossLvl = 0;
@@ -10,6 +11,9 @@ GameManager::GameManager()
 	_tutoCompleted = true;
 	_tutoPhases = 0;
 	_loading = false;
+	bossSprites[0] = "Sprite/DifficultyBetala.png";
+	bossSprites[1] = "Sprite/DifficultyShado.png";
+	bossSprites[2] = "Sprite/DifficultyLaijande.png";
 }
 
 GameManager* GameManager::Instance() { return _instance; }
@@ -20,6 +24,11 @@ int GameManager::getBossLvl() { return _bossLvl; }
 int GameManager::getDifficulty() { return _difficulty; }
 bool GameManager::getTutoCompleted() { return _tutoCompleted; }
 int GameManager::getTutoPhases() { return _tutoPhases; }
+std::string GameManager::getSprite()
+{
+	return bossSprites[_bossId-1];
+}
+
 bool GameManager::isLoading() { return _loading; }
 
 //Setters
@@ -29,3 +38,4 @@ void GameManager::setDifficulty(int difficulty) { _difficulty = difficulty; }
 void GameManager::setTutoCompleted(bool tuto) { _tutoCompleted = tuto; }
 void GameManager::setTutoPhases(int phase) { _tutoPhases += phase; }
 void GameManager::loading(bool loading) { _loading = loading; }
+

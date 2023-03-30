@@ -41,7 +41,6 @@ bool RaidMenuScene::init()
 }
 
 
-
 void RaidMenuScene::Menu()
 {
     Title = newLabel("RAIDS", 1);
@@ -49,38 +48,20 @@ void RaidMenuScene::Menu()
     this->addChild(Title,1);
 
 
-    _firstRaid = newButton("", "Rectangle.png", 1);
+    _firstRaid = newButton("", "Sprite/Betala.png", 1);
     _firstRaid->setPosition(cocos2d::Vec2(centerWidth(), 700));
-    _firstRaid->setScale(0.4, 0.25);
+    _firstRaid->setScale(0.4, 0.4);
     this->addChild(_firstRaid, 1);
 
-
-    Forest = newLabel("Forest", 1);
-    Forest->setPosition(centerWidth(), 700);
-    this->addChild(Forest, 1);
-
-
-    Second = newButton("", "Rectangle.png", 1);
-    Second->setPosition(cocos2d::Vec2(centerWidth(), 500));
-    Second->setScale(0.4, 0.25);
+    Second = newButton("", "Sprite/Shado.png", 1);
+    Second->setPosition(cocos2d::Vec2(centerWidth(), 450));
+    Second->setScale(0.4, 0.4);
     this->addChild(Second, 1);
 
-
-    Dungeon = newLabel("Dungeon", 1);
-    Dungeon->setPosition(centerWidth(), 500);
-    this->addChild(Dungeon, 1);
-
-
-    Third = newButton("", "Rectangle.png", 1);
-    Third->setPosition(cocos2d::Vec2(centerWidth(), 300));
-    Third->setScale(0.4, 0.25);
+    Third = newButton("", "Sprite/Laijande.png", 1);
+    Third->setPosition(cocos2d::Vec2(centerWidth(), 200));
+    Third->setScale(0.4, 0.4);
     this->addChild(Third, 1);
-
-
-    Cave = newLabel("Cave", 1);
-    Cave->setPosition(centerWidth(), 300);
-    this->addChild(Cave, 1);
-
 
     Return = newButton("", "Return.png", 1);
     Return->setPosition(cocos2d::Vec2(50, 18));
@@ -92,7 +73,7 @@ void RaidMenuScene::Menu()
 void RaidMenuScene::Level()
 {
     // LEVELS LABELS 
-    Title = newLabel("FOREST RAID", 1);
+    Title = newLabel("", 1);
     Title->setPosition(centerWidth(), 900);
 
     Peaceful = newLabel("Peaceful", 1);
@@ -121,29 +102,29 @@ void RaidMenuScene::Level()
 
 
     // LEVELS SPRITE
-    PeacefulImg = newSprite("Rectangle.png");
+    PeacefulImg = newSprite(_gameManager->getSprite());
     PeacefulImg->setPosition(cocos2d::Vec2(centerWidth(), 780));
-    PeacefulImg->setScale(0.4, 0.2);
+    PeacefulImg->setScale(0.4, 0.4);
 
-    EasyImg = newSprite("Rectangle.png");
+    EasyImg = newSprite(_gameManager->getSprite());
     EasyImg->setPosition(cocos2d::Vec2(centerWidth(), 650));
-    EasyImg->setScale(0.4, 0.2);
+    EasyImg->setScale(0.4, 0.4);
 
-    NormalImg = newSprite("Rectangle.png");
+    NormalImg = newSprite(_gameManager->getSprite());
     NormalImg->setPosition(cocos2d::Vec2(centerWidth(), 520));
-    NormalImg->setScale(0.4, 0.2);
+    NormalImg->setScale(0.4, 0.4);
     
-    HardImg = newSprite("Rectangle.png");
+    HardImg = newSprite(_gameManager->getSprite());
     HardImg->setPosition(cocos2d::Vec2(centerWidth(), 390));
-    HardImg->setScale(0.4, 0.2);
+    HardImg->setScale(0.4, 0.4);
     
-    InsaneImg = newSprite("Rectangle.png");
+    InsaneImg = newSprite(_gameManager->getSprite());
     InsaneImg->setPosition(cocos2d::Vec2(centerWidth(), 260));
-    InsaneImg->setScale(0.4, 0.2);
+    InsaneImg->setScale(0.4, 0.4);
     
-    UltimateImg = newSprite("Rectangle.png");
+    UltimateImg = newSprite(_gameManager->getSprite());
     UltimateImg->setPosition(cocos2d::Vec2(centerWidth(), 130));
-    UltimateImg->setScale(0.4, 0.2);
+    UltimateImg->setScale(0.4, 0.4);
 
     // LEVEL BUTTON
 
