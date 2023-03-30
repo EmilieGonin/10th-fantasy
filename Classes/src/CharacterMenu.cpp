@@ -88,10 +88,10 @@ void CharacterMenu::Stuff()
     Ring->setScale(0.15, 0.15);
     this->addChild(Ring, 1);
 
-    Gem = newSprite("Stuff/necklace.png");
-    Gem->setPosition(450, 300);
-    Gem->setScale(0.1, 0.1);
-    this->addChild(Gem, 1);
+    //Gem = newSprite("Stuff/necklace.png");
+    //Gem->setPosition(450, 300);
+    //Gem->setScale(0.1, 0.1);
+    //this->addChild(Gem, 1);
 
     Return = newButton("", "return.png");
     Return->setPosition(cocos2d::Vec2(50, 18));

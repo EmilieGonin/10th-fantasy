@@ -25,4 +25,5 @@ public:
 	//Pull the number of item wanted
 	void pull(int);
 	void timer(float);
+	bool hasEnoughEnergy(int);
 };

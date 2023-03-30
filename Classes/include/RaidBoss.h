@@ -2,29 +2,27 @@
 #include "Entity.h"
 #include "Enemy.h"
 #include "Skill.h"
-#include "GameManager.h"
 #include <vector>
 class RaidBoss : public Enemy
 {
 
 protected:
 	std::string _name;
-	int commonRate;
-	int RareRate;
-	int EpicRate;
-	int LegendaryRate;
-	int rarities[4];
-	std::vector<int> dropType;
-
-	GameManager *gameManager;
-	void SetRarities(int);
-	/*int[, ] GetRarities();*/
-	 
+	int _rarities[4];
+	std::vector<int> _dropType;
+	void setDrop(int);
 	std::vector<int> getDrops();
-	void SetDrop(int);
 
+	enum RarityName {
+		common = 0,
+		rare = 1,
+		epic = 2,
+		legendary = 3
+	};
 public:
 	
+	void setRarities(int);
+	int* getRarities();
 	RaidBoss();
 };
 

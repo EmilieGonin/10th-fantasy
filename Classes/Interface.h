@@ -34,6 +34,7 @@ public:
 	Vec2 center();
 	float centerWidth();
 	float centerHeight();
+	float top(float);
 
 	//On retire tous les éléments d'interface créés
 	void clean();

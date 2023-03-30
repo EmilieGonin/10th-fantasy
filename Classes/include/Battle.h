@@ -6,6 +6,8 @@
 #include "Enemy.h"
 #include "Skill.h"
 #include "Interface.h"
+#include "GameManager.h"
+#include "Database.h"
 #include <random>
 
 class Battle : public Interface
@@ -35,8 +37,13 @@ public:
 	void setSelected(int);
 	void selectEnemy(int);
 	bool getMyTurn();
-
-	//Gear drop();
+	void drop();
+	db::gear createNecklace(int*);
+	db::gear createEarRing(int*);
+	db::gear createRing(int*);
+	db::gear createHelmet(int*);
+	db::gear createChest(int*);
+	db::gear createBoots(int*);
 
 	cocos2d::DrawNode* getLifeBar();
 	cocos2d::DrawNode* getEnemyLifeBar();
@@ -52,5 +59,9 @@ public:
 		CR = 6,
 		CD = 7
 	};
+
+
+	GameManager* gameManager;
+	Database* database;
 };
 

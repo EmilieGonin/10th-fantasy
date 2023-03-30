@@ -258,6 +258,12 @@
     <Image Include="C:\Users\lélé\OneDrive\Bureau\ProjGtech2\GrandProjet\Resources\Button\Shop.png">
       <Filter>Resources</Filter>
     </Image>
+    <Image Include="..\Resources\Button\plusbtn.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\Resources\Button\moinsbtn.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
