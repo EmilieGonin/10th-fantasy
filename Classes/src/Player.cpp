@@ -62,7 +62,7 @@ void Player::update() {
 	{
 		for (int i = 0; i < _myStuff.size(); i++) {
 			
-			*_finalStats[_myStuff[i]->getGear()->stat] =  _myStuff[i]->getGear()->amount;
+			*_finalStats[_myStuff[i]->getGear()->stat] +=  _myStuff[i]->getGear()->amount;
 
 		}
 	}
