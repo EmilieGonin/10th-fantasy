@@ -134,15 +134,7 @@ bool BattleScene::init()
 	EffectTheaume.statId = ATK;
 	EffectTheaume.rate = 50;
 	effect.push_back(EffectTheaume);
-
-	db::support Theaume;
-	Theaume.name = "Theaume";
-	Theaume.rarity = LEGENDARY;
-	Theaume.type = 2;
-	Theaume.stats = effect;
 	
-	
-	Support theaume(&Theaume);
 	/*enemies.push_back(boss);*/
 	Gear helmet(&Helmet);
 	Gear chest(&Chest);	
@@ -154,11 +146,11 @@ bool BattleScene::init()
 	player = new Player();
 	Sword* sword = new Sword(50);
 
-	player->equipSupport(&theaume);
-	player->equipSupport(&theaume);
+	db::support support = _database->getSupport(10);
+	player->equipSupport(new Support(&support));
 	player->equip(&helmet);	
 	player->equip(&chest);
-	//player->equip(&rings);
+	player->equip(&rings);
 	player->equip(&necklace);
 	player->equipWeapon(sword);
 

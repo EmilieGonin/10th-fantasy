@@ -81,6 +81,9 @@
     <ClCompile Include="..\Classes\src\RaidBossShaDo.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\src\Support.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Z:\proj.win32\main.h" />
@@ -176,6 +179,9 @@
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\RaidBossShaDo.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Support.h">
       <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>

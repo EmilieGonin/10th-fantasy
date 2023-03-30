@@ -847,6 +847,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\include\Skill.h" />
     <ClInclude Include="..\Classes\include\SkillSlash.h" />
     <ClInclude Include="..\Classes\include\SkillSwordJudgement.h" />
+    <ClInclude Include="..\Classes\include\Support.h" />
     <ClInclude Include="..\Classes\include\Sword.h" />
     <ClInclude Include="..\Classes\include\TitleScreen.h" />
     <ClInclude Include="..\Classes\include\Weapon.h" />
@@ -876,6 +877,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\src\Skill.cpp" />
     <ClCompile Include="..\Classes\src\SkillSlash.cpp" />
     <ClCompile Include="..\Classes\src\SkillSwordJudgement.cpp" />
+    <ClCompile Include="..\Classes\src\Support.cpp" />
     <ClCompile Include="..\Classes\src\Sword.cpp" />
     <ClCompile Include="..\Classes\src\TitleScreen.cpp" />
     <ClCompile Include="..\Classes\src\Weapon.cpp" />
