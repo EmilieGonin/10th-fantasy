@@ -9,11 +9,14 @@ private:
 	static GameManager* _instance;
 	int BossId;
 	int BossLvl;
+	std::string bossSprites[3];
+
 public:
 	static GameManager* Instance();
 	int getBossId();
 	int getBossLvl();
+	std::string getSprite();
+
 	void setBossId(int);
 	void setBossLvl(int);
-
-};
+};	

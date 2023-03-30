@@ -24,10 +24,11 @@ public:
     Sprite* sound;
     std::string username;
     
-    int x = 80;
-
+    int x = 60;
+    int maxX = 360;
     float musicVol;
     unsigned int audioID;
+    int tag = 0;
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
 

@@ -41,7 +41,6 @@ bool RaidMenuScene::init()
 }
 
 
-
 void RaidMenuScene::Menu()
 {
     Title = newLabel("RAIDS", 1);
@@ -55,12 +54,12 @@ void RaidMenuScene::Menu()
     this->addChild(_firstRaid, 1);
 
     Second = newButton("", "Sprite/Shado.png", 1);
-    Second->setPosition(cocos2d::Vec2(centerWidth(), 500));
+    Second->setPosition(cocos2d::Vec2(centerWidth(), 450));
     Second->setScale(0.4, 0.4);
     this->addChild(Second, 1);
 
     Third = newButton("", "Sprite/Laijande.png", 1);
-    Third->setPosition(cocos2d::Vec2(centerWidth(), 300));
+    Third->setPosition(cocos2d::Vec2(centerWidth(), 200));
     Third->setScale(0.4, 0.4);
     this->addChild(Third, 1);
 
@@ -74,7 +73,7 @@ void RaidMenuScene::Menu()
 void RaidMenuScene::Level()
 {
     // LEVELS LABELS 
-    Title = newLabel("FOREST RAID", 1);
+    Title = newLabel("", 1);
     Title->setPosition(centerWidth(), 900);
 
     Peaceful = newLabel("Peaceful", 1);
@@ -103,27 +102,27 @@ void RaidMenuScene::Level()
 
 
     // LEVELS SPRITE
-    PeacefulImg = newSprite("Sprite/DifficultyBetala.png");
+    PeacefulImg = newSprite(_gameManager->getSprite());
     PeacefulImg->setPosition(cocos2d::Vec2(centerWidth(), 780));
     PeacefulImg->setScale(0.4, 0.4);
 
-    EasyImg = newSprite("Sprite/DifficultyBetala.png");
+    EasyImg = newSprite(_gameManager->getSprite());
     EasyImg->setPosition(cocos2d::Vec2(centerWidth(), 650));
     EasyImg->setScale(0.4, 0.4);
 
-    NormalImg = newSprite("Sprite/DifficultyBetala.png");
+    NormalImg = newSprite(_gameManager->getSprite());
     NormalImg->setPosition(cocos2d::Vec2(centerWidth(), 520));
     NormalImg->setScale(0.4, 0.4);
     
-    HardImg = newSprite("Sprite/DifficultyBetala.png");
+    HardImg = newSprite(_gameManager->getSprite());
     HardImg->setPosition(cocos2d::Vec2(centerWidth(), 390));
     HardImg->setScale(0.4, 0.4);
     
-    InsaneImg = newSprite("Sprite/DifficultyBetala.png");
+    InsaneImg = newSprite(_gameManager->getSprite());
     InsaneImg->setPosition(cocos2d::Vec2(centerWidth(), 260));
     InsaneImg->setScale(0.4, 0.4);
     
-    UltimateImg = newSprite("Sprite/DifficultyBetala.png");
+    UltimateImg = newSprite(_gameManager->getSprite());
     UltimateImg->setPosition(cocos2d::Vec2(centerWidth(), 130));
     UltimateImg->setScale(0.4, 0.4);
 

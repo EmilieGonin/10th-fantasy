@@ -252,33 +252,32 @@ void MainMenuScene::Settings() {
             if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
                 openSubMenus = true;
 
-                SoundsRect(80, 807);
+                SoundsRect(x, 807);
 
                 Button* increaseButton = newButton("", "Button/plusbtn.png", 6);
-                increaseButton->setPosition(cocos2d::Vec2(400, 807));
+                increaseButton->setPosition(cocos2d::Vec2(440, 807));
                 increaseButton->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
                 increaseButton->setScale(0.08);
                 increaseButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
                     {
-                        if (type == Widget::TouchEventType::ENDED) {
+                        if (type == Widget::TouchEventType::ENDED &&  musicVol<=1.0f) {
                             cocos2d::AudioEngine::setVolume(audioID, musicVol+=0.10f);
 
-                            SoundsRect(x+=40, 807);
+                            SoundsRect(x+=40, 807  );
                         }
                     }
                 );   
 
                 Button* decreaseButton = newButton("", "Button/moinsbtn.png", 6);
-                decreaseButton->setPosition(cocos2d::Vec2(40, 800));
+                decreaseButton->setPosition(cocos2d::Vec2(20, 800));
                 decreaseButton->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
                 decreaseButton->setScale(0.25);
                 decreaseButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
                     {
-                        if (type == Widget::TouchEventType::ENDED) {
+                        if (type == Widget::TouchEventType::ENDED ) {
                             cocos2d::AudioEngine::setVolume(audioID, musicVol-=0.10f);
-                            //SoundsRect(420, 807, 6);
-                            this->removeChild(sound, true);
-                            //this->removeChildByTag();
+                            //this->removeChild(sound, true);
+                            //this->removeChildByName("1"-1);
 
                         }
                     }
@@ -311,7 +310,7 @@ void MainMenuScene::SoundsRect(int x, int y)
     sound->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
     sound->setScale(0.3);
     sound->setLocalZOrder(6);
-
+    
 }
 
 void MainMenuScene::menuCloseCallback(Ref* pSender)
