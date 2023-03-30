@@ -3,11 +3,9 @@
 
 RaidBoss::RaidBoss()
 {
-	gameManager = GameManager::Instance();
 	for (int i = 0; i < 4; i++) {
 		_rarities[i] = 0;
 	}
-	setRarities(gameManager->getDifficulty());
 }
 
 void RaidBoss::setRarities(int difficulty) {
