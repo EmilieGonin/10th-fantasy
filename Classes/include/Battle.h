@@ -36,7 +36,7 @@ public:
 	void selectEnemy(int);
 	bool getMyTurn();
 
-	Gear drop();
+	//Gear drop();
 
 	cocos2d::DrawNode* getLifeBar();
 	cocos2d::DrawNode* getEnemyLifeBar();
