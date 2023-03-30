@@ -22,6 +22,8 @@ public:
     Sprite* _inventory;
     Sprite* _settings;
     Sprite* sound;
+    Sprite* _textBox;
+
     std::string username;
     
     int x = 60;
@@ -35,6 +37,10 @@ public:
     void Buttons();
     void Sprites();
     void Labels();
+    void Tuto();
+    void TutoNextButton();
+    void TutoText(std::string, int, int);
+    void TutoTextBox(int, int);
     void BackButton(int, int, float, int);
     void Account();
     void OpenInventory();

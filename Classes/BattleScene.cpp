@@ -7,8 +7,10 @@
 #include "Sword.h"
 #include "Battle.h"
 #include "RaidBossBetala.h"
+#include "RaidBossShaDo.h"
+#include "RaidBossLaiJande.h"
 #include <vector>
-USING_NS_CC;
+USING_NS_CC;	
 
 
 Scene* BattleScene::createScene()
@@ -64,7 +66,8 @@ bool BattleScene::init()
 	};
 
 	gameManager = GameManager::Instance();
-	RaidBossBetala* boss;
+	RaidBoss* boss;
+	
 	switch (gameManager->getBossId()){
 	case 0://UwU
 		break;
@@ -73,30 +76,80 @@ bool BattleScene::init()
 		_enemies.push_back(boss);
 		break;
 	case 2:
-		boss = new RaidBossBetala(gameManager->getBossLvl());
+		boss = new RaidBossShaDo(gameManager->getBossLvl());
 		_enemies.push_back(boss);
 		break;
 	case 3:
-		boss = new RaidBossBetala(gameManager->getBossLvl());
+		boss = new RaidBossLaiJande(gameManager->getBossLvl());
 		_enemies.push_back(boss);
 		break;
 		
 	}
 	
+	db::gear Helmet;
+	Helmet.type = HELMET;
+	Helmet.stat = HP;
+	Helmet.amount = 3000;
+	Helmet.rarity = LEGENDARY;
+	Helmet.level = 0;
 
+	db::gear Chest;
+	Chest.type = CHEST;
+	Chest.stat = PDEF;
+	Chest.amount = 25;
+	Chest.rarity = LEGENDARY;
+	Chest.level = 0;
+
+	db::gear Boots;
+	Boots.type = BOOT;
+	Boots.stat = HP;
+	Boots.amount = 200;
+	Boots.rarity = LEGENDARY;
+	Boots.level = 0;
+
+	db::gear Rings;
+	Rings.type = RING;
+	Rings.stat = PATK;
+	Rings.amount = 250;
+	Rings.rarity = LEGENDARY;
+	Rings.level = 0;
+
+	db::gear Necklace;
+	Necklace.type = NECKLACE;
+	Necklace.stat = PATK;
+	Necklace.amount = 250;
+	Necklace.rarity = LEGENDARY;
+	Necklace.level = 0;
+
+	db::gear Earrings;
+	Earrings.type = EARRING;
+	Earrings.stat = CD;
+	Earrings.amount = 15;
+	Earrings.rarity = LEGENDARY;
+	Earrings.level = 0;
+	
+	std::vector<db::stat> effect;
+	db::stat EffectTheaume;
+	EffectTheaume.percentage = 1;
+	EffectTheaume.statId = ATK;
+	EffectTheaume.rate = 50;
+	effect.push_back(EffectTheaume);
 	
 	/*enemies.push_back(boss);*/
-	Gear helmet(HELMET, HP, 3000, 0, LEGENDARY);
-	Gear chest(CHEST,MDEF, 0, 0, LEGENDARY);
-	Gear legs(BOOT, PDEF, 0, 0, LEGENDARY);
-	Gear rings(RING, PATK, 250, 0, LEGENDARY);
-	Gear necklace(NECKLACE,PATK, 250, 0, LEGENDARY);
-	Gear earrings(EARRING,CD, 15, 0, LEGENDARY);
+	Gear helmet(&Helmet);
+	Gear chest(&Chest);	
+	Gear legs(&Boots);
+	Gear rings(&Rings);
+	Gear necklace(&Necklace);
+	Gear earrings(&Earrings);
 
 	player = new Player();
 	Sword* sword = new Sword(50);
 
-	player->equip(&helmet);
+	db::support support = _database->getSupport(10);
+	player->equipSupport(new Support(&support));
+	player->equipSupport(new Support(&support));
+	player->equip(&helmet);	
 	player->equip(&chest);
 	player->equip(&rings);
 	player->equip(&necklace);

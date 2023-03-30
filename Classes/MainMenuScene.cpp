@@ -41,7 +41,30 @@ bool MainMenuScene::init()
     Buttons();
     Sounds();
 
+    if (!_gameManager->getTutoCompleted()) {
+        Tuto();
+    }
     return true;
+}
+
+void MainMenuScene::Tuto() {
+    TutoTextBox(100, 280);
+    TutoNextButton();
+    if (_gameManager->getTutoPhases() == 0) {
+        Interface::newLabel("Hello and welcome to our headquarters! I'll help you make yourself at home.", 100, 450, 5);
+    }
+    else if (_gameManager->getTutoPhases() == 1) {
+        Interface::newLabel("", 0, 0, 5);
+    }
+    else if (_gameManager->getTutoPhases() == 2) {
+        Interface::newLabel("", 0, 0, 5);
+    }
+    else if (_gameManager->getTutoPhases() == 3) {
+        Interface::newLabel("", 0, 0, 5);
+    }
+    else if (_gameManager->getTutoPhases() == 4) {
+        Interface::newLabel("", 0, 0, 5);
+    }
 }
 
 void MainMenuScene::Sprites() {
@@ -114,7 +137,7 @@ void MainMenuScene::Buttons() {
 
     summonButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
-            if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
+            if (type == Widget::TouchEventType::ENDED && openSubMenus == false && _gameManager->getTutoCompleted()) {
                 cocos2d::Director::getInstance()->replaceScene(SummonMenuScene::create());
                 AudioEngine::pause(audioID);
             }
@@ -129,7 +152,7 @@ void MainMenuScene::Buttons() {
 
     characterButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
-            if (type == Widget::TouchEventType::ENDED) {
+            if (type == Widget::TouchEventType::ENDED && _gameManager->getTutoCompleted()) {
                 cocos2d::Director::getInstance()->replaceScene(CharacterMenu::create());
                 AudioEngine::pause(audioID);
             }
@@ -144,7 +167,7 @@ void MainMenuScene::Buttons() {
 
     dropDownButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
-            if (type == Widget::TouchEventType::ENDED && openSubMenus == false) {
+            if (type == Widget::TouchEventType::ENDED && openSubMenus == false && _gameManager->getTutoCompleted()) {
 
                 Account();
                 OpenInventory();
@@ -164,11 +187,11 @@ void MainMenuScene::BackButton(int x, int y, float scale, int layer) {
     backButton->setPosition(cocos2d::Vec2(x, y));
     backButton->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
     backButton->setScale(scale);
+
     backButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
                 cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-                openSubMenus = false;
             }
         }
     );
@@ -292,10 +315,34 @@ void MainMenuScene::Settings() {
                 _settings->setScale(0.5);
                 _settings->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
                 this->addChild(_settings, 5);
+void MainMenuScene::TutoTextBox(int x, int y) {
+    _textBox = Sprite::create("Button/Rectangle.png");
+    _textBox->setPosition(x, y);
+    _textBox->setScale(0.5);
+    _textBox->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+
+    this->addChild(_textBox, 4);
+}
+
+void MainMenuScene::TutoNextButton() {
+    Button* nextButton = newButton("", "Button/Back.png", 5);
+    nextButton->setPosition(cocos2d::Vec2(120, 310));
+    nextButton->setAnchorPoint(Vec2::ZERO);
+    nextButton->setScale(0.05);
+
+    nextButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+                _gameManager->setTutoPhases(1);
+                if (_gameManager->getTutoPhases() == 10) {
+                    _gameManager->setTutoCompleted(true); 
+                }
             }
         }
     );
 }
+
 
 void MainMenuScene::Sounds() {
     musicVol = 0.1f;
@@ -312,7 +359,6 @@ void MainMenuScene::SoundsRect(int x, int y)
     sound->setLocalZOrder(6);
     
 }
-
 void MainMenuScene::menuCloseCallback(Ref* pSender)
 {
     //Close the cocos2d-x game scene and quit the application

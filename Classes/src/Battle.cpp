@@ -36,16 +36,47 @@ Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
 	enemyLifeBar->setAnchorPoint(cocos2d::Vec2(0.0, 0.0));
 	enemyLifeBar->setPosition(cocos2d::Vec2(200, 650));
 
-	
+	_player->update();
 	//myLifeBar->drawPolygon(rectangle, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
 	//enemyLifeBar->drawPolygon(rectangle2, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
 
-	
+	//Support Time 
+	cocos2d::log(_player->getSupport()[0]->getSupportStat()->name.c_str());
+	for (int index = 0; index < _player->getSupport().size(); index++)
+	{
+		
+		if (_player->getSupport()[index]->getSupportStat()->type == 2)
+		{
+			std::vector<db::stat> effect = _player->getSupport()[index]->getSupportStat()->stats;
+			for (int statIndex = 0; statIndex < effect.size(); statIndex++)
+			{
+				if (effect[statIndex].percentage == 0)
+				{
+					CCLOG("going up");
+					CCLOG("%d", effect[statIndex].statId);
+					CCLOG("%d", *_player->getTotalStats()[effect[statIndex].statId]);
+					*_player->getTotalStats()[effect[statIndex].statId] += effect[statIndex].rate;
+					CCLOG("%d", *_player->getTotalStats()[effect[statIndex].statId]);
+				}
+				else if (effect[statIndex].percentage == 1)
+				{
+					CCLOG("going upppppp");
+					float rate = (effect[statIndex].rate / 100.0000);
+					float amount = *_player->getTotalStats()[effect[statIndex].statId] * rate;
+					CCLOG("%f", rate);
+					CCLOG("%d", _player->getBattleHP());
+					*_player->getTotalStats()[effect[statIndex].statId] += (int)amount;
+					CCLOG("%d", *_player->getTotalStats()[effect[statIndex].statId]);
+				}
+			}
+		}
+	}
 
 	for (int i = 0; i < _enemies.size(); i++) {
 		
 		_battleOrder.push_back(_enemies[i]);
 	}
+	
 	_battleOrder.push_back(_player);
 	play();
 }	
@@ -59,19 +90,29 @@ void Battle::attack(Entity* attacker, Entity* target, Skill* skillUsed) {
 	float multiplicatorType;
 
 	if (attacker->getDamageType() == 0) {
+
+
 		usedDef = *target->getTotalStats()[PDEF];
-		multiplicatorType = *attacker->getTotalStats()[PATK];
+		multiplicatorType = 1 + ((float)*attacker->getTotalStats()[PATK] / 100.0000);
 		std::cout << "Physical damage" << std::endl;
 	}
 	else {
 		usedDef = *target->getTotalStats()[MDEF];
-		multiplicatorType = *attacker->getTotalStats()[MATK];
+		multiplicatorType = 1 + (*attacker->getTotalStats()[MATK] / 100.0000);
 	}
-	float atk = *attacker->getTotalStats()[ATK];
-	int damage = (*attacker->getTotalStats()[ATK] + (*attacker->getTotalStats()[ATK] * multiplicatorType) - (usedDef / 2)) * skillUsed->getMultiplier();
+	float atk = (float)*attacker->getTotalStats()[ATK];
+	float def = (float)usedDef;
+	float damage = ((atk * multiplicatorType) * (1000/(1000 + def))) * skillUsed->getMultiplier();
+
 	if (damage <= 0) {
 		damage = 0;
 	}
+	int cr = rand() % 100;
+	/*if (cr < *attacker->getTotalStats()[CR]) {
+		damage = damage * *attacker->getTotalStats()[CD];
+	}*/
+
+	CCLOG("Mdama fzerg LIER %f", damage);
 	target->looseHp(damage);
 	myDamage = newLabel(std::to_string(damage));
 	myDamage->setPosition(Vec2(target->getSprite()->getPosition().x, target->getSprite()->getPosition().y + 200));
@@ -120,6 +161,7 @@ void Battle::play() {
 				CCLOG("I attack");
 				
 				attack(_player, _enemies[selectedEnemy], _player->getSkills()[selectedSkill]);
+				
 				for (int a = 0; a < _player->getSkills().size(); a++)
 				{
 					if (_player->getSkills()[a]->_cooldown > 0)
@@ -149,51 +191,19 @@ void Battle::battleCheck() {
 			_battleOrder.erase(_battleOrder.begin() + i );
 		}
 	}
-	if (_battleOrder.size() == 1 && _player->getBattleHP() > 0) {
+	if (_battleOrder.size() <= 1 && _player->getBattleHP() > 0) {
 		CCLOG("I WIN");
+
 		_battle = false;
 		_win = true;
 		cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 	}
 	
 }
-/*
-Gear Battle::drop() {
 
-	int rarity = rand() % 4;
-		switch (rarity)
-		{
-		case 0:
-		default:
-			break;
-		}
-
-	int type = rand() % 6;
-	switch (type)
-	{
-	case 0:
-	default:
-		break;
-	}
-
-	int stat = rand() % statN;
-	switch (stat)
-	{
-	case 0:
-	default:
-		break;
-	}
-
-	int amount = rand() % MaxStat;
-	switch (Amount)
-	{
-	case 0:
-	default:
-		break;
-	}
-
-
-}*/
+//Gear Battle::drop() {
+//	//
+//}
 
 bool Battle::getBattleState() { return _battle; }
 bool Battle::getMyTurn() { return _myTurn; }
@@ -207,7 +217,8 @@ void Battle::updateLifeBar()
 	myLifeBar->drawSolidRect(cocos2d::Vec2(0, 0), cocos2d::Vec2(100 * _player->getBattleHP() / *_player->getTotalStats()[HP], 20), cocos2d::Color4F::RED);
 
 	enemyLifeBar->clear();
-	enemyLifeBar->drawSolidRect(cocos2d::Vec2(0, 0), cocos2d::Vec2(250 * _enemies[0]->getBattleHP() / *_player->getTotalStats()[HP], 20), cocos2d::Color4F::RED);
+	CCLOG("%d", _enemies[0]->getBattleHP());
+	enemyLifeBar->drawSolidRect(cocos2d::Vec2(0, 0), cocos2d::Vec2(300 * _enemies[0]->getBattleHP() / *_enemies[0]->getTotalStats()[HP], 20), cocos2d::Color4F::RED);
 
 	//rectangle[0] = cocos2d::Vec2(0, -8);
 	//rectangle[1] = cocos2d::Vec2(100 * _player->getBattleHP() / *_player->getTotalStats()[HP], -8);
@@ -219,6 +230,7 @@ void Battle::updateLifeBar()
 
 	
 }
+
 
 void Battle::setSelected(int selected) 
 {

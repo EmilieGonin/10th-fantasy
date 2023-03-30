@@ -7,6 +7,7 @@
 #include <optional>
 #include <fstream>
 #include "Interface.h"
+#include "GameManager.h"
 
 using json = nlohmann::json; //On raccourcis le namespace
 using namespace cocos2d::ui;
@@ -23,6 +24,7 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int tickets;
 		int timer;
 		int id;
+		int gender; //1 = Male, 2 = Female
 		std::vector<int> supports;
 	};
 
@@ -96,12 +98,14 @@ private:
 	Database();
 	static Database* _instance;
 	cocos2d::Scene* _scene;
+	GameManager* _gameManager;
 	db::user _user;
 	db::character _character;
 	db::inventory _inventory;
 	std::string _url; //Testing only - to encrypt
 	cpr::Response _request;
 	std::string _email;
+	bool _logged;
 
 public:
 	static Database* Instance();
@@ -157,4 +161,5 @@ public:
 	db::user* user();
 	db::character* character();
 	db::inventory* inventory();
+	bool isLogged();
 };

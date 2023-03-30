@@ -7,7 +7,7 @@ Player::Player() {
 	_basedef = _totalDef = 76; // 8 def per lvl
 	_baseMagicDef = _totalMagicDef = 76; // 8 def per lvl
 	_baseatk = _totalAtk = 75; // 12 atk per lvl
-	_bonusMagical = _bonusPhysical = 0;
+	_bonusMagical = _bonusPhysical = 25;
 	_lvl = 1;// 50 lvl
 	_dmgType = 0; // 
 	SkillSlash *mySlash = new SkillSlash();
@@ -25,15 +25,12 @@ Player::Player() {
 
 Player::~Player() {};
 
-
-
-
 void Player::levelup() {
 	_lvl += 1;
-	_totalHp = _basehp += 75; // 75hp per lvl
-	_totalDef = _basedef += 8; // 8 def per lvl
-	_totalMagicDef =_baseMagicDef += 8; // 8 def per lvl
-	_totalAtk = _baseatk += 20; // 12 atk per lvl
+	_battleHp = _totalHp = _basehp += (75* 2 * _lvl) / 4 ;
+	CCLOG("%d", _totalHp);
+	_totalDef = _totalMagicDef = _basedef = _baseMagicDef += (8 * 100 + (_lvl/20) * 100) / 100;
+	_totalAtk = _baseatk += (8 * 100 +(_lvl/1,5) * 100) / 100; 
 	update();
 }
 
@@ -52,15 +49,24 @@ void Player::equipWeapon(Weapon* weapon)
 
 }
 
+
+void Player::equipSupport(Support* support)
+{
+	_mySupport.push_back(support);
+}
+
 void Player::update() {
 	_battleHp = _totalHp;
+	CCLOG(" BATTLE HPPPPPP %d", _battleHp);
 	if(_myStuff.size() != 0)
 	{
 		for (int i = 0; i < _myStuff.size(); i++) {
 			
-			*_finalStats[_myStuff[i]->getStatType()] += _myStuff[i]->getAmount();
+			*_finalStats[_myStuff[i]->getGear()->stat] =  _myStuff[i]->getGear()->amount;
 
 		}
 	}
 }
+
+std::vector<Support*> Player::getSupport() { return _mySupport; }
 
