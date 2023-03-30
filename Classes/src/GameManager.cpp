@@ -7,7 +7,7 @@ GameManager::GameManager()
 	_bossId = 0;
 	_bossLvl = 0;
 	_difficulty = 0;
-	_tutoCompleted = false;
+	_tutoCompleted = true;
 	_tutoPhases = 0;
 	_loading = false;
 }
