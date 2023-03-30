@@ -113,21 +113,7 @@ void Database::init(cocos2d::Scene* scene) {
 		label->setPosition(center());
 
 		cocos2d::Label* userLabel = newLabel("Logged in as " + _user.name, 1);
-		userLabel->setPosition(Vec2(centerWidth(), top(userLabel->getLineHeight()))); //set position top
-
-		Button* button = newButton("Next");
-		button->setPosition(cocos2d::Vec2(centerWidth(), centerHeight() - 50));
-
-		button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
-			{
-				if (type == Widget::TouchEventType::ENDED) {
-					cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-				}
-			}
-		);
-		//rajouter touch event on screen puis replace scene
-		//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-		//cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
+		userLabel->setPosition(Vec2(centerWidth(), top(userLabel->getLineHeight())));
 	}
 	else {
 		deleteSave();
