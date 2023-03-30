@@ -209,11 +209,13 @@ void RaidMenuScene::Play()
                 loadBattle(5);
             }
         }
-    );   
+    );
     
     UltimatePlay->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
-            loadBattle(6);
+            if (type == Widget::TouchEventType::ENDED) {
+                loadBattle(6);
+            }
         }
     );
 }
