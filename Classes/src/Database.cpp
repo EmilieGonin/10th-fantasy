@@ -94,6 +94,7 @@ Database* Database::_instance = new Database();
 
 Database::Database() {
 	_url = "https://49g5s1t0.directus.app"; //To encrypt
+	_logged = false;
 }
 
 Database* Database::Instance() {
@@ -310,6 +311,7 @@ bool Database::getUser() {
 	if (request(url)) {
 		_user = json::parse(_request.text)["data"][0].get<db::user>();
 		if (getCharacter()) {
+			_logged = true;
 			return getInventory();
 		}
 		else {
@@ -513,10 +515,9 @@ db::support Database::getSupport(int index) {
   14 = Ignore Defense
   */
 
-void Database::setEmail(std::string email) {
-	_email = email;
-}
+void Database::setEmail(std::string email) { _email = email; }
 
 db::user* Database::user() { return &_user; }
 db::character* Database::character() { return &_character; }
 db::inventory* Database::inventory() { return &_inventory; }
+bool Database::isLogged() { return _logged; }
