@@ -317,7 +317,7 @@ bool Database::getCharacter() {
 		_character = json::parse(_request.text)["data"][0].get<db::character>();
 
 		//Getting character gears
-		for (size_t i = 0; i < sizeof(_character.gearsId); i++)
+		for (size_t i = 0; i < std::size(_character.gearsId); i++)
 		{
 			int id = _character.gearsId[i];
 
