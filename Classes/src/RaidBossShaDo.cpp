@@ -2,7 +2,7 @@
 #include "SkillSlash.h"
 
 RaidBossShaDo::RaidBossShaDo(int lvl) {
-	mySprite = cocos2d::Sprite::create("sprite/betala.png");
+	mySprite = cocos2d::Sprite::create("Sprite/shado_boss.png");
 	_name = "Sha Dô";
 	_basehp = _totalHp = 5000 + 600 * lvl;
 	_baseatk = _totalAtk = 100 + 80 * lvl;

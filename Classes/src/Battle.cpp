@@ -34,7 +34,7 @@ Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
 
 	enemyLifeBar->drawSolidRect(cocos2d::Vec2(0, 0), cocos2d::Vec2(250, 20), cocos2d::Color4F::GREEN);
 	enemyLifeBar->setAnchorPoint(cocos2d::Vec2(0.0, 0.0));
-	enemyLifeBar->setPosition(cocos2d::Vec2(200, 650));
+	enemyLifeBar->setPosition(cocos2d::Vec2(200, 720));
 
 	_player->update();
 	//myLifeBar->drawPolygon(rectangle, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
