@@ -84,6 +84,9 @@
     <ClCompile Include="..\Classes\src\Support.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\RaidBossLootScene.cpp">
+      <Filter>Classes\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Z:\proj.win32\main.h" />
@@ -169,6 +172,9 @@
     <ClInclude Include="..\Classes\include\Weapon.h">
       <Filter>Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\include\ShopMenu.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\include\GameManager.h">
       <Filter>Classes</Filter>
     </ClInclude>
@@ -181,7 +187,7 @@
     <ClInclude Include="..\Classes\include\Support.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\include\ShopMenu.h">
+    <ClInclude Include="..\Classes\RaidBossLootScene.h">
       <Filter>Classes\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

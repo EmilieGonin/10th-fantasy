@@ -853,6 +853,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\include\Weapon.h" />
     <ClInclude Include="..\Classes\Interface.h" />
     <ClInclude Include="..\Classes\MainMenuScene.h" />
+    <ClInclude Include="..\Classes\RaidBossLootScene.h" />
     <ClInclude Include="..\Classes\SummonMenuScene.h" />
     <ClInclude Include="Z:\Classes\AppDelegate.h" />
     <ClInclude Include="Z:\Classes\MainScene.h" />
@@ -860,6 +861,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="Z:\proj.win32\resource.h" />
     <ClCompile Include="..\Classes\Interface.cpp" />
     <ClCompile Include="..\Classes\MainMenuScene.cpp" />
+    <ClCompile Include="..\Classes\RaidBossLootScene.cpp" />
     <ClCompile Include="..\Classes\src\Battle.cpp" />
     <ClCompile Include="..\Classes\src\Database.cpp" />
     <ClCompile Include="..\Classes\src\Enemy.cpp" />

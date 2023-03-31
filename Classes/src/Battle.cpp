@@ -170,8 +170,10 @@ void Battle::play() {
 	}
 	updateLifeBar();
 }
-
+ 
 void Battle::battleCheck() {
+	
+
 	CCLOG("Checking ");
 	for (int i = 0; i < _battleOrder.size(); i++) {
 		if (_battleOrder[i]->getBattleHP() <= 0) {
@@ -184,7 +186,7 @@ void Battle::battleCheck() {
 		drop();
 		_battle = false;
 		_win = true;
-		cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+		cocos2d::Director::getInstance()->replaceScene(RaidBossLootScene::create());
 	}
 }
 
@@ -241,6 +243,7 @@ void Battle::drop() {
 }
 
 bool Battle::getBattleState() { return _battle; }
+bool Battle::getWin() { return _win; }
 bool Battle::getMyTurn() { return _myTurn; }
 int Battle::getSelected() { return selectedSkill; }
 cocos2d::DrawNode* Battle::getLifeBar() { return myLifeBar; }
