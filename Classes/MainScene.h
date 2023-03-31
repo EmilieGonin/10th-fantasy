@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameManager.h"
+#include "PlayerManager.h"
 #include "cocos2d.h"
 #include <vector>
 #include "database.h"
@@ -12,6 +13,7 @@ protected:
 	cocos2d::Director* _director;
 	Database* _database;
 	GameManager* _gameManager;
+	PlayerManager* _playerManager;
 	TextField* _textField; //use interface wrapper instead
 	DrawNode* _loadingRect;
 	Label* _loadingLabel;

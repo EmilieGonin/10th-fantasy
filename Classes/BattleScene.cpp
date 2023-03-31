@@ -28,6 +28,8 @@ bool BattleScene::init()
 {
 	if (!Scene::init()) { return false; }
 
+
+	player = PlayerManager::Instance()->getPlayer();
 	/*enum Stats {
 		ATK = 0,
 		MATK = 1,
@@ -77,8 +79,9 @@ bool BattleScene::init()
 		
 	}
 	
-	
-	
+
+	Sword* sword = new Sword(50);
+	player->equipWeapon(sword);
 
 	Battle* raidBattle =  new Battle(player, _enemies, 1);
 	battle = raidBattle;
@@ -92,34 +95,34 @@ bool BattleScene::init()
 	listener->onMouseUp = CC_CALLBACK_1(BattleScene::MouseUp, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-	this->addChild(background);
-	this->addChild(player->getSprite());
-	this->addChild(battle->getLifeBar());
-	this->addChild(battle->getEnemyLifeBar());
+	//this->addChild(background);
+	//this->addChild(player->getSprite());
+	//this->addChild(battle->getLifeBar());
+	//this->addChild(battle->getEnemyLifeBar());
 
-	for (int i = 0; i < _enemies.size(); i++)
-	{
-		//_enemies[i]->getSprite()->setPosition(400 + i * 50, 100);
-		//_enemies[i]->getSprite()->setPosition(150 + i * 50, 250);
-		_enemies[i]->getSprite()->setPosition(220, 250);
+	//for (int i = 0; i < _enemies.size(); i++)
+	//{
+	//	//_enemies[i]->getSprite()->setPosition(400 + i * 50, 100);
+	//	//_enemies[i]->getSprite()->setPosition(150 + i * 50, 250);
+	//	_enemies[i]->getSprite()->setPosition(220, 250);
 
-		_enemies[i]->getSprite()->setScale(0.8);
-		_enemies[i]->getSprite()->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-		this->addChild(_enemies[0]->getSprite());
-	}
+	//	_enemies[i]->getSprite()->setScale(0.8);
+	//	_enemies[i]->getSprite()->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+	//	this->addChild(_enemies[0]->getSprite());
+	//}
 
-	for (int i = 0; i < player->getSkills().size(); i++)
-	{
-		CCLOG("okok");
-		player->getSkills()[i]->getSprite()->setPosition(50 + i * 150, 100);
-		player->getSkills()[i]->getSprite()->setScale(0.1);
+	//for (int i = 0; i < player->getSkills().size(); i++)
+	//{
+	//	CCLOG("okok");
+	//	player->getSkills()[i]->getSprite()->setPosition(50 + i * 150, 100);
+	//	player->getSkills()[i]->getSprite()->setScale(0.1);
 
-		player->getSkills()[i]->getSprite()->setAnchorPoint(Vec2::ZERO);
-		this->addChild(player->getSkills()[i]->getSprite());
-	}
+	//	player->getSkills()[i]->getSprite()->setAnchorPoint(Vec2::ZERO);
+	//	this->addChild(player->getSkills()[i]->getSprite());
+	//}
 
-	auto visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	//auto visibleSize = Director::getInstance()->getVisibleSize();
+	//Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	this->schedule(CC_SCHEDULE_SELECTOR(BattleScene::loop), 1);
 
@@ -127,7 +130,7 @@ bool BattleScene::init()
 }
 void BattleScene::loop(float delta)
 {
-	if (battle->getMyTurn() == false)
+	/*if (battle->getMyTurn() == false)
 	{
 
 		for (int i = 0; i < player->getSkills().size(); i++)
@@ -144,12 +147,12 @@ void BattleScene::loop(float delta)
 				player->getSkills()[a]->getSprite()->setColor(Color3B::RED);
 			}
 		}
-	}
+	}*/
 
 
 }
 void BattleScene::MouseUp(Event * event) {
-	EventMouse* e = (EventMouse*)event;
+	/*EventMouse* e = (EventMouse*)event;
 	int button = e->getCursorX();
 	cocos2d::log("%d", button);
 	_mousePosition = e->getLocationInView();
@@ -192,5 +195,5 @@ if (battle->getSelected() >= 0)
 				player->getSkills()[0]->getSprite()->setColor(Color3B::WHITE);
 			}
 		}
-	}
+	}*/
 }

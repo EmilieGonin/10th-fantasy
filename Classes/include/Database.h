@@ -56,9 +56,9 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 
 	struct character {
 		int userId;
-		int gearsId[8];
+		int gearsId[6];
 		int supportsId[2];
-		db::gear gears[8];
+		db::gear gears[6];
 		db::support supports[2];
 		int id;
 	};

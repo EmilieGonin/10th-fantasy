@@ -13,16 +13,14 @@ class Player : public Entity
 {
 protected:	
 	db::character* character;
-	std::vector<Gear*> _myStuff;
 	std::vector<int> stats;
 	std::vector<Support*> _mySupport;	
 	Weapon* _weapon;
 public: 
-	Player();
+	Player(db::character*);
 	~Player();
 	db::character* getCharacter();
 	void levelup();
-	void equip(Gear*);
 	void equipWeapon(Weapon*);
 	void equipSupport(Support*);
 	void update();

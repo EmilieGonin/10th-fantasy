@@ -18,6 +18,9 @@ bool TitleScreen::init()
     if (!Scene::init()) { return false; }
 
     _database->init(this);
+    player = new Player(_database->character());
+    _playerManager->setPlayer(player);
+
     setScene(this);
 
     //Touch screen event

@@ -6,8 +6,10 @@
 #include "BattleScene.h"
 
 MainScene::MainScene() {
+
 	_database = Database::Instance();
 	_gameManager = GameManager::Instance();
+	_playerManager = PlayerManager::Instance();
 	_director = cocos2d::Director::getInstance();
 	this->schedule(SEL_SCHEDULE(&MainScene::timer), 300);
 }
