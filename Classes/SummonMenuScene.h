@@ -10,6 +10,10 @@ public:
     Sprite* _banner;
     Sprite* _back;
 
+    void Buttons();
+    void Sprites();
+    void Labels();
+
     // implement the "static create()" method manually
     CREATE_FUNC(SummonMenuScene);
 };

@@ -19,16 +19,14 @@ bool SummonMenuScene::init()
     if (!Scene::init()) { return false; }
     setScene(this);
 
-    cocos2d::Label* Single = newLabel("Single Summons", 2);
-    Single->setPosition(120, 440);
-    Single->setAnchorPoint(Vec2::ZERO);
-    Single->setScale(0.5);
+    Sprites();
+    Buttons();
+    Labels();
 
-    cocos2d::Label* Multi = newLabel("10x Summons", 2);
-    Multi->setPosition(300, 440);
-    Multi->setAnchorPoint(Vec2::ZERO);
-    Multi->setScale(0.5);
+    return true;
+}
 
+void SummonMenuScene::Sprites() {
     _banner = Sprite::create("Banners/djeamy_banner.png");
     _banner->setAnchorPoint(Vec2::ZERO);
     _banner->setPosition(10, 500);
@@ -39,6 +37,12 @@ bool SummonMenuScene::init()
     _back->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
     _back->setPosition(0, 945);
     _back->setScale(0.12);
+
+    this->addChild(_back);
+    this->addChild(_banner);
+}
+
+void SummonMenuScene::Buttons() {
 
     Button* backButton = newButton("", "Button/Back.png", 1);
     backButton->setPosition(cocos2d::Vec2(0, 942));
@@ -78,10 +82,16 @@ bool SummonMenuScene::init()
             }
         }
     );
+}
 
-    this->addChild(_back);
-    this->addChild(_banner);
+void SummonMenuScene::Labels() {
+    cocos2d::Label* Single = newLabel("Single Summons", 2);
+    Single->setPosition(120, 440);
+    Single->setAnchorPoint(Vec2::ZERO);
+    Single->setScale(0.5);
 
-    
-    return true;
+    cocos2d::Label* Multi = newLabel("10x Summons", 2);
+    Multi->setPosition(300, 440);
+    Multi->setAnchorPoint(Vec2::ZERO);
+    Multi->setScale(0.5);
 }
