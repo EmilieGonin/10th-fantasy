@@ -7,6 +7,7 @@
 #include "Skill.h"
 #include "Interface.h"
 #include "GameManager.h"
+#include "RaidBossLootScene.h"
 #include "Database.h"
 #include <random>
 
@@ -35,6 +36,7 @@ public:
 	void play();
 	void battleCheck();
 	bool getBattleState();
+	bool getWin();
 	int getSelected();
 	void setSelected(int);
 	void selectEnemy(int);
