@@ -507,7 +507,7 @@ db::support Database::getSupport(int index) {
   */
 
 void Database::setEmail(std::string email) { _email = email; }
-void Database::emptyPull() { _lastPull.empty(); }
+void Database::emptyPull() { _lastPull.clear(); }
 
 db::user* Database::user() { return &_user; }
 db::character* Database::character() { return &_character; }
