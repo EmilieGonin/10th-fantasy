@@ -2,7 +2,7 @@
 #include "MainScene.h"
 #include "MainMenuScene.h"
 
-class TitleScreen : public MainScene
+class TitleScreen : public MainScene, Interface
 {
 public:
     static cocos2d::Scene* createScene();
