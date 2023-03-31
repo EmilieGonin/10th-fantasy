@@ -95,6 +95,22 @@ void MainMenuScene::Sprites() {
 
 void MainMenuScene::Labels() {
 
+	_energy = "Energy: " + std::to_string(_database->user()->energy);
+
+	cocos2d::Label* energyy = newLabel(_energy, 1);
+	energyy->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+	energyy->setScale(0.7);
+	energyy->setPosition(110, 920);
+
+	_crystal = "Crystal: " + std::to_string(_database->user()->cristals);
+
+	cocos2d::Label* crystal = newLabel(_crystal, 2);
+	crystal->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+	crystal->setScale(0.7);
+	crystal->setPosition(230, 920);
+
+	
+	
 }
 
 void MainMenuScene::Buttons() {
@@ -111,6 +127,7 @@ void MainMenuScene::Buttons() {
 			}
 		}
 	);
+
 	// SHOP
 	Button* shopButton = newButton("", "Button/Shop.png", 3);
 	shopButton->setPosition(cocos2d::Vec2(225, 23));
@@ -125,6 +142,7 @@ void MainMenuScene::Buttons() {
 			}
 		}
 	);
+
 	// SUMMON
 	Button* summonButton = newButton("", "Button/Summon.png", 3);
 	summonButton->setPosition(cocos2d::Vec2(40, 23));
@@ -140,7 +158,7 @@ void MainMenuScene::Buttons() {
 		}
 	);
 
-	// INVENTORY 
+	// STUFF 
 	Button* characterButton = newButton("", "Button/characterbtn.png");
 	characterButton->setPosition(cocos2d::Vec2(10, 935));
 	characterButton->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
@@ -206,7 +224,7 @@ void MainMenuScene::Account()
 
 				openSubMenus = true;
 
-				BackButton(200, 850, 0.03, 5);
+				BackButton(190, 840, 0.03, 5);
 
 				username = "Username: " + _database->user()->name;
 
@@ -216,20 +234,33 @@ void MainMenuScene::Account()
 				user->setPosition(215, 800);
 
 				Button* editButton = newButton("", "Button/editbtn.png", 5);
-				editButton->setPosition(cocos2d::Vec2(300, 800));
+				editButton->setPosition(cocos2d::Vec2(500, 805));
 				editButton->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
-				editButton->setScale(0.15);
+				editButton->setScale(0.12);
 				editButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
 					{
 						if (type == Widget::TouchEventType::ENDED) {
+							TextField* name = TextField::create("Enter new pseudo", "fonts/Marker Felt.ttf", 30);
+							name->setPosition(cocos2d::Vec2(315, 750));
 
+							Button * okbtn = newButton("ok", "",5);
+							okbtn->setPosition(cocos2d::Vec2(315, 720));
+
+							okbtn->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
+								{
+									if (type == Widget::TouchEventType::BEGAN) {
+										log("began");
+									}
+								}
+							);
+							this->addChild(name,5);
 						}
 					}
 				);
 
 				_background4 = Sprite::create("Button/Rectangle.png");
-				_background4->setPosition(200, 850);
-				_background4->setScale(0.25);
+				_background4->setPosition(180, 850);
+				_background4->setScale(0.5,0.25);
 				_background4->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
 				this->addChild(_background4, 4);
 			}
@@ -259,7 +290,6 @@ void MainMenuScene::OpenInventory() {
 		}
 	);
 }
-
 
 void MainMenuScene::newTutoNextButton() {
 	Button* nextButton = newButton("", "Button/Back.png", 11);

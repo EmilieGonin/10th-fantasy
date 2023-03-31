@@ -4,8 +4,8 @@
 RaidBossShaDo::RaidBossShaDo(int lvl) {
 	mySprite = cocos2d::Sprite::create("Sprite/shado_boss.png");
 	_name = "Sha Dô";
-	_basehp = _totalHp = 5000 + 600 * lvl;
-	_baseatk = _totalAtk = 100 + 80 * lvl;
+	_basehp = _totalHp = 5000 + 988 * lvl;
+	_baseatk = _totalAtk = 100 + 155 * lvl;
 	_basedef = _totalDef = 200 + 70 * lvl;
 	_baseMagicDef = _totalMagicDef = 200 + 18 * lvl;
 	
