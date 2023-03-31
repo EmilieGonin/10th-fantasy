@@ -6,7 +6,7 @@
 #include "cocos2d.h"
 #include <iostream>
 
-class CharacterMenu : public MainScene, Interface
+class CharacterMenu : public MainScene
 {
 protected:
     //Use interface wrapper instead !

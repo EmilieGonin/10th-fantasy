@@ -142,8 +142,6 @@ void SummonMenuScene::pullResult() {
         _button->setPosition(Vec2(centerWidth(), 50));
     }
 
-    _database->emptyPull();
-
     _button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {

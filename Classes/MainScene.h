@@ -6,13 +6,15 @@
 #include "database.h"
 
 
-class MainScene : public cocos2d::Scene
+class MainScene : public cocos2d::Scene, public Interface
 {
 protected:
 	cocos2d::Director* _director;
 	Database* _database;
 	GameManager* _gameManager;
 	TextField* _textField; //use interface wrapper instead
+	DrawNode* _loadingRect;
+	Label* _loadingLabel;
 
 public:
 	MainScene();
@@ -26,4 +28,6 @@ public:
 	void pull(int);
 	void timer(float);
 	bool hasEnoughEnergy(int);
+	void loadingScreen();
+	void stopLoadingScreen();
 };
