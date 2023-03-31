@@ -32,6 +32,7 @@ int MainScene::rand(int range) {
 
 void MainScene::pull(int num) {
 	log("**********"); //Help to see logs
+	_database->emptyPull();
 
 	for (size_t i = 0; i < num; i++)
 	{
@@ -57,6 +58,8 @@ void MainScene::pull(int num) {
 			std::vector<db::support> supports = _database->getSupports(rarity);
 			pulled = supports[rand(supports.size()) - 1];
 		}
+
+		_database->lastPull()->push_back(pulled);
 
 		std::vector<int> userSupports = _database->user()->supports;
 		bool alreadyPulled = std::count(userSupports.begin(), userSupports.end(), pulled.supportId);

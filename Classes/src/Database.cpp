@@ -502,8 +502,10 @@ db::support Database::getSupport(int index) {
   */
 
 void Database::setEmail(std::string email) { _email = email; }
+void Database::emptyPull() { _lastPull.empty(); }
 
 db::user* Database::user() { return &_user; }
 db::character* Database::character() { return &_character; }
 db::inventory* Database::inventory() { return &_inventory; }
+std::vector<db::support>* Database::lastPull() { return &_lastPull; }
 bool Database::isLogged() { return _logged; }
