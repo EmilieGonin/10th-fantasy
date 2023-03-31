@@ -6,12 +6,6 @@
     <ClCompile Include="..\Classes\src\Battle.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\src\CharacterMenu.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\src\Database.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\src\Enemy.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
@@ -72,9 +66,6 @@
     <ClCompile Include="..\Classes\src\ShopMenu.cpp">
       <Filter>Classes\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\src\GameManager.cpp">
-      <Filter>Classes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\src\RaidBossLaiJande.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
@@ -84,23 +75,27 @@
     <ClCompile Include="..\Classes\src\Support.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Z:\Classes\src\PlayerManager.cpp" />
-    <ClCompile Include="..\Classes\src\PlayerManager.cpp">
-      <Filter>Classes</Filter>
     <ClCompile Include="..\Classes\RaidBossLootScene.cpp">
       <Filter>Classes\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\Classes\src\PlayerManager.cpp" />
+    <ClCompile Include="..\Classes\src\CharacterMenu.cpp">
+      <Filter>Classes\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\GameManager.cpp">
+      <Filter>Classes\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\PlayerManager.cpp">
+      <Filter>Classes\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\src\Database.cpp">
+      <Filter>Classes\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Z:\proj.win32\main.h" />
     <ClInclude Include="Z:\proj.win32\resource.h" />
     <ClInclude Include="..\Classes\include\Battle.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\include\CharacterMenu.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\include\Database.h">
       <Filter>Classes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\Enemy.h">
@@ -175,12 +170,6 @@
     <ClInclude Include="..\Classes\include\Weapon.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\include\ShopMenu.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\include\GameManager.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\include\RaidBossLaiJande.h">
       <Filter>Classes</Filter>
     </ClInclude>
@@ -194,8 +183,20 @@
       <Filter>Classes\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Z:\Classes\include\PlayerManager.h" />
+    <ClInclude Include="..\Classes\include\CharacterMenu.h">
+      <Filter>Classes\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\GameManager.h">
+      <Filter>Classes\Managers</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\include\PlayerManager.h">
-      <Filter>Classes</Filter>
+      <Filter>Classes\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\Database.h">
+      <Filter>Classes\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\ShopMenu.h">
+      <Filter>Classes\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +288,9 @@
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{2e4d2d54-88ea-4167-b1e7-2dd6f7b90a4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Managers">
+      <UniqueIdentifier>{a7746d58-1f66-47c0-84b6-386486f2af50}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
