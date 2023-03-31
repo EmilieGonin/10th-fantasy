@@ -351,7 +351,7 @@ bool Database::getInventory() {
 
 bool Database::createUser() {
 	std::string url = std::string(_url + "/items/users");
-	db::user user = { std::string(_email), std::string("User#" + split(_email, "@")[0]), 1, 50}; //Création de la struct
+	db::user user = { std::string(_email), std::string("User#" + split(_email, "@")[0]), 1, 50, 1000}; //Création de la struct
 	json payload = user; //On convertis la struct en JSON
 
 	if (request(url, payload)) { //Création de l'utilisateur

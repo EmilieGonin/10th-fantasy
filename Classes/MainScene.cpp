@@ -94,6 +94,10 @@ bool MainScene::hasEnoughEnergy(int needed) {
 	return _database->user()->energy >= needed;
 }
 
+bool MainScene::hasEnoughCristals(int pull) {
+	return _database->user()->cristals >= pull * 100;
+}
+
 void MainScene::loadingScreen() {
 	log("loading screen");
 	Director* director = Director::getInstance();

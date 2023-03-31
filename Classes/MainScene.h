@@ -28,6 +28,7 @@ public:
 	void pull(int);
 	void timer(float);
 	bool hasEnoughEnergy(int);
+	bool hasEnoughCristals(int);
 	void loadingScreen();
 	void stopLoadingScreen();
 };

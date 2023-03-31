@@ -71,8 +71,7 @@ void SummonMenuScene::Buttons() {
     singleButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                pull(1);
-                pullResult();
+                summon(1);
             }
         }
     );
@@ -80,8 +79,7 @@ void SummonMenuScene::Buttons() {
     MultiButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                pull(10);
-                pullResult();
+                summon(10);
             }
         }
     );
@@ -157,4 +155,14 @@ void SummonMenuScene::cleanSummon() {
     }
     _pulledSprites.clear();
     this->removeChild(_button);
+}
+
+void SummonMenuScene::summon(int amount) {
+    if (hasEnoughCristals(amount)) {
+        pull(amount);
+        pullResult();
+    }
+    else {
+        log("not enough cristals");
+    }
 }
