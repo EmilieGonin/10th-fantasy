@@ -45,14 +45,14 @@ void RaidBoss::setDrop(int bossType)
 		_dropType.push_back(0);
 		break;
 	case 2:
-		_dropType.push_back(4);
-		_dropType.push_back(5);
-		_dropType.push_back(6);
-		break;
-	case 3: 
 		_dropType.push_back(1);
 		_dropType.push_back(2);
 		_dropType.push_back(3);
+		break;
+	case 3: 
+		_dropType.push_back(4);
+		_dropType.push_back(5);
+		_dropType.push_back(6);
 		break;
 	}
 }
