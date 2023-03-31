@@ -11,7 +11,6 @@ private:
 	int _bossId;
 	int _bossLvl;
 	int _difficulty;
-	bool _tutoCompleted;
 	int _phases;
 	bool _loading;
 	RaidBoss* _boss;
@@ -24,7 +23,6 @@ public:
 	int getBossLvl();
 	std::string getSprite();
 	int getDifficulty();
-	bool getTutoCompleted();
 	int getTextPhases();
 	bool isLoading();
 	RaidBoss* getBoss();
@@ -33,7 +31,6 @@ public:
 	void setBossId(int);
 	void setBossLvl(int);
 	void setDifficulty(int);
-	void setTutoCompleted(bool);
 	void setTextPhases(int);
 	void loading(bool);
 

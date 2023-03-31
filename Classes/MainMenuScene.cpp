@@ -20,13 +20,11 @@ static void problemLoading(const char* filename)
 	printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
-MainMenuScene::MainMenuScene() {
-    _database = Database::Instance();
-}
-
 bool MainMenuScene::init()
 {
     if (!Scene::init()) { return false; }
+	_database = Database::Instance();
+
     openSubMenus = false;
 
     setScene(this);
@@ -35,7 +33,7 @@ bool MainMenuScene::init()
     Labels();
     Buttons();
 	
-	if (!_gameManager->getTutoCompleted()) { Tuto(); }
+	if ((bool)!_database->user()->tutorial) { Tuto(); }
 
     return true;
 }
@@ -59,7 +57,8 @@ void MainMenuScene::Tuto() {
         newTextBox("Finally, at the top left you will find your beautiful self, anyways I better get going good luck adventurer!");
     }
     if (_gameManager->getTextPhases() == 5) {
-        _gameManager->setTutoCompleted(true);
+		_database->user()->tutorial = 1;
+		_database->updateUser();
     }
 }
 
@@ -131,7 +130,7 @@ void MainMenuScene::Buttons() {
 
 	summonButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
 		{
-			if (type == Widget::TouchEventType::ENDED && openSubMenus == false && _gameManager->getTutoCompleted()) {
+			if (type == Widget::TouchEventType::ENDED && openSubMenus == false && (bool)_database->user()->tutorial) {
 				cocos2d::Director::getInstance()->replaceScene(SummonMenuScene::create());
 				AudioEngine::pause(audioID);
 			}
@@ -146,7 +145,7 @@ void MainMenuScene::Buttons() {
 
 	characterButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
 		{
-			if (type == Widget::TouchEventType::ENDED && _gameManager->getTutoCompleted()) {
+			if (type == Widget::TouchEventType::ENDED && (bool)_database->user()->tutorial) {
 				cocos2d::Director::getInstance()->replaceScene(CharacterMenu::create());
 				AudioEngine::pause(audioID);
 			}
@@ -161,7 +160,7 @@ void MainMenuScene::Buttons() {
 
 	dropDownButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
 		{
-			if (type == Widget::TouchEventType::ENDED && openSubMenus == false && _gameManager->getTutoCompleted()) {
+			if (type == Widget::TouchEventType::ENDED && openSubMenus == false && (bool)_database->user()->tutorial) {
 
 				Account();
 				OpenInventory();
