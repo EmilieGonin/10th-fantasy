@@ -1,6 +1,5 @@
 #include "Weapon.h"
 
-
 Weapon::Weapon() {
 	_lvl = 1;
 	_atk = 50;

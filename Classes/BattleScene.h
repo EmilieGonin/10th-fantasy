@@ -12,20 +12,20 @@
 
 class BattleScene : public MainScene
 {
-public:
-  
-    static cocos2d::Scene* createScene();
+private:
+    GameManager* gameManager;
     std::vector<Enemy*> _enemies;
-    virtual bool init();
     Battle* battle;
     Player* player;
     cocos2d::Vec2 _mousePosition;
-    CREATE_FUNC(BattleScene);
-
-    void loop(float);
-
-    GameManager* gameManager;
 
 protected:
     void MouseUp(cocos2d::Event*);
+
+public:
+    static cocos2d::Scene* createScene();
+    virtual bool init();
+    CREATE_FUNC(BattleScene);
+
+    void loop(float);
 };

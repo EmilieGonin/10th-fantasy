@@ -15,15 +15,9 @@ static void problemLoading(const char* filename)
     printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
-// on "init" you need to initialize your instance
 bool CharacterMenu::init()
 {
-    //////////////////////////////
-    // 1. super init first
-    if (!Scene::init())
-    {
-        return false;
-    }
+    if (!Scene::init()) { return false; }
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -60,6 +54,7 @@ void CharacterMenu::Stuff()
 
     Chest = newButton("", "Stuff/chest.png");
     Chest->setPosition(cocos2d::Vec2(100, 550));
+
     Chest->setScale(0.15, 0.15);
     this->addChild(Chest, 1); 
 
@@ -115,7 +110,6 @@ void CharacterMenu::Stuff()
 
 void CharacterMenu::Stat()
 {
-
     Title = newLabel("STATS");
     Title->setPosition(centerWidth(), 190);
     this->addChild(Title, 2);  
@@ -248,3 +242,4 @@ void CharacterMenu::menuCloseCallback(Ref* pSender)
     //EventCustom customEndEvent("game_scene_close_event");
     //_eventDispatcher->dispatchEvent(&customEndEvent);
 }
+

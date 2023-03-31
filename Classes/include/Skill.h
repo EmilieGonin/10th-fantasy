@@ -2,20 +2,15 @@
 #include <iostream>
 #include <cocos2d.h>
 
-
-
 class Skill
 {
-
 protected:
 	float _multiplier;
-
-
 	std::string _description;
 	cocos2d::Sequence* _skillAnim;
 	cocos2d::Sprite* _skillSprite;
-public:
 
+public:
 	std::string _name;
 	int _cooldown, _maxCooldown;
 	Skill();
@@ -29,4 +24,3 @@ public:
 	cocos2d::Sprite* getSprite();
 	int getCooldown();
 };
-

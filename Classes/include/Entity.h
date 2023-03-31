@@ -16,10 +16,8 @@ protected:
 	std::vector<int*> _baseStats;
 	std::vector<int*> _finalStats;// atk, matk, patk, mdef, pdef, hp, cr, cd
 
-
 	cocos2d::Sprite* mySprite;
 	
-
 public:
 	Entity();
 	~Entity();

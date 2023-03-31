@@ -82,7 +82,7 @@ Label* Interface::newLabel(std::string string, int layer) {
 }
 
 Label* Interface::newLabel(std::string string, int posX, int posY, int layer) {
-	Label* label = Label::createWithTTF(string, "fonts/arial.ttf", 25);
+	Label* label = Label::createWithTTF(string, "fonts/arial.ttf", 20);
 	_labels.push_back(label);
 	label->setPosition(posX, posY);
 	label->setAnchorPoint(Vec2::ZERO);
@@ -91,11 +91,44 @@ Label* Interface::newLabel(std::string string, int posX, int posY, int layer) {
 		_scene->addChild(label, layer);
 	}
 
-	//if (string.size() >= 31) {
-	//	label[31].;
-	//}
+	return label;
+}
+
+Label* Interface::newOutlinedLabel(std::string string) {
+	Label* label = Label::createWithTTF(string, "fonts/arial.ttf", 25);
+	label->enableOutline(cocos2d::Color4B::BLACK, 1);
+	_labels.push_back(label);
+
+	if (_scene != nullptr) {
+		_scene->addChild(label);
+	}
 
 	return label;
+}
+
+Label* Interface::newOutlinedLabel(std::string string, int layer) {
+	Label* label = Label::createWithTTF(string, "fonts/arial.ttf", 25);
+	label->enableOutline(cocos2d::Color4B::BLACK, 3);
+	_labels.push_back(label);
+
+	if (_scene != nullptr) {
+		_scene->addChild(label, layer);
+	}
+
+	return label;
+}
+
+void Interface::newTextBox(std::string story) {
+	Sprite* _textBox = Sprite::create("Button/Rectangle.png");
+	_textBox->setPosition(100, 280);
+	_textBox->setScale(0.5);
+	_textBox->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+
+	newLabel(story, 100, 450, 11);
+
+	if (_scene != nullptr) {
+		_scene->addChild(_textBox, 10);
+	}
 }
 
 Sprite* Interface::newSprite(std::string filename)
@@ -105,6 +138,18 @@ Sprite* Interface::newSprite(std::string filename)
 
 	if (_scene != nullptr) {
 		_scene->addChild(sprite);
+	}
+
+	return sprite;
+}
+
+Sprite* Interface::newSprite(std::string filename, int layer)
+{
+	Sprite* sprite = Sprite::create(filename);
+	_sprites.push_back(sprite);
+
+	if (_scene != nullptr) {
+		_scene->addChild(sprite, layer);
 	}
 
 	return sprite;
@@ -126,6 +171,13 @@ float Interface::centerHeight() {
 	//Taille de la fenêtre de jeu
 	Size size = Director::getInstance()->getVisibleSize();
 	return size.height / 2;
+}
+
+float Interface::top(float height) {
+	//height = height of the element
+	//use getLineHeight() for labels
+	Size size = Director::getInstance()->getVisibleSize();
+	return size.height - height;
 }
 
 void Interface::clean() {

@@ -16,6 +16,8 @@ void db::from_json(const json& j, user& user) {
 	j.at("timer").get_to(user.timer);
 	j.at("id").get_to(user.id);
 	j.at("supports").get_to(user.supports);
+	j.at("gender").get_to(user.gender);
+	j.at("tutorial").get_to(user.tutorial);
 }
 void db::from_json(const json& j, character& character) {
 	j.at("user_id").get_to(character.userId);
@@ -58,7 +60,8 @@ void db::to_json(json& j, const user& user) {
 		{"energy", user.energy}, {"cristals", user.cristals},
 		{"leafs", user.leafs}, {"wishes", user.wishes},
 		{"tickets", user.tickets}, {"timer", user.timer},
-		{"supports", user.supports}
+		{"supports", user.supports}, {"gender", user.gender},
+		{"tutorial", user.tutorial}
 	};
 }
 void db::to_json(json& j, const character& character) {
@@ -109,25 +112,11 @@ void Database::init(cocos2d::Scene* scene) {
 		signup();
 	}
 	else if (getUser()) {
-		cocos2d::Label* label = newLabel("Touch the screen to start", 1);
+		cocos2d::Label* label = newOutlinedLabel("Touch the screen to start");
 		label->setPosition(center());
 
-		cocos2d::Label* userLabel = newLabel("username", 1); //getter from database
-		userLabel->setPosition(Vec2(0, 0)); //set position top
-
-		Button* button = newButton("Next");
-		button->setPosition(cocos2d::Vec2(centerWidth(), centerHeight() - 50));
-
-		button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
-			{
-				if (type == Widget::TouchEventType::ENDED) {
-					cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-				}
-			}
-		);
-		//rajouter touch event on screen puis replace scene
-		//cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-		//cocos2d::Director::getInstance()->replaceScene(BattleScene::create());
+		cocos2d::Label* userLabel = newOutlinedLabel("Logged in as " + _user.name);
+		userLabel->setPosition(Vec2(centerWidth(), top(userLabel->getLineHeight())));
 	}
 	else {
 		deleteSave();
@@ -516,8 +505,10 @@ db::support Database::getSupport(int index) {
   */
 
 void Database::setEmail(std::string email) { _email = email; }
+void Database::emptyPull() { _lastPull.empty(); }
 
 db::user* Database::user() { return &_user; }
 db::character* Database::character() { return &_character; }
 db::inventory* Database::inventory() { return &_inventory; }
+std::vector<db::support>* Database::lastPull() { return &_lastPull; }
 bool Database::isLogged() { return _logged; }

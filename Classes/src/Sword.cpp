@@ -1,6 +1,5 @@
 #include "Sword.h"
 
-
 Sword::Sword(int lvl)
 {
 	_lvl = 50;

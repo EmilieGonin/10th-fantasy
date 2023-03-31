@@ -13,28 +13,28 @@ static void problemLoading(const char* filename)
     printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
-// on "init" you need to initialize your instance
 bool TitleScreen::init()
 {
-    //////////////////////////////
-    // 1. super init first
-    if (!Scene::init())
-    {
-        return false;
-    }
+    if (!Scene::init()) { return false; }
 
     _database->init(this);
+    setScene(this);
+
+    //Touch screen event
+    if (_database->isLogged()) {
+        EventListenerTouchOneByOne* touchListener = EventListenerTouchOneByOne::create();
+        touchListener->onTouchBegan = CC_CALLBACK_2(TitleScreen::onTouchBegan, this);
+        _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+    }
+
+    Sprite* sprite = newSprite("Supports/djeamy.png", -1);
+    sprite->setPosition(center());
+    sprite->setOpacity(120);
+
     return true;
 }
 
-
-void TitleScreen::menuCloseCallback(Ref* pSender)
-{
-    //Close the cocos2d-x game scene and quit the application
-    Director::getInstance()->end();
-
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
+bool TitleScreen::onTouchBegan(Touch* touch, Event* event) {
+    _director->replaceScene(MainMenuScene::create());
+    return true;
 }

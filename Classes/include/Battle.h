@@ -6,11 +6,15 @@
 #include "Enemy.h"
 #include "Skill.h"
 #include "Interface.h"
+#include "GameManager.h"
+#include "Database.h"
 #include <random>
 
 class Battle : public Interface
 {
 protected:
+	GameManager* gameManager;
+	Database* database;
 	Player* _player;
 	std::vector<Enemy*> _enemies;
 	cocos2d::DrawNode *myLifeBar;
@@ -35,8 +39,13 @@ public:
 	void setSelected(int);
 	void selectEnemy(int);
 	bool getMyTurn();
-
-	//Gear drop();
+	void drop();
+	db::gear createNecklace(int*);
+	db::gear createEarRing(int*);
+	db::gear createRing(int*);
+	db::gear createHelmet(int*);
+	db::gear createChest(int*);
+	db::gear createBoots(int*);
 
 	cocos2d::DrawNode* getLifeBar();
 	cocos2d::DrawNode* getEnemyLifeBar();

@@ -12,12 +12,12 @@ Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
 	selectedEnemy = -1;
 	iPlay = 1;
 
+	gameManager = GameManager::Instance();
+	database = Database::Instance();
 
 	myLifeBar = cocos2d::DrawNode::create();
 	enemyLifeBar = cocos2d::DrawNode::create();
 
-	
-	
 	/*rectangle[0] = cocos2d::Vec2(0, -8);
 	rectangle[1] = cocos2d::Vec2(100, -8);
 	rectangle[2] = cocos2d::Vec2(100 , 5);
@@ -44,7 +44,7 @@ Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
 	cocos2d::log(_player->getSupport()[0]->getSupportStat()->name.c_str());
 	for (int index = 0; index < _player->getSupport().size(); index++)
 	{
-		
+
 		if (_player->getSupport()[index]->getSupportStat()->type == 2)
 		{
 			std::vector<db::stat> effect = _player->getSupport()[index]->getSupportStat()->stats;
@@ -73,25 +73,20 @@ Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
 	}
 
 	for (int i = 0; i < _enemies.size(); i++) {
-		
 		_battleOrder.push_back(_enemies[i]);
 	}
-	
+
 	_battleOrder.push_back(_player);
 	play();
-}	
+}
 
 Battle::~Battle() {};
 
 void Battle::attack(Entity* attacker, Entity* target, Skill* skillUsed) {
-
-	
 	int usedDef;
 	float multiplicatorType;
 
 	if (attacker->getDamageType() == 0) {
-
-
 		usedDef = *target->getTotalStats()[PDEF];
 		multiplicatorType = 1 + ((float)*attacker->getTotalStats()[PATK] / 100.0000);
 		std::cout << "Physical damage" << std::endl;
@@ -102,15 +97,15 @@ void Battle::attack(Entity* attacker, Entity* target, Skill* skillUsed) {
 	}
 	float atk = (float)*attacker->getTotalStats()[ATK];
 	float def = (float)usedDef;
-	float damage = ((atk * multiplicatorType) * (1000/(1000 + def))) * skillUsed->getMultiplier();
+	float damage = ((atk * multiplicatorType) * (1000 / (1000 + def))) * skillUsed->getMultiplier();
 
 	if (damage <= 0) {
 		damage = 0;
 	}
 	int cr = rand() % 100;
-	/*if (cr < *attacker->getTotalStats()[CR]) {
+	if (cr < *attacker->getTotalStats()[CR]) {
 		damage = damage * *attacker->getTotalStats()[CD];
-	}*/
+	}
 
 	CCLOG("Mdama fzerg LIER %f", damage);
 	target->looseHp(damage);
@@ -122,14 +117,9 @@ void Battle::attack(Entity* attacker, Entity* target, Skill* skillUsed) {
 
 	selectedSkill = -1;
 	//skillUsed.additionalEffect(attacker, target, damage);
-	
-
-
 }
 
 void Battle::play() {
-	
-
 	for (int i = 0; i < _battleOrder.size(); i++) {
 		if (iPlay == i)
 		{
@@ -155,13 +145,13 @@ void Battle::play() {
 		}
 		else
 		{
-			
-			if (selectedEnemy > - 1 && selectedSkill > -1)
+
+			if (selectedEnemy > -1 && selectedSkill > -1)
 			{
 				CCLOG("I attack");
-				
+
 				attack(_player, _enemies[selectedEnemy], _player->getSkills()[selectedSkill]);
-				
+
 				for (int a = 0; a < _player->getSkills().size(); a++)
 				{
 					if (_player->getSkills()[a]->_cooldown > 0)
@@ -172,23 +162,20 @@ void Battle::play() {
 				selectedEnemy = selectedSkill = -1;
 				_myTurn = false;
 				play();
-				
+
 
 			}
 		}
 	}
 	updateLifeBar();
 	battleCheck();
-
 }
 
 void Battle::battleCheck() {
-	
-	
 	for (int i = 0; i < _battleOrder.size(); i++) {
 		if (_battleOrder[i]->getBattleHP() <= 0) {
 			CCLOG("I delete");
-			_battleOrder.erase(_battleOrder.begin() + i );
+			_battleOrder.erase(_battleOrder.begin() + i);
 		}
 	}
 	if (_battleOrder.size() <= 1 && _player->getBattleHP() > 0) {
@@ -198,12 +185,49 @@ void Battle::battleCheck() {
 		_win = true;
 		cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 	}
-	
 }
 
-//Gear Battle::drop() {
-//	//
-//}
+void Battle::drop() {
+	int rarities[4];
+	for (int i = 0; i < 4; i++) {
+		rarities[i] = gameManager->getBoss()->getRarities()[i];
+	}
+
+	switch (gameManager->getBossId())
+	{
+		int rd;
+	case 1:
+		break;
+	case 2:
+		rd = rand() % 3;
+		switch (rd)
+		{
+		case 0:
+			database->createGear(createNecklace(rarities));
+			break;
+		case 1:
+			database->createGear(createRing(rarities));
+			break;
+		case 2:
+			database->createGear(createEarRing(rarities));
+			break;
+		}
+	case 3:
+		rd = rand() % 3;
+		switch (rd)
+		{
+		case 0:
+			database->createGear(createHelmet(rarities));
+			break;
+		case 1:
+			database->createGear(createChest(rarities));
+			break;
+		case 2:
+			database->createGear(createBoots(rarities));
+			break;
+		}
+	}
+}
 
 bool Battle::getBattleState() { return _battle; }
 bool Battle::getMyTurn() { return _myTurn; }
@@ -226,19 +250,485 @@ void Battle::updateLifeBar()
 	//rectangle[3] = cocos2d::Vec2(0, 5);
 	//myLifeBar->drawPolygon(rectangle, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
 	//enemyLifeBar->drawPolygon(rectangle2, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
-
-
-	
 }
 
-
-void Battle::setSelected(int selected) 
+void Battle::setSelected(int selected)
 {
-	selectedSkill = selected; 
+	selectedSkill = selected;
 }
 void Battle::selectEnemy(int selected)
 {
 	selectedEnemy = selected;
 	play();
 
+}
+
+db::gear Battle::createNecklace(int* rarity) {
+
+	db::gear Necklace;
+	Necklace.type = gameManager->NECKLACE;
+	int rd = rand() % 4;
+	switch (rd)
+	{
+	case 0:
+		Necklace.stat = gameManager->MATK;
+		break;
+	case 1:
+		Necklace.stat = gameManager->PATK;
+		break;
+	case 2:
+		Necklace.stat = gameManager->CR;
+		break;
+	case 3:
+		Necklace.stat = gameManager->CD;
+		break;
+	}
+
+	int rd2 = rand() % 100;
+	if (rd2 < rarity[0]) {
+		switch (Necklace.stat)
+		{
+		case 1:
+		{
+			int M = rand() % 5 + 3;
+			Necklace.amount = M;
+			break;
+		}
+		case 2:
+		{
+			int Ph = rand() % 5 + 3;
+			Necklace.amount = Ph;
+			break;
+
+		}
+		case 6:
+		{
+			int CR = rand() % 5 + 1;
+			Necklace.amount = CR;
+			break;
+		}
+		case 7:
+		{
+			int CD = rand() % 10 + 5;
+			Necklace.amount = CD;
+			break;
+		}
+		}
+
+		Necklace.rarity = gameManager->COMMON;
+	}
+	else if (rd2 > rarity[0] && rd2 < (rarity[0] + rarity[1]))
+	{
+		switch (Necklace.stat)
+		{
+		case 1:
+		{
+			int M = rand() % 8 + 6;
+			Necklace.amount = M;
+			break;
+		}
+		case 2:
+		{
+			int Ph = rand() % 8 + 6;
+			Necklace.amount = Ph;
+			break;
+		}
+		case 6:
+		{
+			int CR = rand() % 11 + 6;
+			Necklace.amount = CR;
+			break;
+		}
+		case 7:
+		{
+			int CD = rand() % 20 + 11;
+			Necklace.amount = CD;
+			break;
+		}
+		}
+
+		Necklace.rarity = gameManager->RARE;
+	}
+	else if (rd2 > (rarity[0] + rarity[1]) && rd2 < (rarity[0] + rarity[1] + rarity[2]))
+	{
+		switch (Necklace.stat)
+		{
+		case 1:
+		{
+			int M = rand() % 12 + 9;
+			Necklace.amount = M;
+			break;
+		}
+		case 2:
+		{
+			int Ph = rand() % 12 + 9;
+			Necklace.amount = Ph;
+			break;
+		}
+		case 6:
+		{
+			int CR = rand() % 17 + 12;
+			Necklace.amount = CR;
+			break;
+		}
+		case 7:
+		{
+			int CD = rand() % 33 + 21;
+			Necklace.amount = CD;
+			break;
+		}
+		}
+
+		Necklace.rarity = gameManager->EPIC;
+	}
+	else if (rd2 > (rarity[0] + rarity[1] + rarity[2]) && rd2 < (rarity[0] + rarity[1] + rarity[2] + rarity[3]))
+	{
+		switch (Necklace.stat)
+		{
+		case 1:
+		{
+			int M = rand() % 17 + 13;
+			Necklace.amount = M;
+			break;
+		}
+		case 2:
+		{
+			int Ph = rand() % 17 + 13;
+			Necklace.amount = Ph;
+			break;
+		}
+		case 6:
+		{
+			int CR = rand() % 24 + 18;
+			Necklace.amount = CR;
+			break;
+		}
+		case 7:
+		{
+			int CD = rand() % 50 + 34;
+			Necklace.amount = CD;
+			break;
+		}
+		}
+		Necklace.rarity = gameManager->LEGENDARY;
+	}
+
+	Necklace.level = 0;
+	return Necklace;
+}
+
+db::gear Battle::createEarRing(int* rarity) {
+
+	db::gear EarRing;
+	EarRing.type = gameManager->EARRING;
+	int rd = rand() % 2;
+	switch (rd)
+	{
+	case 0:
+		EarRing.stat = gameManager->CR;
+		break;
+	case 1:
+		EarRing.stat = gameManager->CD;
+		break;
+	}
+
+	int rd2 = rand() % 100;
+	if (rd2 < rarity[0]) {
+		switch (EarRing.stat)
+		{
+		case 6:
+		{
+			int CR = rand() % 10 + 5;
+			EarRing.amount = CR;
+			break;
+		}
+		case 7:
+		{
+			int CD = rand() % 20 + 10;
+			EarRing.amount = CD;
+			break;
+		}
+		}
+
+		EarRing.rarity = gameManager->COMMON;
+	}
+	else if (rd2 > rarity[0] && rd2 < (rarity[0] + rarity[1]))
+	{
+		switch (EarRing.stat)
+		{
+		case 6:
+		{
+			int CR = rand() % 16 + 11;
+			EarRing.amount = CR;
+			break;
+		}
+		case 7:
+		{
+			int CD = rand() % 33 + 21;
+			EarRing.amount = CD;
+			break;
+		}
+		}
+
+		EarRing.rarity = gameManager->RARE;
+	}
+	else if (rd2 > (rarity[0] + rarity[1]) && rd2 < (rarity[0] + rarity[1] + rarity[2]))
+	{
+		switch (EarRing.stat)
+		{
+		case 6:
+		{
+			int CR = rand() % 27 + 18;
+			EarRing.amount = CR;
+			break;
+		}
+		case 7:
+		{
+			int CD = rand() % 49 + 34;
+			EarRing.amount = CD;
+			break;
+		}
+		}
+
+		EarRing.rarity = gameManager->EPIC;
+	}
+	else if (rd2 > (rarity[0] + rarity[1] + rarity[2]) && rd2 < (rarity[0] + rarity[1] + rarity[2] + rarity[3]))
+	{
+		switch (EarRing.stat)
+		{
+		case 6:
+		{
+			int CR = rand() % 33 + 23;
+			EarRing.amount = CR;
+			break;
+		}
+		case 7:
+		{
+			int CD = rand() % 70 + 50;
+			EarRing.amount = CD;
+			break;
+		}
+		}
+		EarRing.rarity = gameManager->LEGENDARY;
+	}
+
+	EarRing.level = 0;
+	return EarRing;
+
+}
+
+db::gear Battle::createRing(int* rarity) {
+
+	db::gear Ring;
+	Ring.type = gameManager->RING;
+	int rd = rand() % 2;
+	switch (rd)
+	{
+	case 0:
+		Ring.stat = gameManager->MATK;
+		break;
+	case 1:
+		Ring.stat = gameManager->PATK;
+		break;
+	}
+
+	int rd2 = rand() % 100;
+	if (rd2 < rarity[0]) {
+		switch (Ring.stat)
+		{
+		case 1:
+		{
+			int M = rand() % 10 + 5;
+			Ring.amount = M;
+			break;
+		}
+		case 2:
+		{
+			int Ph = rand() % 10 + 5;
+			Ring.amount = Ph;
+			break;
+		}
+		}
+
+		Ring.rarity = gameManager->COMMON;
+	}
+	else if (rd2 > rarity[0] && rd2 < (rarity[0] + rarity[1]))
+	{
+		switch (Ring.stat)
+		{
+		case 1:
+		{
+			int M = rand() % 17 + 11;
+			Ring.amount = M;
+			break;
+		}
+		case 2:
+		{
+			int Ph = rand() % 17 + 11;
+			Ring.amount = Ph;
+			break;
+		}
+		}
+
+		Ring.rarity = gameManager->RARE;
+	}
+	else if (rd2 > (rarity[0] + rarity[1]) && rd2 < (rarity[0] + rarity[1] + rarity[2]))
+	{
+		switch (Ring.stat)
+		{
+		case 1:
+		{
+			int M = rand() % 25 + 18;
+			Ring.amount = M;
+			break;
+		}
+		case 2:
+		{
+			int Ph = rand() % 25 + 18;
+			Ring.amount = Ph;
+			break;
+		}
+		}
+
+		Ring.rarity = gameManager->EPIC;
+	}
+	else if (rd2 > (rarity[0] + rarity[1] + rarity[2]) && rd2 < (rarity[0] + rarity[1] + rarity[2] + rarity[3]))
+	{
+		switch (Ring.stat)
+		{
+		case 1:
+		{
+			int M = rand() % 35 + 26;
+			Ring.amount = M;
+			break;
+		}
+		case 2:
+		{
+			int Ph = rand() % 35 + 26;
+			Ring.amount = Ph;
+			break;
+		}
+		}
+		Ring.rarity = gameManager->LEGENDARY;
+	}
+
+	Ring.level = 0;
+	return Ring;
+
+}
+
+db::gear Battle::createHelmet(int* rarity) {
+
+	db::gear Helmet;
+	Helmet.type = gameManager->HELMET;
+	Helmet.stat = gameManager->HP;
+
+	int rd2 = rand() % 100;
+	if (rd2 < rarity[0]) {
+		int Hp = rand() % 1500 + 800;
+		Helmet.amount = Hp;
+		Helmet.rarity = gameManager->COMMON;
+	}
+	else if (rd2 > rarity[0] && rd2 < (rarity[0] + rarity[1]))
+	{
+		int Hp = rand() % 2800 + 1800;
+		Helmet.amount = Hp;
+		Helmet.rarity = gameManager->RARE;
+	}
+	else if (rd2 > (rarity[0] + rarity[1]) && rd2 < (rarity[0] + rarity[1] + rarity[2]))
+	{
+		int Hp = rand() % 5500 + 3000;
+		Helmet.amount = Hp;
+		Helmet.rarity = gameManager->EPIC;
+	}
+	else if (rd2 > (rarity[0] + rarity[1] + rarity[2]) && rd2 < (rarity[0] + rarity[1] + rarity[2] + rarity[3]))
+	{
+		int Hp = rand() % 8000 + 6000;
+		Helmet.amount = Hp;
+		Helmet.rarity = gameManager->LEGENDARY;
+	}
+
+	Helmet.level = 0;
+	return Helmet;
+
+}
+
+db::gear Battle::createChest(int* rarity) {
+
+	db::gear Chest;
+	Chest.type = gameManager->CHEST;
+	int rd = rand() % 2;
+	switch (rd)
+	{
+	case 0:
+		Chest.stat = gameManager->PDEF;
+		break;
+	case 1:
+		Chest.stat = gameManager->MDEF;
+		break;
+	}
+
+	int rd2 = rand() % 100;
+	if (rd2 < rarity[0]) {
+
+		int Def = rand() % 80 + 50;
+		Chest.amount = Def;
+		Chest.rarity = gameManager->COMMON;
+	}
+	else if (rd2 > rarity[0] && rd2 < (rarity[0] + rarity[1]))
+	{
+		int Def = rand() % 170 + 100;
+		Chest.amount = Def;
+		Chest.rarity = gameManager->RARE;
+	}
+	else if (rd2 > (rarity[0] + rarity[1]) && rd2 < (rarity[0] + rarity[1] + rarity[2]))
+	{
+		int Def = rand() % 290 + 200;
+		Chest.amount = Def;
+		Chest.rarity = gameManager->EPIC;
+	}
+	else if (rd2 > (rarity[0] + rarity[1] + rarity[2]) && rd2 < (rarity[0] + rarity[1] + rarity[2] + rarity[3]))
+	{
+		int Def = rand() % 500 + 330;
+		Chest.amount = Def;
+		Chest.rarity = gameManager->LEGENDARY;
+	}
+
+	Chest.level = 0;
+	return Chest;
+}
+
+db::gear Battle::createBoots(int* rarity) {
+
+	db::gear Boots;
+	Boots.type = gameManager->BOOT;
+	Boots.stat = gameManager->SPEED;
+
+	int rd2 = rand() % 100;
+	if (rd2 < rarity[0]) {
+		int Speed = rand() % 20 + 5;
+		Boots.amount = Speed;
+		Boots.rarity = gameManager->COMMON;
+	}
+	else if (rd2 > rarity[0] && rd2 < (rarity[0] + rarity[1]))
+	{
+		int Speed = rand() % 41 + 21;
+		Boots.amount = Speed;
+		Boots.rarity = gameManager->RARE;
+	}
+	else if (rd2 > (rarity[0] + rarity[1]) && rd2 < (rarity[0] + rarity[1] + rarity[2]))
+	{
+		int Speed = rand() % 70 + 41;
+		Boots.amount = Speed;
+		Boots.rarity = gameManager->EPIC;
+	}
+	else if (rd2 > (rarity[0] + rarity[1] + rarity[2]) && rd2 < (rarity[0] + rarity[1] + rarity[2] + rarity[3]))
+	{
+		int Speed = rand() % 110 + 71;
+		Boots.amount = Speed;
+		Boots.rarity = gameManager->LEGENDARY;
+	}
+
+	Boots.level = 0;
+	return Boots;
 }

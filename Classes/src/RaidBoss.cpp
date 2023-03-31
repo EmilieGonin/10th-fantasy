@@ -1,74 +1,67 @@
 #include "RaidBoss.h"
 
-
 RaidBoss::RaidBoss()
 {
-	gameManager = GameManager::Instance();
-	commonRate = 0;
-	RareRate = 0;
-	EpicRate = 0;
-	LegendaryRate = 0;
-	SetRarities(gameManager->getDifficulty());
+	for (int i = 0; i < 4; i++) {
+		_rarities[i] = 0;
+	}
 }
 
-void RaidBoss::SetRarities(int difficulty) {
-
+void RaidBoss::setRarities(int difficulty) {
 	switch (difficulty)
 	{
 	case 1:
-		commonRate = 100;
+		_rarities[common] = 100;
 		break;
 	case 2:
-		commonRate = 70;
-		RareRate = 30;
+		_rarities[common] = 70;
+		_rarities[rare] = 30;
 		break;
 	case 3:
-		commonRate = 30;
-		RareRate = 50;
-		EpicRate = 20;
+		_rarities[common] = 30;
+		_rarities[rare] = 50;
+		_rarities[epic] = 20;
 		break;
 	case 4:
-		RareRate = 70;
-		EpicRate = 30;
+		_rarities[rare] = 70;
+		_rarities[epic] = 30;
 		break;
 	case 5:
-		RareRate = 30;
-		EpicRate = 60;
-		LegendaryRate = 10;
+		_rarities[rare] = 30;
+		_rarities[epic] = 60;
+		_rarities[legendary] = 10;
 		break;
 	case 6:
-		EpicRate = 80;
-		LegendaryRate = 20;
+		_rarities[epic] = 80;
+		_rarities[legendary] = 20;
+		break;
 	}
 }
-void RaidBoss::SetDrop(int bossType)
+void RaidBoss::setDrop(int bossType)
 {
 	switch (bossType)
 	{
 	case 1: 
-		dropType.push_back(0);
+		_dropType.push_back(0);
 		break;
 	case 2:
-		dropType.push_back(4);
-		dropType.push_back(5);
-		dropType.push_back(6);
+		_dropType.push_back(4);
+		_dropType.push_back(5);
+		_dropType.push_back(6);
 		break;
 	case 3: 
-		dropType.push_back(1);
-		dropType.push_back(2);
-		dropType.push_back(3);
+		_dropType.push_back(1);
+		_dropType.push_back(2);
+		_dropType.push_back(3);
 		break;
 	}
 }
 
 std::vector<int> RaidBoss::getDrops()
 {
-	return dropType;
+	return _dropType;
 }
 
-
-//int[] RaidBoss::GetRarities() {
-//	return rarities;
-//}
-	
-
+int* RaidBoss::getRarities() {
+	return _rarities;
+}

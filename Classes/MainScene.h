@@ -4,7 +4,6 @@
 #include "cocos2d.h"
 #include <vector>
 #include "database.h"
-#include "Interface.h"
 
 
 class MainScene : public cocos2d::Scene
@@ -13,7 +12,7 @@ protected:
 	cocos2d::Director* _director;
 	Database* _database;
 	GameManager* _gameManager;
-	TextField* _textField;
+	TextField* _textField; //use interface wrapper instead
 
 public:
 	MainScene();
