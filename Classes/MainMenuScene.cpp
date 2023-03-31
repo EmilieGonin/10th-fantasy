@@ -22,6 +22,7 @@ static void problemLoading(const char* filename)
 
 bool MainMenuScene::init()
 {
+
     if (!Scene::init()) { return false; }
 	_database = Database::Instance();
 
@@ -32,6 +33,8 @@ bool MainMenuScene::init()
     Sprites();
     Labels();
     Buttons();
+    Sounds();
+
 	
 	if ((bool)!_database->user()->tutorial) { Tuto(); }
 
@@ -205,12 +208,12 @@ void MainMenuScene::Account()
 
 				BackButton(200, 850, 0.03, 5);
 
-				//username = "Username: " + _database->user()->name;
+				username = "Username: " + _database->user()->name;
 
-				//cocos2d::Label* user = newLabel(username, 5);
-				//user->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
-				//user->setScale(0.8);
-				//user->setPosition(215, 800);
+				cocos2d::Label* user = newLabel(username, 5);
+				user->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+				user->setScale(0.8);
+				user->setPosition(215, 800);
 
 				Button* editButton = newButton("", "Button/editbtn.png", 5);
 				editButton->setPosition(cocos2d::Vec2(300, 800));
@@ -316,7 +319,7 @@ void MainMenuScene::Settings() {
 
 				BackButton(460, 910, 0.05, 6);
 
-				cocos2d::Label* label = newLabel("Nothing Here Yet :)", 6);
+				cocos2d::Label* label = newLabel("", 6);
 				label->setPosition(centerWidth(), 880);
 
 				_settings = Sprite::create("Rectangle.png");
