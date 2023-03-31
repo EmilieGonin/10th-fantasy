@@ -6,17 +6,9 @@ Scene* ShopMenu::createScene()
     return ShopMenu::create();
 }
 
-
-
-// on "init" you need to initialize your instance
 bool ShopMenu::init()
 {
-    //////////////////////////////
-    // 1. super init first
-    if (!Scene::init())
-    {
-        return false;
-    }
+    if (!Scene::init()) { return false; }
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -97,7 +89,6 @@ void ShopMenu::PackPage()
     Return = newButton("", "return.png");
     Return->setPosition(cocos2d::Vec2(50, 18));
     Return->setScale(0.25, 0.25);
-
     Return->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
@@ -204,15 +195,4 @@ void ShopMenu::SceneChanger()
             }
         }
     );
-}
-
-void ShopMenu::menuCloseCallback(Ref* pSender)
-{
-    //Close the cocos2d-x game scene and quit the application
-    Director::getInstance()->end();
-
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
 }

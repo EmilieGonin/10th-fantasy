@@ -169,9 +169,6 @@
     <ClInclude Include="..\Classes\include\Weapon.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\include\ShopMenu.h">
-      <Filter>Classes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\include\GameManager.h">
       <Filter>Classes</Filter>
     </ClInclude>
@@ -183,6 +180,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\include\Support.h">
       <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\ShopMenu.h">
+      <Filter>Classes\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

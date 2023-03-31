@@ -10,6 +10,7 @@
 class RaidMenuScene : public MainScene, Interface
 {
 protected:
+    //Use interface wrapper instead !
     Button* _firstRaid;
     Button* Second;
     Button* Third;
@@ -51,13 +52,12 @@ protected:
 public:
     static cocos2d::Scene* createScene();
     virtual bool init();
+
     void Menu();
     void Level();
     void SceneChanger();
     void Play();
     void loadBattle(int);
-
-    GameManager* _gameManager;
 
     // implement the "static create()" method manually
     CREATE_FUNC(RaidMenuScene);

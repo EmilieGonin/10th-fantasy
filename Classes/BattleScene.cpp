@@ -12,7 +12,6 @@
 #include <vector>
 USING_NS_CC;	
 
-
 Scene* BattleScene::createScene()
 {
 	return BattleScene::create();
@@ -25,17 +24,9 @@ static void problemLoading(const char* filename)
 	printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
-// on "init" you need to initialize your instance
 bool BattleScene::init()
 {
-	//////////////////////////////
-	// 1. super init first
-
-
-	if (!Scene::init())
-	{
-		return false;
-	}
+	if (!Scene::init()) { return false; }
 
 	/*enum Stats {
 		ATK = 0,
@@ -176,8 +167,10 @@ bool BattleScene::init()
 	for (int i = 0; i < _enemies.size(); i++)
 	{
 		//_enemies[i]->getSprite()->setPosition(400 + i * 50, 100);
-		_enemies[i]->getSprite()->setPosition(150 + i * 50, 250);
-		_enemies[i]->getSprite()->setScale(0.5);
+		//_enemies[i]->getSprite()->setPosition(150 + i * 50, 250);
+		_enemies[i]->getSprite()->setPosition(220, 250);
+
+		_enemies[i]->getSprite()->setScale(0.8);
 		_enemies[i]->getSprite()->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 		this->addChild(_enemies[0]->getSprite());
 	}
@@ -201,8 +194,6 @@ bool BattleScene::init()
 }
 void BattleScene::loop(float delta)
 {
-
-
 	if (battle->getMyTurn() == false)
 	{
 
@@ -213,8 +204,7 @@ void BattleScene::loop(float delta)
 	}
 	else {
 		for (int a = 0; a< player->getSkills().size(); a++)
-		{
-			
+		{	
 			player->getSkills()[a]->getSprite()->setVisible(true);
 			if (player->getSkills()[a]->_cooldown > 0)
 			{
@@ -225,8 +215,6 @@ void BattleScene::loop(float delta)
 
 }
 void BattleScene::MouseUp(Event * event) {
-
-	
 	EventMouse* e = (EventMouse*)event;
 	int button = e->getCursorX();
 	cocos2d::log("%d", button);
@@ -271,8 +259,4 @@ if (battle->getSelected() >= 0)
 			}
 		}
 	}
-
-
 }
-
-

@@ -2,10 +2,8 @@
 #include "SkillSlash.h"
 
 RaidBossLaiJande::RaidBossLaiJande(int lvl) {
-	mySprite = cocos2d::Sprite::create("sprite/betala.png");
+	mySprite = cocos2d::Sprite::create("Sprite/laijande_boss.png");
 	_name = "Lai Jande";
-	
-
 	_basehp = _totalHp = 6000 + 1200 * lvl;
 	_baseatk = _totalAtk = 100 + 45 * lvl;
 	_basedef = _totalDef = 200 + 20 * lvl;

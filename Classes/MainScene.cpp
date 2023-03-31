@@ -4,13 +4,12 @@
 #include "Battle.h"
 #include "MainMenuScene.h"
 #include "BattleScene.h"
-#include "Interface.h"
 
 MainScene::MainScene() {
 	_database = Database::Instance();
 	_gameManager = GameManager::Instance();
 	_director = cocos2d::Director::getInstance();
-	this->schedule(SEL_SCHEDULE(&MainScene::timer), 5); //Change to 5min!!
+	this->schedule(SEL_SCHEDULE(&MainScene::timer), 300);
 }
 
 void MainScene::log(std::string value) {
@@ -33,6 +32,7 @@ int MainScene::rand(int range) {
 
 void MainScene::pull(int num) {
 	log("**********"); //Help to see logs
+	_database->emptyPull();
 
 	for (size_t i = 0; i < num; i++)
 	{
@@ -58,6 +58,8 @@ void MainScene::pull(int num) {
 			std::vector<db::support> supports = _database->getSupports(rarity);
 			pulled = supports[rand(supports.size()) - 1];
 		}
+
+		_database->lastPull()->push_back(pulled);
 
 		std::vector<int> userSupports = _database->user()->supports;
 		bool alreadyPulled = std::count(userSupports.begin(), userSupports.end(), pulled.supportId);

@@ -1,6 +1,5 @@
 #include "RaidBoss.h"
 
-
 RaidBoss::RaidBoss()
 {
 	for (int i = 0; i < 4; i++) {
@@ -63,9 +62,6 @@ std::vector<int> RaidBoss::getDrops()
 	return _dropType;
 }
 
-
 int* RaidBoss::getRarities() {
 	return _rarities;
 }
-	
-

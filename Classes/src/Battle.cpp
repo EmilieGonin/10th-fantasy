@@ -18,8 +18,6 @@ Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
 	myLifeBar = cocos2d::DrawNode::create();
 	enemyLifeBar = cocos2d::DrawNode::create();
 
-
-
 	/*rectangle[0] = cocos2d::Vec2(0, -8);
 	rectangle[1] = cocos2d::Vec2(100, -8);
 	rectangle[2] = cocos2d::Vec2(100 , 5);
@@ -36,7 +34,7 @@ Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
 
 	enemyLifeBar->drawSolidRect(cocos2d::Vec2(0, 0), cocos2d::Vec2(250, 20), cocos2d::Color4F::GREEN);
 	enemyLifeBar->setAnchorPoint(cocos2d::Vec2(0.0, 0.0));
-	enemyLifeBar->setPosition(cocos2d::Vec2(200, 650));
+	enemyLifeBar->setPosition(cocos2d::Vec2(200, 720));
 
 	_player->update();
 	//myLifeBar->drawPolygon(rectangle, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
@@ -75,7 +73,6 @@ Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
 	}
 
 	for (int i = 0; i < _enemies.size(); i++) {
-
 		_battleOrder.push_back(_enemies[i]);
 	}
 
@@ -86,14 +83,10 @@ Battle::Battle(Player* player, std::vector<Enemy*> enemies, int _bossCheck) {
 Battle::~Battle() {};
 
 void Battle::attack(Entity* attacker, Entity* target, Skill* skillUsed) {
-
-
 	int usedDef;
 	float multiplicatorType;
 
 	if (attacker->getDamageType() == 0) {
-
-
 		usedDef = *target->getTotalStats()[PDEF];
 		multiplicatorType = 1 + ((float)*attacker->getTotalStats()[PATK] / 100.0000);
 		std::cout << "Physical damage" << std::endl;
@@ -124,14 +117,9 @@ void Battle::attack(Entity* attacker, Entity* target, Skill* skillUsed) {
 
 	selectedSkill = -1;
 	//skillUsed.additionalEffect(attacker, target, damage);
-
-
-
 }
 
 void Battle::play() {
-
-
 	for (int i = 0; i < _battleOrder.size(); i++) {
 		if (iPlay == i)
 		{
@@ -184,7 +172,6 @@ void Battle::play() {
 }
 
 void Battle::battleCheck() {
-
 	CCLOG("Checking ");
 	for (int i = 0; i < _battleOrder.size(); i++) {
 		if (_battleOrder[i]->getBattleHP() <= 0) {
@@ -199,10 +186,7 @@ void Battle::battleCheck() {
 		_win = true;
 		cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 	}
-
 }
-
-
 
 void Battle::drop() {
 	int rarities[4];
@@ -256,9 +240,6 @@ void Battle::drop() {
 	CCLOG("inventory size %d", database->inventory()->gears.size());
 }
 
-
-
-
 bool Battle::getBattleState() { return _battle; }
 bool Battle::getMyTurn() { return _myTurn; }
 int Battle::getSelected() { return selectedSkill; }
@@ -280,11 +261,7 @@ void Battle::updateLifeBar()
 	//rectangle[3] = cocos2d::Vec2(0, 5);
 	//myLifeBar->drawPolygon(rectangle, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
 	//enemyLifeBar->drawPolygon(rectangle2, 4, cocos2d::Color4F::GREEN, 1, cocos2d::Color4F::GREEN);
-
-
-
 }
-
 
 void Battle::setSelected(int selected)
 {
@@ -449,7 +426,6 @@ db::gear Battle::createNecklace(int* rarity) {
 
 	Necklace.level = 0;
 	return Necklace;
-
 }
 
 db::gear Battle::createEarRing(int* rarity) {
@@ -731,7 +707,6 @@ db::gear Battle::createChest(int* rarity) {
 
 	Chest.level = 0;
 	return Chest;
-
 }
 
 db::gear Battle::createBoots(int* rarity) {
@@ -768,5 +743,3 @@ db::gear Battle::createBoots(int* rarity) {
 	Boots.level = 0;
 	return Boots;
 }
-
-

@@ -15,15 +15,9 @@ static void problemLoading(const char* filename)
     printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
-// on "init" you need to initialize your instance
 bool CharacterMenu::init()
 {
-    //////////////////////////////
-    // 1. super init first
-    if (!Scene::init())
-    {
-        return false;
-    }
+    if (!Scene::init()) { return false; }
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -52,41 +46,47 @@ void CharacterMenu::Stuff()
     this->addChild(Title, 1);
 
 
-    Helmet = newSprite("Stuff/helmet.png");
-    Helmet->setPosition(100, 650);
+    Helmet = newButton("", "Stuff/helmet.png");
+    Helmet->setPosition(cocos2d::Vec2(100, 650));
     Helmet->setScale(0.15, 0.15);
     this->addChild(Helmet, 1);
 
 
-    Chest = newSprite("Stuff/chest.png");
-    Chest->setPosition(100, 550);
+    Chest = newButton("", "Stuff/chest.png");
+    Chest->setPosition(cocos2d::Vec2(100, 550));
+
     Chest->setScale(0.15, 0.15);
     this->addChild(Chest, 1); 
+
     
-    Boots = newSprite("Stuff/boots.png");
-    Boots->setPosition(100, 400);
+    Boots = newButton("", "Stuff/boots.png");
+    Boots->setPosition(cocos2d::Vec2(100, 400));
     Boots->setScale(0.15, 0.15);
     this->addChild(Boots, 1);
 
-    Weapon = newSprite("Stuff/chest.png");
-    Weapon->setPosition(100, 300);
+
+    Weapon = newButton("", "Stuff/chest.png");
+    Weapon->setPosition(cocos2d::Vec2(100, 300));
     Weapon->setScale(0.2, 0.2);
     this->addChild(Weapon, 1);
 
-    Earring = newSprite("Stuff/earring.png");
-    Earring->setPosition(450, 650);
+
+    Earring = newButton("", "Stuff/earring.png");
+    Earring->setPosition(cocos2d::Vec2(450, 650));
     Earring->setScale(0.15, 0.15);
     this->addChild(Earring, 1); 
 
-    Necklace = newSprite("Stuff/necklace.png");
-    Necklace->setPosition(450, 550);
+    Necklace = newButton("", "Stuff/necklace.png");
+    Necklace->setPosition(cocos2d::Vec2(450, 550));
     Necklace->setScale(0.15, 0.15);
     this->addChild(Necklace, 1);
 
-    Ring = newSprite("Stuff/ring.png");
-    Ring->setPosition(450, 400);
+
+    Ring = newButton("","Stuff/ring.png");
+    Ring->setPosition(cocos2d::Vec2(450, 400));
     Ring->setScale(0.15, 0.15);
     this->addChild(Ring, 1);
+
 
     //Gem = newSprite("Stuff/necklace.png");
     //Gem->setPosition(450, 300);
@@ -110,7 +110,6 @@ void CharacterMenu::Stuff()
 
 void CharacterMenu::Stat()
 {
-
     Title = newLabel("STATS");
     Title->setPosition(centerWidth(), 190);
     this->addChild(Title, 2);  
@@ -123,23 +122,113 @@ void CharacterMenu::Stat()
     Price->setPosition(400, 120);
     this->addChild(Price, 2);
 
-    Ring = newSprite("Rectangle.png");
-    Ring->setPosition(centerWidth(), 150);
-    Ring->setScale(0.4, 0.3);
-    this->addChild(Ring, 1);
+    bg = newSprite("Rectangle.png");
+    bg->setPosition(cocos2d::Vec2(centerWidth(), 150));
+    bg->setScale(0.4, 0.3);
+    this->addChild(bg, 1);
+
 }
 
 void CharacterMenu::Supports()
 {
-    FirstSup = newSprite("Supports/djeamy.png");
-    FirstSup->setPosition(100, 780);
+    FirstSup = newButton("", "Supports/djeamy.png");
+    FirstSup->setPosition(cocos2d::Vec2(100, 780));
     FirstSup->setScale(0.1, 0.1);
     this->addChild(FirstSup, 1);
+    FirstSup->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                BackButton();
+                PopupGear();
+            }
+        }
+    );
 
-    SeconSup = newSprite("Supports/elf.png");
-    SeconSup->setPosition(450, 780);
-    SeconSup->setScale(0.1, 0.1);
-    this->addChild(SeconSup, 1);
+    SecondSup = newButton("","Supports/elf.png");
+    SecondSup->setPosition(cocos2d::Vec2(450, 780));
+    SecondSup->setScale(0.1, 0.1);
+    this->addChild(SecondSup, 1);
+    SecondSup->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                BackButton();
+                PopupEmpty();
+            }
+        }
+    );
+}
+
+void CharacterMenu::PopupEmpty()
+{
+    popup = newSprite("Rectangle.png");
+    popup->setPosition(10, 850);
+    popup->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+    popup->setScale(0.5, 0.8);
+    this->addChild(popup, 1);
+}
+
+void CharacterMenu::PopupGear()
+{
+    popup = newSprite("Rectangle.png");
+    popup->setPosition(10, 850);
+    popup->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+    popup->setScale(0.5, 0.8);
+    this->addChild(popup, 1); 
+    
+    perso = newSprite("Supports/elf.png");
+    perso->setPosition(20, 780);
+    perso->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+    perso->setScale(0.1, 0.1);
+    this->addChild(perso, 2);
+
+    stats = newLabel("STATS");
+    stats->setPosition(centerWidth(), 750);
+    this->addChild(stats, 2);
+
+    rarity = newLabel("Rarity");
+    rarity->setPosition(185, 700);
+    this->addChild(rarity, 2);
+
+    upgrade = newButton("", "Button/Back.png");
+    upgrade->setPosition(cocos2d::Vec2(250, 440));
+    upgrade->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+    upgrade->setScale(0.05);
+    this->addChild(upgrade, 2); 
+    
+    equip = newButton("", "Button/plusbtn.png");
+    equip->setPosition(cocos2d::Vec2(185, 440));
+    equip->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+    equip->setScale(0.05);
+    this->addChild(equip, 2); 
+    
+    unequip = newButton("", "Button/moinsbtn.png");
+    unequip->setPosition(cocos2d::Vec2(330, 430));
+    unequip->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+    unequip->setScale(0.1);
+    this->addChild(unequip, 2);
+}
+
+
+void CharacterMenu::BackButton() {
+    backButton = newButton("", "Button/Back.png");
+    backButton->setPosition(cocos2d::Vec2(20, 840));
+    backButton->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+    backButton->setScale(0.05);
+    this->addChild(backButton, 2);
+    backButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                this->removeChild(popup);
+                this->removeChild(backButton);
+                this->removeChild(unequip);
+                this->removeChild(equip);
+                this->removeChild(upgrade);
+                this->removeChild(rarity);
+                this->removeChild(stats);
+                this->removeChild(perso);
+            }
+        }
+    );
 }
 
 
@@ -153,3 +242,4 @@ void CharacterMenu::menuCloseCallback(Ref* pSender)
     //EventCustom customEndEvent("game_scene_close_event");
     //_eventDispatcher->dispatchEvent(&customEndEvent);
 }
+

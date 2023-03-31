@@ -14,30 +14,19 @@ static void problemLoading(const char* filename)
     printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
-// on "init" you need to initialize your instance
 bool SummonMenuScene::init()
 {
-    //////////////////////////////
-    // 1. super init first
-    if (!Scene::init())
-    {
-        return false;
-    }
-
+    if (!Scene::init()) { return false; }
     setScene(this);
 
+    Sprites();
+    Buttons();
+    Labels();
 
+    return true;
+}
 
-    cocos2d::Label* Single = newLabel("Single Summons", 2);
-    Single->setPosition(120, 440);
-    Single->setAnchorPoint(Vec2::ZERO);
-    Single->setScale(0.5);
-
-    cocos2d::Label* Multi = newLabel("10x Summons", 2);
-    Multi->setPosition(300, 440);
-    Multi->setAnchorPoint(Vec2::ZERO);
-    Multi->setScale(0.5);
-
+void SummonMenuScene::Sprites() {
     _banner = Sprite::create("Banners/djeamy_banner.png");
     _banner->setAnchorPoint(Vec2::ZERO);
     _banner->setPosition(10, 500);
@@ -48,6 +37,12 @@ bool SummonMenuScene::init()
     _back->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
     _back->setPosition(0, 945);
     _back->setScale(0.12);
+
+    this->addChild(_back);
+    this->addChild(_banner);
+}
+
+void SummonMenuScene::Buttons() {
 
     Button* backButton = newButton("", "Button/Back.png", 1);
     backButton->setPosition(cocos2d::Vec2(0, 942));
@@ -87,22 +82,16 @@ bool SummonMenuScene::init()
             }
         }
     );
-
-    this->addChild(_back);
-    this->addChild(_banner);
-
-    
-    return true;
 }
 
+void SummonMenuScene::Labels() {
+    cocos2d::Label* Single = newLabel("Single Summons", 2);
+    Single->setPosition(120, 440);
+    Single->setAnchorPoint(Vec2::ZERO);
+    Single->setScale(0.5);
 
-void SummonMenuScene::menuCloseCallback(Ref* pSender)
-{
-    //Close the cocos2d-x game scene and quit the application
-    Director::getInstance()->end();
-
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
+    cocos2d::Label* Multi = newLabel("10x Summons", 2);
+    Multi->setPosition(300, 440);
+    Multi->setAnchorPoint(Vec2::ZERO);
+    Multi->setScale(0.5);
 }

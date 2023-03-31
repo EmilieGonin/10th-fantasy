@@ -47,7 +47,6 @@ void RaidMenuScene::Menu()
     Title->setPosition(centerWidth(),900);
     this->addChild(Title,1);
 
-
     _firstRaid = newButton("", "Sprite/Betala.png", 1);
     _firstRaid->setPosition(cocos2d::Vec2(centerWidth(), 700));
     _firstRaid->setScale(0.4, 0.4);
@@ -67,7 +66,6 @@ void RaidMenuScene::Menu()
     Return->setPosition(cocos2d::Vec2(50, 18));
     Return->setScale(0.25, 0.25);
     this->addChild(Return, 1);
-
 }
 
 void RaidMenuScene::Level()
@@ -100,7 +98,6 @@ void RaidMenuScene::Level()
     Ultimate->setPosition(140, 130);
     Ultimate->setLocalZOrder(1);
 
-
     // LEVELS SPRITE
     PeacefulImg = newSprite(_gameManager->getSprite());
     PeacefulImg->setPosition(cocos2d::Vec2(centerWidth(), 780));
@@ -127,7 +124,6 @@ void RaidMenuScene::Level()
     UltimateImg->setScale(0.4, 0.4);
 
     // LEVEL BUTTON
-
     PeacefulPlay = newButton("", "Button/playbtn.png", 1);
     PeacefulPlay->setPosition(cocos2d::Vec2(400, 780));
     PeacefulPlay->setScale(0.05, 0.05);
@@ -155,11 +151,9 @@ void RaidMenuScene::Level()
 
     Play();
 
-
     Return = newButton("","Return.png", 1);
     Return->setPosition(cocos2d::Vec2(50, 18));
     Return->setScale(0.25, 0.25);
-
     Return->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {

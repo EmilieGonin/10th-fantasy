@@ -23,8 +23,9 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int wishes;
 		int tickets;
 		int timer;
-		int id;
 		int gender; //1 = Male, 2 = Female
+		int tutorial;
+		int id;
 		std::vector<int> supports;
 	};
 
@@ -106,6 +107,7 @@ private:
 	cpr::Response _request;
 	std::string _email;
 	bool _logged;
+	std::vector<db::support> _lastPull;
 
 public:
 	static Database* Instance();
@@ -156,10 +158,12 @@ public:
 
 	//Setters
 	void setEmail(std::string);
+	void emptyPull();
 
 	//Getters
 	db::user* user();
 	db::character* character();
 	db::inventory* inventory();
+	std::vector<db::support>* lastPull();
 	bool isLogged();
 };

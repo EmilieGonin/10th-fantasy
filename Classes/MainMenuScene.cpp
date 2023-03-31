@@ -5,11 +5,8 @@
 #include "CharacterMenu.h"
 #include "ShopMenu.h"
 #include "AudioEngine.h"
-//#include "Database.h"
-
 
 USING_NS_CC;
-
 
 Scene* MainMenuScene::createScene()
 {
@@ -23,48 +20,49 @@ static void problemLoading(const char* filename)
 	printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
-// on "init" you need to initialize your instance
 bool MainMenuScene::init()
 {
-	//////////////////////////////
-	// 1. super init first
-	if (!Scene::init())
-	{
-		return false;
-	}
-	openSubMenus = false;
 
-	setScene(this);
+    if (!Scene::init()) { return false; }
+	_database = Database::Instance();
 
-	Sprites();
-	Labels();
-	Buttons();
-	Sounds();
+    openSubMenus = false;
 
-	if (!_gameManager->getTutoCompleted()) {
-		Tuto();
-	}
-	return true;
+    setScene(this);
+
+    Sprites();
+    Labels();
+    Buttons();
+    Sounds();
+
+	
+	if ((bool)!_database->user()->tutorial) { Tuto(); }
+
+    return true;
 }
 
 void MainMenuScene::Tuto() {
-	TutoTextBox(100, 280);
-	TutoNextButton();
-	if (_gameManager->getTutoPhases() == 0) {
-		Interface::newLabel("Hello and welcome to our headquarters! I'll help you make yourself at home.", 100, 450, 5);
-	}
-	else if (_gameManager->getTutoPhases() == 1) {
-		Interface::newLabel("", 0, 0, 5);
-	}
-	else if (_gameManager->getTutoPhases() == 2) {
-		Interface::newLabel("", 0, 0, 5);
-	}
-	else if (_gameManager->getTutoPhases() == 3) {
-		Interface::newLabel("", 0, 0, 5);
-	}
-	else if (_gameManager->getTutoPhases() == 4) {
-		Interface::newLabel("", 0, 0, 5);
-	}
+    _gameManager->setTextPhases(1);
+    newTutoNextButton();
+    if (_gameManager->getTextPhases() == 1) {
+       newTextBox("Hello and welcome to our headquarters! I'll help you make yourself at home."); // need to figure out a way to return to next line
+    }
+    else if (_gameManager->getTextPhases() == 2) {
+        newTextBox("At the bottom you will find the raid menu! It is filled with hardships but is very rewarding");
+    }
+    else if (_gameManager->getTextPhases() == 3) {
+        newTextBox("You will also find the shop and summoning book. In order to complete tough tasks you'll need help!");
+    }
+    else if (_gameManager->getTextPhases() == 4) {
+        newTextBox("At the top right you will find a dropdown menu with the settings and your inventory.");
+    }
+    else if (_gameManager->getTextPhases() == 5) {
+        newTextBox("Finally, at the top left you will find your beautiful self, anyways I better get going good luck adventurer!");
+    }
+    if (_gameManager->getTextPhases() == 5) {
+		_database->user()->tutorial = 1;
+		_database->updateUser();
+    }
 }
 
 void MainMenuScene::Sprites() {
@@ -85,7 +83,6 @@ void MainMenuScene::Sprites() {
 	_background3->setScale(0.28);
 	_background3->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 
-
 	_player = Sprite::create("Sprite/remnant_violet.png");
 	_player->setPosition(center());
 	_player->setScale(1);
@@ -101,7 +98,6 @@ void MainMenuScene::Labels() {
 }
 
 void MainMenuScene::Buttons() {
-
 	Button* raidButton = newButton("", "Button/battle_button.png", 3);
 	raidButton->setPosition(cocos2d::Vec2(420, 30));
 	raidButton->setAnchorPoint(Vec2::ZERO);
@@ -137,7 +133,7 @@ void MainMenuScene::Buttons() {
 
 	summonButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
 		{
-			if (type == Widget::TouchEventType::ENDED && openSubMenus == false && _gameManager->getTutoCompleted()) {
+			if (type == Widget::TouchEventType::ENDED && openSubMenus == false && (bool)_database->user()->tutorial) {
 				cocos2d::Director::getInstance()->replaceScene(SummonMenuScene::create());
 				AudioEngine::pause(audioID);
 			}
@@ -152,7 +148,7 @@ void MainMenuScene::Buttons() {
 
 	characterButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
 		{
-			if (type == Widget::TouchEventType::ENDED && _gameManager->getTutoCompleted()) {
+			if (type == Widget::TouchEventType::ENDED && (bool)_database->user()->tutorial) {
 				cocos2d::Director::getInstance()->replaceScene(CharacterMenu::create());
 				AudioEngine::pause(audioID);
 			}
@@ -167,7 +163,7 @@ void MainMenuScene::Buttons() {
 
 	dropDownButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
 		{
-			if (type == Widget::TouchEventType::ENDED && openSubMenus == false && _gameManager->getTutoCompleted()) {
+			if (type == Widget::TouchEventType::ENDED && openSubMenus == false && (bool)_database->user()->tutorial) {
 
 				Account();
 				OpenInventory();
@@ -212,12 +208,12 @@ void MainMenuScene::Account()
 
 				BackButton(200, 850, 0.03, 5);
 
-				//username = "Username: " + _database->user()->name;
+				username = "Username: " + _database->user()->name;
 
-				//cocos2d::Label* user = newLabel(username, 5);
-				//user->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
-				//user->setScale(0.8);
-				//user->setPosition(215, 800);
+				cocos2d::Label* user = newLabel(username, 5);
+				user->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+				user->setScale(0.8);
+				user->setPosition(215, 800);
 
 				Button* editButton = newButton("", "Button/editbtn.png", 5);
 				editButton->setPosition(cocos2d::Vec2(300, 800));
@@ -264,6 +260,22 @@ void MainMenuScene::OpenInventory() {
 	);
 }
 
+
+void MainMenuScene::newTutoNextButton() {
+	Button* nextButton = newButton("", "Button/Back.png", 11);
+	nextButton->setPosition(cocos2d::Vec2(110, 330));
+	nextButton->setAnchorPoint(Vec2::ZERO);
+	nextButton->setScale(0.05);
+
+	nextButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+		{
+			if (type == Widget::TouchEventType::ENDED) {
+				cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+			}
+		}
+	);
+}
+
 void MainMenuScene::Settings() {
 	Button* settingsButton = newButton("", "Button/Settings.png", 4);
 	settingsButton->setPosition(cocos2d::Vec2(535, 775));
@@ -301,14 +313,13 @@ void MainMenuScene::Settings() {
 							cocos2d::AudioEngine::setVolume(audioID, musicVol -= 0.10f);
 							//this->removeChild(sound, true);
 							//this->removeChildByName("1"-1);
-
 						}
 					}
 				);
 
 				BackButton(460, 910, 0.05, 6);
 
-				cocos2d::Label* label = newLabel("Nothing Here Yet :)", 6);
+				cocos2d::Label* label = newLabel("", 6);
 				label->setPosition(centerWidth(), 880);
 
 				_settings = Sprite::create("Rectangle.png");
@@ -320,37 +331,9 @@ void MainMenuScene::Settings() {
 		}
 	);
 }
-void MainMenuScene::TutoTextBox(int x, int y) {
-	_textBox = Sprite::create("Button/Rectangle.png");
-	_textBox->setPosition(x, y);
-	_textBox->setScale(0.5);
-	_textBox->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
-
-	this->addChild(_textBox, 4);
-}
-
-void MainMenuScene::TutoNextButton() {
-	Button* nextButton = newButton("", "Button/Back.png", 5);
-	nextButton->setPosition(cocos2d::Vec2(120, 310));
-	nextButton->setAnchorPoint(Vec2::ZERO);
-	nextButton->setScale(0.05);
-
-	nextButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
-		{
-			if (type == Widget::TouchEventType::ENDED) {
-				cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-				_gameManager->setTutoPhases(1);
-				if (_gameManager->getTutoPhases() == 10) {
-					_gameManager->setTutoCompleted(true);
-				}
-			}
-		}
-	);
-}
-
 
 void MainMenuScene::Sounds() {
-	musicVol = 0.1f;
+	musicVol = 0.0f;
 	audioID = AudioEngine::play2d("Audio/melody-of-nature-main.mp3", true, musicVol);
 
 }
@@ -363,14 +346,4 @@ void MainMenuScene::SoundsRect(int x, int y)
 	sound->setScale(0.3);
 	sound->setLocalZOrder(6);
 
-}
-void MainMenuScene::menuCloseCallback(Ref* pSender)
-{
-	//Close the cocos2d-x game scene and quit the application
-	Director::getInstance()->end();
-
-	/*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-	//EventCustom customEndEvent("game_scene_close_event");
-	//_eventDispatcher->dispatchEvent(&customEndEvent);
 }

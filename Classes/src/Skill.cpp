@@ -5,9 +5,6 @@ Skill::Skill() {
 	_cooldown = -1;
 }
 
-
-
-
 float Skill::getMultiplier() { return _multiplier; }
 int Skill::getCooldown() { return _cooldown; }
 //void Skill::additionalEffect(Entity*, Entity*, int) { }

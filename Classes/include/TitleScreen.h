@@ -1,14 +1,13 @@
 #pragma once
 #include "MainScene.h"
+#include "MainMenuScene.h"
 
-class TitleScreen : public MainScene
+class TitleScreen : public MainScene, Interface
 {
 public:
     static cocos2d::Scene* createScene();
     virtual bool init();
-
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
+    bool onTouchBegan(Touch*, Event*);
 
     // implement the "static create()" method manually
     CREATE_FUNC(TitleScreen);

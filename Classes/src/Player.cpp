@@ -46,7 +46,6 @@ void Player::equipWeapon(Weapon* weapon)
 	_dmgType = _weapon->getDmgType();
 	_skills.push_back(weapon->getSkill3());
 	update();
-
 }
 
 
@@ -61,9 +60,7 @@ void Player::update() {
 	if(_myStuff.size() != 0)
 	{
 		for (int i = 0; i < _myStuff.size(); i++) {
-			
 			*_finalStats[_myStuff[i]->getGear()->stat] +=  _myStuff[i]->getGear()->amount;
-
 		}
 	}
 }
