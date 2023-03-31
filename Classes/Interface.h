@@ -31,6 +31,7 @@ public:
 	Label* newOutlinedLabel(std::string);
 	Label* newOutlinedLabel(std::string, int);
 	Sprite* newSprite(std::string);
+	Sprite* newSprite(std::string, int);
 
 	//Des wrappers pour set les positions
 	Vec2 center();

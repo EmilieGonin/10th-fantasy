@@ -143,6 +143,18 @@ Sprite* Interface::newSprite(std::string filename)
 	return sprite;
 }
 
+Sprite* Interface::newSprite(std::string filename, int layer)
+{
+	Sprite* sprite = Sprite::create(filename);
+	_sprites.push_back(sprite);
+
+	if (_scene != nullptr) {
+		_scene->addChild(sprite, layer);
+	}
+
+	return sprite;
+}
+
 Vec2 Interface::center() {
 	//Taille de la fenêtre de jeu
 	Size size = Director::getInstance()->getVisibleSize();

@@ -112,10 +112,10 @@ void Database::init(cocos2d::Scene* scene) {
 		signup();
 	}
 	else if (getUser()) {
-		cocos2d::Label* label = newOutlinedLabel("Touch the screen to start", 1);
+		cocos2d::Label* label = newOutlinedLabel("Touch the screen to start");
 		label->setPosition(center());
 
-		cocos2d::Label* userLabel = newOutlinedLabel("Logged in as " + _user.name, 1);
+		cocos2d::Label* userLabel = newOutlinedLabel("Logged in as " + _user.name);
 		userLabel->setPosition(Vec2(centerWidth(), top(userLabel->getLineHeight())));
 	}
 	else {
