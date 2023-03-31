@@ -13,13 +13,14 @@ class Player : public Entity
 protected:	
 	std::vector<Gear*> _myStuff;
 	std::vector<int> stats;
-	std::vector<Support*> _mySupport;
+	std::vector<Support*> _mySupport;	
 	Weapon* _weapon;
+	//static Player* _instance;
 
 public: 
 	Player();
 	~Player();
-	
+	//static Player* Instance();
 	void levelup();
 	void equip(Gear*);
 	void equipWeapon(Weapon*);
