@@ -173,6 +173,7 @@ void Battle::play() {
 				}
 				selectedEnemy = selectedSkill = -1;
 				_myTurn = false;
+				battleCheck();
 				play();
 
 
@@ -180,22 +181,20 @@ void Battle::play() {
 		}
 	}
 	updateLifeBar();
-	battleCheck();
-
 }
 
 void Battle::battleCheck() {
 
-
+	CCLOG("Checking ");
 	for (int i = 0; i < _battleOrder.size(); i++) {
 		if (_battleOrder[i]->getBattleHP() <= 0) {
 			CCLOG("I delete");
 			_battleOrder.erase(_battleOrder.begin() + i);
 		}
 	}
-	if (_battleOrder.size() <= 1 && _player->getBattleHP() > 0) {
+	if (_battleOrder.size() == 1 && _player->getBattleHP() > 0) {
 		CCLOG("I WIN");
-
+		drop();
 		_battle = false;
 		_win = true;
 		cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
@@ -211,6 +210,7 @@ void Battle::drop() {
 		rarities[i] = gameManager->getBoss()->getRarities()[i];
 	}
 
+	CCLOG("inventory size %d", database->inventory()->gears.size());
 	switch (gameManager->getBossId())
 	{
 		int rd;
@@ -221,30 +221,39 @@ void Battle::drop() {
 		switch (rd)
 		{
 		case 0:
+			CCLOG("je drop");
 			database->createGear(createNecklace(rarities));
 			break;
 		case 1:
+			CCLOG("je drop");
 			database->createGear(createRing(rarities));
 			break;
 		case 2:
+			CCLOG("je drop");
 			database->createGear(createEarRing(rarities));
 			break;
 		}
+		break;
 	case 3:
 		rd = rand() % 3;
 		switch (rd)
 		{
 		case 0:
+			CCLOG("je drop");
 			database->createGear(createHelmet(rarities));
 			break;
 		case 1:
+			CCLOG("je drop");
 			database->createGear(createChest(rarities));
 			break;
 		case 2:
+			CCLOG("je drop");
 			database->createGear(createBoots(rarities));
 			break;
 		}
+		break;
 	}
+	CCLOG("inventory size %d", database->inventory()->gears.size());
 }
 
 

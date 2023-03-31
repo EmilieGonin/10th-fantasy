@@ -51,6 +51,7 @@ void db::from_json(const json& j, gear& gear) {
 	j.at("amount").get_to(gear.amount);
 	j.at("rarity").get_to(gear.rarity);
 	j.at("level").get_to(gear.level);
+	j.at("inventory_id").get_to(gear.inventoryId);
 }
 void db::to_json(json& j, const user& user) {
 	j = json{
@@ -79,7 +80,7 @@ void db::to_json(json& j, const gear& gear) {
 	j = json{
 		{"type", gear.type}, {"stat", gear.stat},
 		{"amount", gear.amount}, {"rarity", gear.rarity},
-		{"level", gear.level}
+		{"level", gear.level}, {"inventory_id", gear.inventoryId}
 	};
 }
 void db::to_json(json& j, const error& error) {
@@ -410,6 +411,7 @@ bool Database::createInventory() {
 
 bool Database::createGear(db::gear gear) {
 	std::string url = std::string(_url + "/items/gears");
+	gear.inventoryId = _inventory.id;
 	json payload = gear;
 
 	if (request(url, payload)) {
