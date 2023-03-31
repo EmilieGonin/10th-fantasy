@@ -186,7 +186,7 @@ void Battle::battleCheck() {
 		drop();
 		_battle = false;
 		_win = true;
-		cocos2d::Director::getInstance()->replaceScene(RaidBossLootScene::create());
+		cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 	}
 }
 

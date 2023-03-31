@@ -28,7 +28,7 @@ bool BattleScene::init()
 {
 	if (!Scene::init()) { return false; }
 
-	/*enum Stats {
+	enum Stats {
 		ATK = 0,
 		MATK = 1,
 		PATK = 2,
@@ -54,7 +54,76 @@ bool BattleScene::init()
 		RARE = 1,
 		EPIC = 2,
 		LEGENDARY = 3,
-	};*/
+	};
+
+	db::gear Helmet;
+	Helmet.type = gameManager->HELMET;
+	Helmet.stat = gameManager->HP;
+	Helmet.amount = 3000;
+	Helmet.rarity = gameManager->LEGENDARY;
+	Helmet.level = 0;
+
+	db::gear Chest;
+	Chest.type = gameManager->CHEST;
+	Chest.stat = gameManager->PDEF;
+	Chest.amount = 25;
+	Chest.rarity = gameManager->LEGENDARY;
+	Chest.level = 0;
+
+	db::gear Boots;
+	Boots.type = gameManager->BOOT;
+	Boots.stat = gameManager->HP;
+	Boots.amount = 200;
+	Boots.rarity = gameManager->LEGENDARY;
+	Boots.level = 0;
+
+	db::gear Rings;
+	Rings.type = gameManager->RING;
+	Rings.stat = gameManager->PATK;
+	Rings.amount = 250;
+	Rings.rarity = gameManager->LEGENDARY;
+	Rings.level = 0;
+
+	db::gear Necklace;
+	Necklace.type = gameManager->NECKLACE;
+	Necklace.stat = gameManager->PATK;
+	Necklace.amount = 250;
+	Necklace.rarity = gameManager->LEGENDARY;
+	Necklace.level = 0;
+
+	db::gear Earrings;
+	Earrings.type = gameManager->EARRING;
+	Earrings.stat = gameManager->CD;
+	Earrings.amount = 15;
+	Earrings.rarity = gameManager->LEGENDARY;
+	Earrings.level = 0;
+
+	std::vector<db::stat> effect;
+	db::stat EffectTheaume;
+	EffectTheaume.percentage = 1;
+	EffectTheaume.statId = gameManager->ATK;
+	EffectTheaume.rate = 50;
+	effect.push_back(EffectTheaume);
+
+	/*enemies.push_back(boss);*/
+	Gear helmet(&Helmet);
+	Gear chest(&Chest);
+	Gear legs(&Boots);
+	Gear rings(&Rings);
+	Gear necklace(&Necklace);
+	Gear earrings(&Earrings);
+
+	player = new Player();
+	Sword* sword = new Sword(50);
+
+	db::support support = _database->getSupport(10);
+	player->equipSupport(new Support(&support));
+	player->equipSupport(new Support(&support));
+	player->equip(&helmet);
+	player->equip(&chest);
+	player->equip(&rings);
+	player->equip(&necklace);
+	player->equipWeapon(sword);
 
 	gameManager = GameManager::Instance();
 	
