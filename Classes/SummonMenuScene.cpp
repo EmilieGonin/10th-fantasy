@@ -167,6 +167,7 @@ void SummonMenuScene::cleanSummon() {
 
 void SummonMenuScene::summon(int amount) {
     if (hasEnoughCristals(amount)) {
+        _database->user()->cristals -= amount * 100;
         pull(amount);
         pullResult();
     }
