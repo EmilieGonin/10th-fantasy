@@ -41,10 +41,14 @@ protected:
     Button* upgrade;
     Button* equip;
     Button* unequip;
-    db::gear inspectedGear;
-    std::vector<Button*> displayedSprite;
+   
+    std::vector<Sprite*> displayedSprite;
+    std::vector<Rect> boundings;
+    std::vector< db::gear> allGears;
    
     cocos2d::Vec2 _mousePosition;
+
+    void CharacterMenu::MouseUp(Event*);
 
 public:
     static cocos2d::Scene* createScene();

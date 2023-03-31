@@ -84,6 +84,10 @@
     <ClCompile Include="..\Classes\src\Support.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Z:\Classes\src\PlayerManager.cpp" />
+    <ClCompile Include="..\Classes\src\PlayerManager.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Z:\proj.win32\main.h" />
@@ -183,6 +187,10 @@
     </ClInclude>
     <ClInclude Include="..\Classes\include\ShopMenu.h">
       <Filter>Classes\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\Classes\include\PlayerManager.h" />
+    <ClInclude Include="..\Classes\include\PlayerManager.h">
+      <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
