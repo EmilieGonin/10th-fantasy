@@ -17,6 +17,8 @@ private:
     int tag = 0;
 
     std::string username;
+    std::string _energy;
+    std::string _crystal;
 
     //Move sprites to interface wrapper
     Sprite* _player;
@@ -29,6 +31,9 @@ private:
     Sprite* _settings;
     Sprite* sound;
     Sprite* _textBox;
+
+
+
 
 public:
     static cocos2d::Scene* createScene();
