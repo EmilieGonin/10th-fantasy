@@ -31,7 +31,6 @@ private:
     Sprite* _textBox;
 
 public:
-    MainMenuScene();
     static cocos2d::Scene* createScene();
     virtual bool init();
 

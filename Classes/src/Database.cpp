@@ -16,6 +16,8 @@ void db::from_json(const json& j, user& user) {
 	j.at("timer").get_to(user.timer);
 	j.at("id").get_to(user.id);
 	j.at("supports").get_to(user.supports);
+	j.at("gender").get_to(user.gender);
+	j.at("tutorial").get_to(user.tutorial);
 }
 void db::from_json(const json& j, character& character) {
 	j.at("user_id").get_to(character.userId);
@@ -58,7 +60,8 @@ void db::to_json(json& j, const user& user) {
 		{"energy", user.energy}, {"cristals", user.cristals},
 		{"leafs", user.leafs}, {"wishes", user.wishes},
 		{"tickets", user.tickets}, {"timer", user.timer},
-		{"supports", user.supports}
+		{"supports", user.supports}, {"gender", user.gender},
+		{"tutorial", user.tutorial}
 	};
 }
 void db::to_json(json& j, const character& character) {

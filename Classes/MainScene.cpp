@@ -9,7 +9,7 @@ MainScene::MainScene() {
 	_database = Database::Instance();
 	_gameManager = GameManager::Instance();
 	_director = cocos2d::Director::getInstance();
-	this->schedule(SEL_SCHEDULE(&MainScene::timer), 5); //Change to 5min!!
+	this->schedule(SEL_SCHEDULE(&MainScene::timer), 300);
 }
 
 void MainScene::log(std::string value) {

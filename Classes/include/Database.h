@@ -23,8 +23,9 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int wishes;
 		int tickets;
 		int timer;
-		int id;
 		int gender; //1 = Male, 2 = Female
+		int tutorial;
+		int id;
 		std::vector<int> supports;
 	};
 
