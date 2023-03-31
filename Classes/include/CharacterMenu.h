@@ -13,22 +13,33 @@ protected:
     Button* Return;
 
     Sprite* bg;
-    Sprite* Ring;
-    Sprite* Necklace;
-    Sprite* Helmet;
-    Sprite* Boots;
-    Sprite* Chest;
-    Sprite* Earring;
-    Sprite* Weapon;
+    Sprite* popup;
     Sprite* Player;
     Sprite* Gem;
     Sprite* Stats;
-    Sprite* FirstSup;
-    Sprite* SeconSup;
+
+    Button* Ring;
+    Button* Necklace;
+    Button* Helmet;
+    Button* Boots;
+    Button* Chest;
+    Button* Earring;
+    Button* Weapon;
+    Button* FirstSup;
+    Button* SecondSup;
+    Button* backButton;
 
     cocos2d::Label* Title;
     cocos2d::Label* LvlUp;
     cocos2d::Label* Price;
+
+    cocos2d::Label* stats;
+    cocos2d::Label* rarity;
+
+    Sprite* perso;
+    Button* upgrade;
+    Button* equip;
+    Button* unequip;
 
     cocos2d::Vec2 _mousePosition;
 
@@ -39,6 +50,10 @@ public:
     void Stuff();
     void Stat();
     void Supports();
+    void PopupEmpty(/*int*/);
+    void PopupGear(/*int*/ );
+    void BackButton();
+
     // a selector callback
 
     void menuCloseCallback(cocos2d::Ref* pSender);
