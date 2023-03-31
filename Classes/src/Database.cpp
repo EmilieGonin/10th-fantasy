@@ -21,14 +21,8 @@ void db::from_json(const json& j, user& user) {
 }
 void db::from_json(const json& j, character& character) {
 	j.at("user_id").get_to(character.userId);
-	j.at("level").get_to(character.level);
-	j.at("head").get_to(character.head);
-	j.at("chest").get_to(character.chest);
-	j.at("gloves").get_to(character.gloves);
-	j.at("necklace").get_to(character.necklace);
-	j.at("earring").get_to(character.earring);
-	j.at("ring").get_to(character.ring);
-	j.at("weapon").get_to(character.weapon);
+	j.at("gears_id").get_to(character.gearsId);
+	j.at("supports_id").get_to(character.supportsId);
 	j.at("id").get_to(character.id);
 }
 void db::from_json(const json& j, stat& stat) {
@@ -67,11 +61,8 @@ void db::to_json(json& j, const user& user) {
 }
 void db::to_json(json& j, const character& character) {
 	j = json{
-		{"user_id", character.userId}, {"level", character.level},
-		{"head", character.head}, {"chest", character.chest},
-		{"gloves", character.gloves}, {"necklace", character.necklace},
-		{"earring", character.earring}, {"ring", character.ring},
-		{"weapon", character.weapon}
+		{"user_id", character.userId}, {"gears_id", character.gearsId},
+		{"supports_id", character.supportsId}
 	};
 }
 void db::to_json(json& j, const inventory& inventory) {
@@ -120,8 +111,7 @@ void Database::init(cocos2d::Scene* scene) {
 		userLabel->setPosition(Vec2(centerWidth(), top(userLabel->getLineHeight())));
 	}
 	else {
-		deleteSave();
-		init(scene);
+		logout(scene);
 	}
 }
 
@@ -186,6 +176,13 @@ void Database::login() {
 			}
 		}
 	);
+}
+
+void Database::logout(cocos2d::Scene* scene) {
+	_logged = false;
+	clean();
+	deleteSave();
+	init(scene);
 }
 
 bool Database::checkSave() {
@@ -318,6 +315,22 @@ bool Database::getCharacter() {
 
 	if (request(url)) {
 		_character = json::parse(_request.text)["data"][0].get<db::character>();
+
+		//Getting character gears
+		for (size_t i = 0; i < std::size(_character.gearsId); i++)
+		{
+			int id = _character.gearsId[i];
+
+			if (id) {
+				url = std::string(_url + "/items/gears/" + std::to_string(id));
+
+				if (request(url)) {
+					db::gear gear = json::parse(_request.text)["data"][0].get<db::gear>();
+					_character.gears[gear.type] = gear;
+				}
+			}
+		}
+
 		return true;
 	}
 	else {
@@ -373,6 +386,17 @@ bool Database::createUser() {
 bool Database::createCharacter() {
 	std::string url = std::string(_url + "/items/characters");
 	db::character character = { _user.id }; //Création de la struct
+
+	for (size_t i = 0; i < std::size(character.gearsId); i++)
+	{
+		character.gearsId[i] = 0;
+	}
+
+	for (size_t i = 0; i < std::size(character.supportsId); i++)
+	{
+		character.supportsId[i] = 0;
+	}
+
 	json payload = character;
 
 	if (request(url, payload)) {
@@ -462,6 +486,18 @@ bool Database::deleteGear(int index) {
 	std::string url = std::string(_url + "/items/gears/" + std::to_string(_inventory.gears[index].id));
 	_inventory.gears.erase(_inventory.gears.begin() + index);
 	return deleteRequest(url);
+}
+
+void Database::setGear(db::gear gear) {
+	_character.gears[gear.type] = gear;
+	_character.gearsId[gear.type] = gear.id;
+	updateCharacter();
+}
+
+void Database::setSupport(db::support support, int index) {
+	_character.supports[index] = support;
+	_character.supportsId[index] = support.supportId;
+	updateCharacter();
 }
 
 std::vector<db::support> Database::getSupports(int rarity) {
