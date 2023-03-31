@@ -71,15 +71,7 @@ void SummonMenuScene::Buttons() {
     singleButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                if (_database->user()->cristals >= 100) {
-                    pull(1);
-                    pullResult();
-                }
-                else{
-                    Label* error = newLabel("not enough crystals", 2);
-                    error->setPosition(cocos2d::Vec2(centerWidth(), centerHeight()));
-                }
-                
+                summon(1);
             }
         }
     );
@@ -87,15 +79,7 @@ void SummonMenuScene::Buttons() {
     MultiButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                if (_database->user()->cristals >= 1000) {
-                    pull(10);
-                    pullResult();
-                }
-                else{
-                    Label* error = newLabel("not enough crystals", 2);
-                    error->setPosition(cocos2d::Vec2(centerWidth(), centerHeight()));
-                }
-                
+                summon(10);
             }
         }
     );
@@ -124,8 +108,9 @@ void SummonMenuScene::pullResult() {
 
     for (size_t i = 0; i < _database->lastPull()->size(); i++)
     {
-        std::string name = _database->lastPull()[0][i].name;
-        Sprite* sprite = newSprite("Supports/" + name + ".png", 2);
+        db::support support = _database->lastPull()[0][i];
+
+        Sprite* sprite = newSprite("Supports/" + support.name + ".png", 2);
         sprite->setScale(0.15);
 
         if (_database->lastPull()->size() == 1) {
@@ -142,6 +127,13 @@ void SummonMenuScene::pullResult() {
 
             width++;
             count++;
+        }
+
+        if (support.convertAmount > 0) {
+            sprite->setColor(cocos2d::Color3B::RED);
+            Sprite* cristal = newSprite("Items/Cristal.png", sprite);
+            cristal->setIgnoreAnchorPointForPosition(true);
+            //cristal->setAnchorPoint(Vec2(0.5, 0.5));
         }
 
         _pulledSprites.push_back(sprite);
@@ -171,4 +163,15 @@ void SummonMenuScene::cleanSummon() {
     }
     _pulledSprites.clear();
     this->removeChild(_button);
+}
+
+void SummonMenuScene::summon(int amount) {
+    if (hasEnoughCristals(amount)) {
+        _database->user()->cristals -= amount * 100;
+        pull(amount);
+        pullResult();
+    }
+    else {
+        log("not enough cristals");
+    }
 }

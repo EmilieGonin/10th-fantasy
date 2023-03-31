@@ -50,43 +50,84 @@ void CharacterMenu::Stuff()
     Helmet->setPosition(cocos2d::Vec2(100, 650));
     Helmet->setScale(0.15, 0.15);
     this->addChild(Helmet, 1);
-
+    Helmet->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                BackButton();
+                PopupEmpty(1);
+            }
+        }
+    );
 
     Chest = newButton("", "Stuff/chest.png");
     Chest->setPosition(cocos2d::Vec2(100, 550));
-
     Chest->setScale(0.15, 0.15);
     this->addChild(Chest, 1); 
-
+    Chest->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                BackButton();
+                PopupEmpty(2);
+            }
+        }
+    );
     
     Boots = newButton("", "Stuff/boots.png");
     Boots->setPosition(cocos2d::Vec2(100, 400));
     Boots->setScale(0.15, 0.15);
     this->addChild(Boots, 1);
-
+    Boots->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                BackButton();
+                PopupEmpty(3);
+            }
+        }
+    );
 
     Weapon = newButton("", "Stuff/chest.png");
     Weapon->setPosition(cocos2d::Vec2(100, 300));
     Weapon->setScale(0.2, 0.2);
     this->addChild(Weapon, 1);
 
-
     Earring = newButton("", "Stuff/earring.png");
     Earring->setPosition(cocos2d::Vec2(450, 650));
     Earring->setScale(0.15, 0.15);
     this->addChild(Earring, 1); 
+    Earring->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                BackButton();
+                PopupEmpty(5);
+            }
+        }
+    );
 
     Necklace = newButton("", "Stuff/necklace.png");
     Necklace->setPosition(cocos2d::Vec2(450, 550));
     Necklace->setScale(0.15, 0.15);
     this->addChild(Necklace, 1);
-
+    Necklace->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                BackButton();
+                PopupEmpty(6);
+            }
+        }
+    );
 
     Ring = newButton("","Stuff/ring.png");
     Ring->setPosition(cocos2d::Vec2(450, 400));
     Ring->setScale(0.15, 0.15);
     this->addChild(Ring, 1);
-
+    Ring->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                BackButton();
+                PopupEmpty(4);
+            }
+        }
+    );
 
     //Gem = newSprite("Stuff/necklace.png");
     //Gem->setPosition(450, 300);
@@ -135,39 +176,49 @@ void CharacterMenu::Supports()
     FirstSup->setPosition(cocos2d::Vec2(100, 780));
     FirstSup->setScale(0.1, 0.1);
     this->addChild(FirstSup, 1);
-    FirstSup->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
-        {
-            if (type == Widget::TouchEventType::ENDED) {
-                BackButton();
-                PopupGear();
-            }
-        }
-    );
+
 
     SecondSup = newButton("","Supports/elf.png");
     SecondSup->setPosition(cocos2d::Vec2(450, 780));
     SecondSup->setScale(0.1, 0.1);
     this->addChild(SecondSup, 1);
-    SecondSup->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
-        {
-            if (type == Widget::TouchEventType::ENDED) {
-                BackButton();
-                PopupEmpty();
-            }
-        }
-    );
+
 }
 
-void CharacterMenu::PopupEmpty()
+void CharacterMenu::PopupEmpty(int gearType)
 {
     popup = newSprite("Rectangle.png");
     popup->setPosition(10, 850);
     popup->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
     popup->setScale(0.5, 0.8);
     this->addChild(popup, 1);
+    int count = 0;
+    for (int i = 0; i < _database->inventory()->gears.size(); i++)
+    {
+        log(i);
+        if(_database->inventory()->gears[i].type == gearType)
+        {
+       
+            Button* item = newButton("", "Stuff/" + std::to_string(_database->inventory()->gears[i].rarity) + "/" + std::to_string(_database->inventory()->gears[i].type) + ".png");
+            item->setPosition(cocos2d::Vec2(10 + count  * 110 , 800 - 60 * count % 5));
+            item->setScale(0.2, 0.2);
+            item->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);;
+
+            //item->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+            //    {
+
+            //        
+            //    }
+            //);
+            displayedSprite.push_back(item);
+            this->addChild(item, 2);
+            count++;
+        }
+    }
+
 }
 
-void CharacterMenu::PopupGear()
+void CharacterMenu::PopupGear(db::gear myGear)
 {
     popup = newSprite("Rectangle.png");
     popup->setPosition(10, 850);
@@ -175,17 +226,17 @@ void CharacterMenu::PopupGear()
     popup->setScale(0.5, 0.8);
     this->addChild(popup, 1); 
     
-    perso = newSprite("Supports/elf.png");
+    perso = newSprite("Stuff/" + std::to_string(myGear.rarity) + "/" + std::to_string(myGear.type) + ".png");
     perso->setPosition(20, 780);
     perso->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
     perso->setScale(0.1, 0.1);
     this->addChild(perso, 2);
 
-    stats = newLabel("STATS");
+    stats = newLabel(std::to_string(myGear.type));
     stats->setPosition(centerWidth(), 750);
     this->addChild(stats, 2);
 
-    rarity = newLabel("Rarity");
+    rarity = newLabel("Rarity : " + std::to_string(myGear.rarity) );
     rarity->setPosition(185, 700);
     this->addChild(rarity, 2);
 

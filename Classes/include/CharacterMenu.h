@@ -41,7 +41,9 @@ protected:
     Button* upgrade;
     Button* equip;
     Button* unequip;
-
+    db::gear inspectedGear;
+    std::vector<Button*> displayedSprite;
+   
     cocos2d::Vec2 _mousePosition;
 
 public:
@@ -52,8 +54,8 @@ public:
     void Stat();
     void Supports();
 
-    void PopupEmpty(/*int*/);
-    void PopupGear(/*int*/ );
+    void PopupEmpty(int);
+    void PopupGear(db::gear);
     void BackButton();
 
     // a selector callback

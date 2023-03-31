@@ -21,6 +21,7 @@ public:
 
     void pullResult();
     void cleanSummon();
+    void summon(int);
 
     // implement the "static create()" method manually
     CREATE_FUNC(SummonMenuScene);
