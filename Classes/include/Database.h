@@ -106,6 +106,7 @@ private:
 	cpr::Response _request;
 	std::string _email;
 	bool _logged;
+	std::vector<db::support> _lastPull;
 
 public:
 	static Database* Instance();
@@ -156,10 +157,12 @@ public:
 
 	//Setters
 	void setEmail(std::string);
+	void emptyPull();
 
 	//Getters
 	db::user* user();
 	db::character* character();
 	db::inventory* inventory();
+	std::vector<db::support>* lastPull();
 	bool isLogged();
 };
