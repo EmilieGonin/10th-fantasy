@@ -17,6 +17,7 @@ static void problemLoading(const char* filename)
 bool SummonMenuScene::init()
 {
     if (!Scene::init()) { return false; }
+    _database = Database::Instance();
     setScene(this);
 
     Sprites();
@@ -71,6 +72,7 @@ void SummonMenuScene::Buttons() {
         {
             if (type == Widget::TouchEventType::ENDED) {
                 pull(1);
+                pullResult();
             }
         }
     );
@@ -79,6 +81,7 @@ void SummonMenuScene::Buttons() {
         {
             if (type == Widget::TouchEventType::ENDED) {
                 pull(10);
+                pullResult();
             }
         }
     );
@@ -94,4 +97,66 @@ void SummonMenuScene::Labels() {
     Multi->setPosition(300, 440);
     Multi->setAnchorPoint(Vec2::ZERO);
     Multi->setScale(0.5);
+}
+
+void SummonMenuScene::pullResult() {
+    if (_button != nullptr) {
+        cleanSummon();
+    }
+
+    int width = 0;
+    int height = 0;
+    int count = 1;
+
+    for (size_t i = 0; i < _database->lastPull()->size(); i++)
+    {
+        std::string name = _database->lastPull()[0][i].name;
+        Sprite* sprite = newSprite("Supports/" + name + ".png", 2);
+        sprite->setScale(0.15);
+
+        if (_database->lastPull()->size() == 1) {
+            sprite->setPosition(Vec2(centerWidth(), centerHeight() + 170));
+        }
+        else {
+            if (count == 3) {
+                height += 160;
+                width = 0;
+                count = 1;
+            }
+
+            sprite->setPosition((160 * width) + 180, centerHeight() + 350 - height);
+
+            width++;
+            count++;
+        }
+
+        _pulledSprites.push_back(sprite);
+    }
+
+    _button = newButton("OK");
+
+    if (_database->lastPull()->size() == 1) {
+        _button->setPosition(Vec2(centerWidth(), 550));
+    }
+    else {
+        _button->setPosition(Vec2(centerWidth(), 50));
+    }
+
+    _database->emptyPull();
+
+    _button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+        {
+            if (type == Widget::TouchEventType::ENDED) {
+                cleanSummon();
+            }
+        }
+    );
+}
+
+void SummonMenuScene::cleanSummon() {
+    for (Sprite* item : _pulledSprites) {
+        this->removeChild(item);
+    }
+    _pulledSprites.clear();
+    this->removeChild(_button);
 }
