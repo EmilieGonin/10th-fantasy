@@ -13,6 +13,8 @@
 class Battle : public Interface
 {
 protected:
+	GameManager* gameManager;
+	Database* database;
 	Player* _player;
 	std::vector<Enemy*> _enemies;
 	cocos2d::DrawNode *myLifeBar;
@@ -59,9 +61,5 @@ public:
 		CR = 6,
 		CD = 7
 	};
-
-
-	GameManager* gameManager;
-	Database* database;
 };
 

@@ -9,14 +9,9 @@ RaidBossShaDo::RaidBossShaDo(int lvl) {
 	_basedef = _totalDef = 200 + 70 * lvl;
 	_baseMagicDef = _totalMagicDef = 200 + 18 * lvl;
 	
-
-
 	_lvl = lvl;
 	_battleHp = _totalHp;
 
 	SkillSlash* Slash = new SkillSlash();
 	_skills.push_back(Slash);
 }
-
-
-

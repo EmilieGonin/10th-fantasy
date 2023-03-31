@@ -1,10 +1,8 @@
 #include "GameManager.h"
 
-
 GameManager* GameManager::_instance = new GameManager();
 
 GameManager::GameManager()
-
 {
 	_bossId = 0;
 	_bossLvl = 0;
@@ -13,6 +11,8 @@ GameManager::GameManager()
 	_phases = 0;
 	_boss = nullptr;
 	_loading = false;
+
+	//Stock this in raidboss sub classes instead;
 	bossSprites[0] = "Sprite/DifficultyBetala.png";
 	bossSprites[1] = "Sprite/DifficultyShado.png";
 	bossSprites[2] = "Sprite/DifficultyLaijande.png";

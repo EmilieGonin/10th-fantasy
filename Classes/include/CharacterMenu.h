@@ -9,6 +9,7 @@
 class CharacterMenu : public MainScene, Interface
 {
 protected:
+    //Use interface wrapper instead !
     Button* _firstRaid;
     Button* Return;
 
@@ -39,9 +40,6 @@ public:
     void Stuff();
     void Stat();
     void Supports();
-    // a selector callback
-
-    void menuCloseCallback(cocos2d::Ref* pSender);
 
     // implement the "static create()" method manually
     CREATE_FUNC(CharacterMenu);
