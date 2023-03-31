@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "cocos2d.h"
 #include "Gear.h"
+#include "Database.h"
 #include "Support.h"
 #include "Skill.h"
 #include "SkillSlash.h"
@@ -11,16 +12,15 @@
 class Player : public Entity
 {
 protected:	
+	db::character* character;
 	std::vector<Gear*> _myStuff;
 	std::vector<int> stats;
 	std::vector<Support*> _mySupport;	
 	Weapon* _weapon;
-	//static Player* _instance;
-
 public: 
 	Player();
 	~Player();
-	//static Player* Instance();
+	db::character* getCharacter();
 	void levelup();
 	void equip(Gear*);
 	void equipWeapon(Weapon*);

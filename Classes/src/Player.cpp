@@ -2,7 +2,6 @@
 
 #include "cocos2d.h"
 
-//Player* Player::_instance = new Player();
 
 Player::Player() {
 	_basehp = _totalHp = 300; // 75hp per lvl
@@ -10,7 +9,7 @@ Player::Player() {
 	_baseMagicDef = _totalMagicDef = 76; // 8 def per lvl
 	_baseatk = _totalAtk = 75; // 12 atk per lvl
 	_bonusMagical = _bonusPhysical = 25;
-	_lvl = 1;// 50 lvl
+	_lvl = 1;// 50 lvl		
 	_dmgType = 0; // 
 	SkillSlash *mySlash = new SkillSlash();
 
@@ -28,9 +27,8 @@ Player::Player() {
 Player::~Player() {};
 
 
+db::character* Player::getCharacter(){ return character; }
 
-
-//Player* Player::Instance() { return _instance; }
 void Player::levelup() {
 	_lvl += 1;
 	_battleHp = _totalHp = _basehp += (75* 2 * _lvl) / 4 ;
