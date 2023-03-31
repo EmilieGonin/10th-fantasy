@@ -7,7 +7,7 @@
 #include "cocos2d.h"
 #include <iostream>
 
-class RaidMenuScene : public MainScene, Interface
+class RaidMenuScene : public MainScene
 {
 protected:
     //Use interface wrapper instead !

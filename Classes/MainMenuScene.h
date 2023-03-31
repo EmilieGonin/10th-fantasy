@@ -2,7 +2,7 @@
 #include "MainScene.h"
 #include <iostream>
 
-class MainMenuScene : public MainScene, Interface
+class MainMenuScene : public MainScene
 {
 private:
     Database* _database;

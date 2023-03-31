@@ -93,3 +93,22 @@ void MainScene::timer(float delta) {
 bool MainScene::hasEnoughEnergy(int needed) {
 	return _database->user()->energy >= needed;
 }
+
+void MainScene::loadingScreen() {
+	log("loading screen");
+	Director* director = Director::getInstance();
+	Size size = Director::getInstance()->getVisibleSize();
+	_loadingRect = DrawNode::create();
+	_loadingRect->drawSolidRect(director->getVisibleOrigin(), Vec2(size.width, 0), cocos2d::Color4F::BLACK);
+	_loadingRect->setOpacity(120);
+
+	_loadingLabel = newOutlinedLabel("Loading...", 3);
+	_loadingLabel->setPosition(center());
+	
+	this->addChild(_loadingRect);
+}
+
+void MainScene::stopLoadingScreen() {
+	this->removeChild(_loadingRect);
+	this->removeChild(_loadingLabel);
+}

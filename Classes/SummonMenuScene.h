@@ -1,7 +1,7 @@
 #pragma once
 #include "MainScene.h"
 
-class SummonMenuScene : public MainScene, Interface
+class SummonMenuScene : public MainScene
 {
 private:
     //Use interface wrapper instead !
