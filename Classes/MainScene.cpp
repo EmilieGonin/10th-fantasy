@@ -59,14 +59,15 @@ void MainScene::pull(int num) {
 			pulled = supports[rand(supports.size()) - 1];
 		}
 
-		_database->lastPull()->push_back(pulled);
-
 		std::vector<int> userSupports = _database->user()->supports;
 		bool alreadyPulled = std::count(userSupports.begin(), userSupports.end(), pulled.supportId);
 
+		int amount = 0;
+
 		if (alreadyPulled) {
 			//convert into currency
-			_database->user()->cristals += 50 * rarity;
+			amount = 50 * rarity;
+			_database->user()->cristals += amount;
 			log("already pulled - cristals obtained : " + std::to_string(50 * rarity));
 		}
 		else {
@@ -74,6 +75,8 @@ void MainScene::pull(int num) {
 			_database->user()->supports.push_back(pulled.supportId);
 		}
 
+		pulled.convertAmount = amount;
+		_database->lastPull()->push_back(pulled);
 		_database->updateUser();
 		log(pulled.name);
 	}

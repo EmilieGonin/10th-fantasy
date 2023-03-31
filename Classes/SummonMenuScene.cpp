@@ -108,8 +108,9 @@ void SummonMenuScene::pullResult() {
 
     for (size_t i = 0; i < _database->lastPull()->size(); i++)
     {
-        std::string name = _database->lastPull()[0][i].name;
-        Sprite* sprite = newSprite("Supports/" + name + ".png", 2);
+        db::support support = _database->lastPull()[0][i];
+
+        Sprite* sprite = newSprite("Supports/" + support.name + ".png", 2);
         sprite->setScale(0.15);
 
         if (_database->lastPull()->size() == 1) {
@@ -126,6 +127,13 @@ void SummonMenuScene::pullResult() {
 
             width++;
             count++;
+        }
+
+        if (support.convertAmount > 0) {
+            sprite->setColor(cocos2d::Color3B::RED);
+            Sprite* cristal = newSprite("Items/Cristal.png", sprite);
+            cristal->setIgnoreAnchorPointForPosition(true);
+            //cristal->setAnchorPoint(Vec2(0.5, 0.5));
         }
 
         _pulledSprites.push_back(sprite);
