@@ -12,7 +12,7 @@ protected:
 	cocos2d::Director* _director;
 	Database* _database;
 	GameManager* _gameManager;
-	TextField* _textField;
+	TextField* _textField; //use interface wrapper instead
 
 public:
 	MainScene();

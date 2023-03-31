@@ -9,13 +9,12 @@
 class ShopMenu : public MainScene, Interface
 {
 protected:
+    //Use interface wrapper instead !
     Button* Packsbtn;
     Button* Monneybtn;
     Button* Otherbtn;
-
     Button* FirstPull;
     Button* SecondPull;
-
     Button* Return;
 
     cocos2d::Label* Title;
@@ -23,18 +22,15 @@ protected:
     cocos2d::Label* Monney;
     cocos2d::Label* Other;
 
-
 public:
     static cocos2d::Scene* createScene();
     virtual bool init();
+
     void Menu();
     void PackPage();
     void MonneyPage();
     void OtherPage();
     void SceneChanger();
-
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
 
     // implement the "static create()" method manually
     CREATE_FUNC(ShopMenu);

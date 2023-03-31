@@ -81,7 +81,6 @@ bool SummonMenuScene::init()
 
     this->addChild(_back);
     this->addChild(_banner);
-
     
     return true;
 }
