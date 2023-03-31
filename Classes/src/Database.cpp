@@ -7,9 +7,7 @@ using namespace db;
 void db::from_json(const json& j, user& user) {
 	j.at("mail").get_to(user.mail);
 	j.at("name").get_to(user.name);
-	j.at("account_lvl").get_to(user.level);
 	j.at("energy").get_to(user.energy);
-	j.at("exp").get_to(user.exp);
 	j.at("cristals").get_to(user.cristals);
 	j.at("leafs").get_to(user.leafs);
 	j.at("wishes").get_to(user.wishes);
@@ -22,6 +20,8 @@ void db::from_json(const json& j, user& user) {
 }
 void db::from_json(const json& j, character& character) {
 	j.at("user_id").get_to(character.userId);
+	j.at("level").get_to(character.level);
+	j.at("exp").get_to(character.exp);
 	j.at("gears_id").get_to(character.gearsId);
 	j.at("supports_id").get_to(character.supportsId);
 	j.at("id").get_to(character.id);
@@ -52,8 +52,8 @@ void db::from_json(const json& j, gear& gear) {
 }
 void db::to_json(json& j, const user& user) {
 	j = json{
-		{"mail", user.mail}, {"name", user.name}, {"account_lvl", user.level},
-		{"energy", user.energy}, {"cristals", user.cristals}, {"exp", user.exp},
+		{"mail", user.mail}, {"name", user.name},
+		{"energy", user.energy}, {"cristals", user.cristals},
 		{"leafs", user.leafs}, {"wishes", user.wishes},
 		{"tickets", user.tickets}, {"timer", user.timer},
 		{"supports", user.supports}, {"gender", user.gender},
@@ -62,7 +62,8 @@ void db::to_json(json& j, const user& user) {
 }
 void db::to_json(json& j, const character& character) {
 	j = json{
-		{"user_id", character.userId}, {"gears_id", character.gearsId},
+		{"user_id", character.userId}, {"level", character.level},
+		{"exp", character.exp}, {"gears_id", character.gearsId},
 		{"supports_id", character.supportsId}
 	};
 }
@@ -376,7 +377,7 @@ bool Database::getInventory() {
 
 bool Database::createUser() {
 	std::string url = std::string(_url + "/items/users");
-	db::user user = { std::string(_email), std::string("User#" + split(_email, "@")[0]), 1, 50, 1000}; //Création de la struct
+	db::user user = { std::string(_email), std::string("User#" + split(_email, "@")[0]), 50, 1000}; //Création de la struct
 	json payload = user; //On convertis la struct en JSON
 
 	if (request(url, payload)) { //Création de l'utilisateur
@@ -397,7 +398,7 @@ bool Database::createUser() {
 
 bool Database::createCharacter() {
 	std::string url = std::string(_url + "/items/characters");
-	db::character character = { _user.id }; //Création de la struct
+	db::character character = { _user.id, 1 }; //Création de la struct
 
 	for (size_t i = 0; i < std::size(character.gearsId); i++)
 	{

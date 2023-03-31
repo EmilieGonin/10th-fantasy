@@ -16,10 +16,8 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 	struct user {
 		std::string mail;
 		std::string name;
-		int level;
 		int energy;
 		int cristals;
-		int exp;
 		int leafs;
 		int wishes;
 		int tickets;
@@ -57,6 +55,8 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 
 	struct character {
 		int userId;
+		int level;
+		int exp;
 		int gearsId[8];
 		int supportsId[2];
 		db::gear gears[8];
