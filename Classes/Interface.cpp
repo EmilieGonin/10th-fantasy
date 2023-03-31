@@ -94,6 +94,30 @@ Label* Interface::newLabel(std::string string, int posX, int posY, int layer) {
 	return label;
 }
 
+Label* Interface::newOutlinedLabel(std::string string) {
+	Label* label = Label::createWithTTF(string, "fonts/arial.ttf", 25);
+	label->enableOutline(cocos2d::Color4B::BLACK, 1);
+	_labels.push_back(label);
+
+	if (_scene != nullptr) {
+		_scene->addChild(label);
+	}
+
+	return label;
+}
+
+Label* Interface::newOutlinedLabel(std::string string, int layer) {
+	Label* label = Label::createWithTTF(string, "fonts/arial.ttf", 25);
+	label->enableOutline(cocos2d::Color4B::BLACK, 3);
+	_labels.push_back(label);
+
+	if (_scene != nullptr) {
+		_scene->addChild(label, layer);
+	}
+
+	return label;
+}
+
 void Interface::newTextBox(std::string story) {
 	Sprite* _textBox = Sprite::create("Button/Rectangle.png");
 	_textBox->setPosition(100, 280);
