@@ -54,6 +54,7 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int rarity;
 		int type;
 		std::vector<stat> stats;
+		int convertAmount;
 	};
 
 	struct gear {
