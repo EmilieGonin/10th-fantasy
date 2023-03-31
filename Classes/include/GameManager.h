@@ -15,6 +15,7 @@ private:
 	int _phases;
 	bool _loading;
 	RaidBoss* _boss;
+
 public:
 	static GameManager* Instance();
 
@@ -66,6 +67,5 @@ public:
 		EPIC = 2,
 		LEGENDARY = 3,
 	};
-
 };
 

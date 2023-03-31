@@ -5,11 +5,8 @@
 #include "CharacterMenu.h"
 #include "ShopMenu.h"
 #include "AudioEngine.h"
-//#include "Database.h"
-
 
 USING_NS_CC;
-
 
 Scene* MainMenuScene::createScene()
 {
@@ -27,16 +24,9 @@ MainMenuScene::MainMenuScene() {
     _database = Database::Instance();
 }
 
-// on "init" you need to initialize your instance
 bool MainMenuScene::init()
 {
-
-    //////////////////////////////
-    // 1. super init first
-    if (!Scene::init())
-    {
-        return false;
-    }
+    if (!Scene::init()) { return false; }
     openSubMenus = false;
 
     setScene(this);
@@ -44,10 +34,9 @@ bool MainMenuScene::init()
     Sprites();
     Labels();
     Buttons();
+	
+	if (!_gameManager->getTutoCompleted()) { Tuto(); }
 
-   if (!_gameManager->getTutoCompleted()) {
-        Tuto();
-    }
     return true;
 }
 
@@ -72,7 +61,6 @@ void MainMenuScene::Tuto() {
     if (_gameManager->getTextPhases() == 5) {
         _gameManager->setTutoCompleted(true);
     }
-
 }
 
 void MainMenuScene::Sprites() {
@@ -93,7 +81,6 @@ void MainMenuScene::Sprites() {
 	_background3->setScale(0.28);
 	_background3->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 
-
 	_player = Sprite::create("Sprite/remnant_violet.png");
 	_player->setPosition(center());
 	_player->setScale(1);
@@ -109,7 +96,6 @@ void MainMenuScene::Labels() {
 }
 
 void MainMenuScene::Buttons() {
-
 	Button* raidButton = newButton("", "Button/battle_button.png", 3);
 	raidButton->setPosition(cocos2d::Vec2(420, 30));
 	raidButton->setAnchorPoint(Vec2::ZERO);
@@ -325,7 +311,6 @@ void MainMenuScene::Settings() {
 							cocos2d::AudioEngine::setVolume(audioID, musicVol -= 0.10f);
 							//this->removeChild(sound, true);
 							//this->removeChildByName("1"-1);
-
 						}
 					}
 				);
@@ -359,14 +344,4 @@ void MainMenuScene::SoundsRect(int x, int y)
 	sound->setScale(0.3);
 	sound->setLocalZOrder(6);
 
-}
-void MainMenuScene::menuCloseCallback(Ref* pSender)
-{
-	//Close the cocos2d-x game scene and quit the application
-	Director::getInstance()->end();
-
-	/*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-	//EventCustom customEndEvent("game_scene_close_event");
-	//_eventDispatcher->dispatchEvent(&customEndEvent);
 }

@@ -1,7 +1,5 @@
 #include "SkillSwordJudgement.h"
 
-
-
 SkillSwordJudgement::SkillSwordJudgement(){
 	_name = "Judgement Sword";
 	_skillSprite = cocos2d::Sprite::create("Skills/s3_sword.png");

@@ -15,15 +15,9 @@ static void problemLoading(const char* filename)
     printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
-// on "init" you need to initialize your instance
 bool CharacterMenu::init()
 {
-    //////////////////////////////
-    // 1. super init first
-    if (!Scene::init())
-    {
-        return false;
-    }
+    if (!Scene::init()) { return false; }
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -51,12 +45,10 @@ void CharacterMenu::Stuff()
     Title->setPosition(centerWidth(), 900);
     this->addChild(Title, 1);
 
-
     Helmet = newSprite("Stuff/helmet.png");
     Helmet->setPosition(100, 650);
     Helmet->setScale(0.15, 0.15);
     this->addChild(Helmet, 1);
-
 
     Chest = newSprite("Stuff/chest.png");
     Chest->setPosition(100, 550);
@@ -110,7 +102,6 @@ void CharacterMenu::Stuff()
 
 void CharacterMenu::Stat()
 {
-
     Title = newLabel("STATS");
     Title->setPosition(centerWidth(), 190);
     this->addChild(Title, 2);  
@@ -140,16 +131,4 @@ void CharacterMenu::Supports()
     SeconSup->setPosition(450, 780);
     SeconSup->setScale(0.1, 0.1);
     this->addChild(SeconSup, 1);
-}
-
-
-void CharacterMenu::menuCloseCallback(Ref* pSender)
-{
-    //Close the cocos2d-x game scene and quit the application
-    Director::getInstance()->end();
-
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
 }

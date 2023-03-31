@@ -1,6 +1,5 @@
 #include "SkillSlash.h"
 
-
 SkillSlash::SkillSlash(){
 	_name = "Slash";
 	_skillSprite = cocos2d::Sprite::create("Skills/s1_sword.png");

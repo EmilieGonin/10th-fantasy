@@ -1,4 +1,3 @@
-
 #pragma once
 #include "Entity.h"
 #include "cocos2d.h"
@@ -16,7 +15,6 @@ protected:
 	std::vector<int> stats;
 	std::vector<Support*> _mySupport;
 	Weapon* _weapon;
-	
 
 public: 
 	Player();
@@ -29,5 +27,4 @@ public:
 	void update();
 
 	std::vector<Support*> getSupport();
-
 };

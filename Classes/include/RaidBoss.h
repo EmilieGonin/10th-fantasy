@@ -3,9 +3,9 @@
 #include "Enemy.h"
 #include "Skill.h"
 #include <vector>
+
 class RaidBoss : public Enemy
 {
-
 protected:
 	std::string _name;
 	int _rarities[4];
@@ -19,10 +19,10 @@ protected:
 		epic = 2,
 		legendary = 3
 	};
+
 public:
-	
+	RaidBoss();
 	void setRarities(int);
 	int* getRarities();
-	RaidBoss();
 };
 
