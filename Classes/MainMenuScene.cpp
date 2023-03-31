@@ -333,7 +333,7 @@ void MainMenuScene::Settings() {
 }
 
 void MainMenuScene::Sounds() {
-	musicVol = 0.1f;
+	musicVol = 0.0f;
 	audioID = AudioEngine::play2d("Audio/melody-of-nature-main.mp3", true, musicVol);
 
 }
