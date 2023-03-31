@@ -19,6 +19,7 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int level;
 		int energy;
 		int cristals;
+		int exp;
 		int leafs;
 		int wishes;
 		int tickets;

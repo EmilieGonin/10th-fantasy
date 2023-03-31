@@ -9,6 +9,7 @@ void db::from_json(const json& j, user& user) {
 	j.at("name").get_to(user.name);
 	j.at("account_lvl").get_to(user.level);
 	j.at("energy").get_to(user.energy);
+	j.at("exp").get_to(user.exp);
 	j.at("cristals").get_to(user.cristals);
 	j.at("leafs").get_to(user.leafs);
 	j.at("wishes").get_to(user.wishes);
@@ -52,7 +53,7 @@ void db::from_json(const json& j, gear& gear) {
 void db::to_json(json& j, const user& user) {
 	j = json{
 		{"mail", user.mail}, {"name", user.name}, {"account_lvl", user.level},
-		{"energy", user.energy}, {"cristals", user.cristals},
+		{"energy", user.energy}, {"cristals", user.cristals}, {"exp", user.exp},
 		{"leafs", user.leafs}, {"wishes", user.wishes},
 		{"tickets", user.tickets}, {"timer", user.timer},
 		{"supports", user.supports}, {"gender", user.gender},
@@ -328,6 +329,17 @@ bool Database::getCharacter() {
 					db::gear gear = json::parse(_request.text)["data"][0].get<db::gear>();
 					_character.gears[gear.type] = gear;
 				}
+			}
+		}
+
+		//Getting character supports
+		for (size_t i = 0; i < std::size(_character.supportsId); i++)
+		{
+			int id = _character.supportsId[i];
+
+			if (id) {
+				db::support support = getSupport(id);
+				_character.supports[i] = support;
 			}
 		}
 
