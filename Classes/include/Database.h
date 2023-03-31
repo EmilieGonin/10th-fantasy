@@ -29,19 +29,6 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		std::vector<int> supports;
 	};
 
-	struct character {
-		int userId;
-		int level;
-		int head;
-		int chest;
-		int gloves;
-		int necklace;
-		int earring;
-		int ring;
-		int weapon;
-		int id;
-	};
-
 	struct stat {
 		int statId;
 		int rate;
@@ -54,6 +41,7 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int rarity;
 		int type;
 		std::vector<stat> stats;
+		int convertAmount;
 	};
 
 	struct gear {
@@ -63,6 +51,15 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 		int amount;
 		int rarity;
 		int level;
+		int id;
+	};
+
+	struct character {
+		int userId;
+		int gearsId[8];
+		int supportsId[2];
+		db::gear gears[8];
+		db::support supports[2];
 		int id;
 	};
 
@@ -128,6 +125,7 @@ public:
 	void deleteSave();
 	void signup();
 	void login();
+	void logout(cocos2d::Scene*);
 
 	//GET requests
 	bool getUser();
@@ -151,6 +149,10 @@ public:
 	//DELETE requests
 	bool deleteUser();
 	bool deleteGear(int);
+
+	//Setters
+	void setGear(db::gear);
+	void setSupport(db::support, int);
 
 	//Local Json
 	std::vector<db::support> getSupports(int);

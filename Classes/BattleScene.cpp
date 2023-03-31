@@ -146,6 +146,7 @@ void BattleScene::loop(float delta)
 		}
 	}
 
+
 }
 void BattleScene::MouseUp(Event * event) {
 	EventMouse* e = (EventMouse*)event;

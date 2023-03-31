@@ -25,6 +25,16 @@ bool TitleScreen::init()
         EventListenerTouchOneByOne* touchListener = EventListenerTouchOneByOne::create();
         touchListener->onTouchBegan = CC_CALLBACK_2(TitleScreen::onTouchBegan, this);
         _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+
+        Button* button = newButton("Log out");
+        button->setPosition(Vec2(centerWidth(), 50));
+        button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+            {
+                if (type == Widget::TouchEventType::ENDED) {
+                    _database->logout(this);
+                }
+            }
+        );
     }
 
     Sprite* sprite = newSprite("Supports/djeamy.png", -1);
