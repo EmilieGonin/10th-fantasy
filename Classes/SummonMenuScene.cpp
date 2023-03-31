@@ -71,7 +71,14 @@ void SummonMenuScene::Buttons() {
     singleButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                summon(1);
+                if (hasEnoughCristals(1)) {
+                    summon(1);
+
+                }
+                else{
+                    Label* error = newLabel("not enough crystals", 2);
+                    error->setPosition(cocos2d::Vec2(centerWidth(), centerHeight()));
+                }
             }
         }
     );
@@ -79,7 +86,14 @@ void SummonMenuScene::Buttons() {
     MultiButton->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
         {
             if (type == Widget::TouchEventType::ENDED) {
-                summon(10);
+                if (hasEnoughCristals(10)) {
+                    summon(10);
+
+                }
+                else {
+                    Label* error = newLabel("not enough crystals", 2);
+                    error->setPosition(cocos2d::Vec2(centerWidth(), centerHeight()));
+                }
             }
         }
     );

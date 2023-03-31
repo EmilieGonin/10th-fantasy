@@ -102,12 +102,17 @@ void MainMenuScene::Labels() {
 	energyy->setScale(0.7);
 	energyy->setPosition(110, 920);
 
+	//Sprite* _cristal = Sprite::create("Items / Cristal.png");
+	//_cristal->setPosition(220, 910);
+	//_cristal->setScale(0.05);
+	//_cristal->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
+
 	_crystal = "Crystal: " + std::to_string(_database->user()->cristals);
 
 	cocos2d::Label* crystal = newLabel(_crystal, 2);
 	crystal->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
 	crystal->setScale(0.7);
-	crystal->setPosition(230, 920);
+	crystal->setPosition(centerWidth(), 920);
 
 	
 	

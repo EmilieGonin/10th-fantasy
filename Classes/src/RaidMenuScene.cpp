@@ -263,5 +263,7 @@ void RaidMenuScene::loadBattle(int difficulty) {
     }
     else {
         log("not enough energy");
+        Label* error = newLabel("not enough energy", 2);
+        error->setPosition(cocos2d::Vec2(centerWidth(), centerHeight()));
     }
 }
