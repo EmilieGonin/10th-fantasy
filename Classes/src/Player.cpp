@@ -2,6 +2,8 @@
 
 #include "cocos2d.h"
 
+//Player* Player::_instance = new Player();
+
 Player::Player() {
 	_basehp = _totalHp = 300; // 75hp per lvl
 	_basedef = _totalDef = 76; // 8 def per lvl
@@ -25,6 +27,10 @@ Player::Player() {
 
 Player::~Player() {};
 
+
+
+
+//Player* Player::Instance() { return _instance; }
 void Player::levelup() {
 	_lvl += 1;
 	_battleHp = _totalHp = _basehp += (75* 2 * _lvl) / 4 ;
