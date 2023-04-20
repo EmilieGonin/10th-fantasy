@@ -90,6 +90,13 @@ void db::to_json(json& j, const error& error) {
 Database* Database::_instance = new Database();
 
 Database::Database() {
+	//PlayFab Setup
+	_id = "E44FB";
+	PlayFab::PlayFabSettings::titleId = _id;
+	_requestNew.CustomId = "Test";
+	_requestNew.CreateAccount = true;
+	PlayFab::PlayFabClientAPI::LoginWithCustomID(_requestNew, OnLoginSuccess, OnLoginFail, nullptr);
+	
 	_url = "https://49g5s1t0.directus.app"; //To encrypt
 	_logged = false;
 }
@@ -185,6 +192,16 @@ void Database::logout(cocos2d::Scene* scene) {
 	clean();
 	deleteSave();
 	init(scene);
+}
+
+//PlayFab requests
+
+void Database::OnLoginSuccess(const PlayFab::ClientModels::LoginResult& result, void* customData) {
+	cocos2d::log("on login success");
+}
+
+void Database::OnLoginFail(const PlayFab::PlayFabError& error, void* customData) {
+	cocos2d::log(error.GenerateErrorReport().c_str());
 }
 
 bool Database::checkSave() {

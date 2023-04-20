@@ -9,6 +9,11 @@
 #include "Interface.h"
 #include "GameManager.h"
 
+#include "PlayFabClientDataModels.h"
+#include "PlayFabError.h"
+#include "PlayFabClientAPI.h"
+#include <PlayFabSettings.h>
+
 using json = nlohmann::json; //On raccourcis le namespace
 using namespace cocos2d::ui;
 
@@ -107,6 +112,10 @@ private:
 	bool _logged;
 	std::vector<db::support> _lastPull;
 
+	//PlayFab
+	std::string _id; //To encrypt
+	PlayFab::ClientModels::LoginWithCustomIDRequest _requestNew;
+
 public:
 	static Database* Instance();
 
@@ -127,6 +136,10 @@ public:
 	void signup();
 	void login();
 	void logout(cocos2d::Scene*);
+
+	//PlayFab requests
+	static void OnLoginSuccess(const PlayFab::ClientModels::LoginResult&, void*);
+	static void OnLoginFail(const PlayFab::PlayFabError&, void*);
 
 	//GET requests
 	bool getUser();
