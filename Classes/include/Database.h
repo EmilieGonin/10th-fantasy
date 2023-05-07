@@ -9,9 +9,9 @@
 #include "Interface.h"
 #include "GameManager.h"
 
-#include "PlayFabClientDataModels.h"
-#include "PlayFabError.h"
 #include "PlayFabClientAPI.h"
+#include "PlayFabDataAPI.h"
+#include "PlayFabAuthenticationAPI.h"
 #include <PlayFabSettings.h>
 
 using json = nlohmann::json; //On raccourcis le namespace
@@ -108,13 +108,18 @@ private:
 	db::inventory _inventory;
 	std::string _url; //Testing only - to encrypt
 	cpr::Response _request;
-	std::string _email;
 	bool _logged;
 	std::vector<db::support> _lastPull;
 
 	//PlayFab
 	std::string _id; //To encrypt
-	PlayFab::ClientModels::LoginWithCustomIDRequest _requestNew;
+	std::string _error;
+	std::string _entityKeyId;
+	std::string _entityKeyType;
+	std::string _entityKeyToken;
+	std::string _email;
+	std::string _username;
+	PlayFab::DataModels::SetObjectsRequest _requestSetObjects;
 
 public:
 	static Database* Instance();
@@ -127,6 +132,7 @@ public:
 	bool deleteRequest(std::string); //DELETE
 	bool handleRequest();
 	std::vector<std::string> split(std::string, std::string);
+	std::string createUsername();           
 
 	//Pour vérifier les données au lancement du jeu
 	void init(cocos2d::Scene*);
@@ -139,7 +145,10 @@ public:
 
 	//PlayFab requests
 	static void OnLoginSuccess(const PlayFab::ClientModels::LoginResult&, void*);
-	static void OnLoginFail(const PlayFab::PlayFabError&, void*);
+	static void OnRegisterRequestSuccess(const PlayFab::ClientModels::RegisterPlayFabUserResult&, void*);
+	static void OnSetObjectsRequestSuccess(const PlayFab::DataModels::SetObjectsResponse&, void*);
+	static void OnRegisterRequestError(const PlayFab::PlayFabError&, void*);
+	static void OnRequestError(const PlayFab::PlayFabError&, void*);
 
 	//GET requests
 	bool getUser();
@@ -147,8 +156,8 @@ public:
 	bool getInventory();
 
 	//POST requests
-	bool createUser();
-	bool createCharacter();
+	void createUser();
+	void createCharacter();
 	bool createInventory();
 	bool createGear(db::gear);
 	void createError();

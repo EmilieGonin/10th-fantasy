@@ -93,11 +93,7 @@ Database::Database() {
 	//PlayFab Setup
 	_id = "E44FB";
 	PlayFab::PlayFabSettings::titleId = _id;
-	_requestNew.CustomId = "Test";
-	_requestNew.CreateAccount = true;
-	PlayFab::PlayFabClientAPI::LoginWithCustomID(_requestNew, OnLoginSuccess, OnLoginFail, nullptr);
-	
-	_url = "https://49g5s1t0.directus.app"; //To encrypt
+	_url = "https://" + _id + ".playfabapi.com/Client/"; //To encrypt
 	_logged = false;
 }
 
@@ -140,14 +136,7 @@ void Database::signup() {
 			if (type == Widget::TouchEventType::ENDED) {
 				cocos2d::log("button endend");
 				_email = _textFields[0]->getString();
-				if (createUser()) {
-					createSave();
-					cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-				}
-				else {
-					clean();
-					signup();
-				}
+				createUser();
 			}
 		}
 	);
@@ -200,8 +189,35 @@ void Database::OnLoginSuccess(const PlayFab::ClientModels::LoginResult& result, 
 	cocos2d::log("on login success");
 }
 
-void Database::OnLoginFail(const PlayFab::PlayFabError& error, void* customData) {
-	cocos2d::log(error.GenerateErrorReport().c_str());
+void Database::OnRegisterRequestSuccess(const PlayFab::ClientModels::RegisterPlayFabUserResult& result, void*) {
+	cocos2d::log("register success");
+	_instance->_entityKeyId = result.EntityToken->Entity->Id;
+	_instance->_entityKeyType = result.EntityToken->Entity->Type;
+	_instance->_entityKeyToken = result.EntityToken->EntityToken;
+
+	PlayFab::PlayFabSettings::entityToken = result.EntityToken->EntityToken;
+	db::user user = { _instance->_email, _instance->_username, 50, 1000 }; //Création de la struct
+	_instance->createCharacter();
+
+	//PlayFab::PlayFabDataAPI::SetObjects(_instance->_requestSetObjects, OnSetObjectsRequestSuccess, OnRequestError, nullptr);
+}
+
+void Database::OnSetObjectsRequestSuccess(const PlayFab::DataModels::SetObjectsResponse& response, void*) {
+	cocos2d::log("objects set success");
+
+	_instance->createSave();
+	cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+}
+
+void Database::OnRegisterRequestError(const PlayFab::PlayFabError& error, void* customData) {
+	OnRequestError(error, customData);
+	_instance->clean();
+	_instance->signup();
+}
+
+void Database::OnRequestError(const PlayFab::PlayFabError& error, void* customData) {
+	_instance->_error = error.GenerateErrorReport();
+	cocos2d::log(_instance->_error.c_str());
 }
 
 bool Database::checkSave() {
@@ -392,29 +408,62 @@ bool Database::getInventory() {
 	}
 }
 
-bool Database::createUser() {
-	std::string url = std::string(_url + "/items/users");
-	db::user user = { std::string(_email), std::string("User#" + split(_email, "@")[0]), 50, 1000}; //Création de la struct
-	json payload = user; //On convertis la struct en JSON
+void Database::createUser() {
+	std::string url = std::string(_url + "/RegisterPlayFabUser");
+	_username = createUsername();
 
-	if (request(url, payload)) { //Création de l'utilisateur
-		_user = json::parse(_request.text)["data"].get<db::user>();
-		//Delete user if character isn't created
-		if (createCharacter()) { //Création du personnage
-			return createInventory(); //Création de l'inventaire
-		}
-		else {
-			return false;
-		}
-	}
-	else {
-		return false;
-	}
-	//Clean even if true
+	PlayFab::ClientModels::RegisterPlayFabUserRequest request;
+	request.Email = _email;
+	request.Username = _username;
+	request.DisplayName = _username;
+	request.Password = "TemporaryPassword";
+	PlayFab::PlayFabClientAPI::RegisterPlayFabUser(request, OnRegisterRequestSuccess, OnRequestError, nullptr);
 }
 
-bool Database::createCharacter() {
-	std::string url = std::string(_url + "/items/characters");
+std::string Database::createUsername() {
+	std::string name = split(_email, "@")[0];
+	std::string username;
+
+	for (size_t i = 0; i < name.length(); i++)
+	{
+		if (isalpha(name[i])) {
+			username += name[i];
+		}
+	}
+
+	return username;
+}
+
+void Database::createCharacter() {
+	PlayFab::DataModels::SetObjectsRequest request;
+	request.Entity = PlayFab::DataModels::EntityKey();
+	request.Entity.Id = _entityKeyId;
+	request.Entity.Type = _entityKeyType;
+	cocos2d::log(request.Entity.Id.c_str());
+	cocos2d::log(request.Entity.Type.c_str());
+
+
+	std::map<std::string, int> data = {
+		{"Energy", 50},
+		{"Cristals", 50},
+		{"Gender", 0},
+		{"Tutorial", 0}
+	};
+
+	cocos2d::log("map created");
+
+	std::list<PlayFab::DataModels::SetObject> objects;
+
+	PlayFab::DataModels::SetObject object;
+	object.ObjectName = "PlayerData";
+	object.DataObject = &data;
+	objects.push_back(object);
+
+	request.Objects = objects;
+	cocos2d::log("player data object created");
+	PlayFab::PlayFabDataAPI::SetObjects(request, OnSetObjectsRequestSuccess, OnRequestError, nullptr);
+
+	/*std::string url = std::string(_url + "/items/characters");
 	db::character character = { _user.id, 1 }; //Création de la struct
 
 	for (size_t i = 0; i < std::size(character.gearsId); i++)
@@ -435,7 +484,7 @@ bool Database::createCharacter() {
 	}
 	else {
 		return false;
-	}
+	}*/
 }
 
 bool Database::createInventory() {
