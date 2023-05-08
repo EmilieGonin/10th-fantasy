@@ -205,7 +205,7 @@ void Database::OnRegisterRequestSuccess(const PlayFab::ClientModels::RegisterPla
 void Database::OnSetObjectsRequestSuccess(const PlayFab::DataModels::SetObjectsResponse& response, void*) {
 	cocos2d::log("objects set success");
 
-	_instance->createSave();
+	//_instance->createSave();
 	cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 }
 
@@ -435,32 +435,26 @@ std::string Database::createUsername() {
 }
 
 void Database::createCharacter() {
-	PlayFab::DataModels::SetObjectsRequest request;
-	request.Entity = PlayFab::DataModels::EntityKey();
-	request.Entity.Id = _entityKeyId;
-	request.Entity.Type = _entityKeyType;
-	cocos2d::log(request.Entity.Id.c_str());
-	cocos2d::log(request.Entity.Type.c_str());
+	std::list<PlayFab::DataModels::SetObject> objects;
 
-
-	std::map<std::string, int> data = {
+	json data = {
 		{"Energy", 50},
 		{"Cristals", 50},
 		{"Gender", 0},
 		{"Tutorial", 0}
 	};
 
-	cocos2d::log("map created");
-
-	std::list<PlayFab::DataModels::SetObject> objects;
-
 	PlayFab::DataModels::SetObject object;
 	object.ObjectName = "PlayerData";
-	object.DataObject = &data;
+	object.EscapedDataObject = data.dump();
 	objects.push_back(object);
 
+	PlayFab::DataModels::SetObjectsRequest request;
+	request.Entity = PlayFab::DataModels::EntityKey();
+	request.Entity.Id = _entityKeyId;
+	request.Entity.Type = _entityKeyType;
 	request.Objects = objects;
-	cocos2d::log("player data object created");
+
 	PlayFab::PlayFabDataAPI::SetObjects(request, OnSetObjectsRequestSuccess, OnRequestError, nullptr);
 
 	/*std::string url = std::string(_url + "/items/characters");
