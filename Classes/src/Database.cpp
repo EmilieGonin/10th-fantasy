@@ -9,6 +9,9 @@ void db::from_json(const json& j, user& user) {
 	j.at("Cristals").get_to(user.cristals);
 	j.at("Gender").get_to(user.gender);
 	j.at("Tutorial").get_to(user.tutorial);
+	j.at("Level").get_to(user.level);
+	j.at("Experience").get_to(user.exp);
+	j.at("Gears").get_to(user.gears);
 }
 void db::from_json(const json& j, character& character) {
 	j.at("user_id").get_to(character.userId);
@@ -40,12 +43,14 @@ void db::from_json(const json& j, gear& gear) {
 	j.at("amount").get_to(gear.amount);
 	j.at("rarity").get_to(gear.rarity);
 	j.at("level").get_to(gear.level);
-	j.at("inventory_id").get_to(gear.inventoryId);
+	j.at("id").get_to(gear.id);
 }
 void db::to_json(json& j, const user& user) {
 	j = json{
 		{"Energy", user.energy}, {"Cristals", user.cristals},
-		{"Gender", user.gender}, {"Tutorial", user.tutorial}
+		{"Gender", user.gender}, {"Tutorial", user.tutorial},
+		{"Level", user.level}, {"Experience", user.exp},
+		{"Gears", user.gears}
 	};
 }
 void db::to_json(json& j, const character& character) {
@@ -64,7 +69,7 @@ void db::to_json(json& j, const gear& gear) {
 	j = json{
 		{"type", gear.type}, {"stat", gear.stat},
 		{"amount", gear.amount}, {"rarity", gear.rarity},
-		{"level", gear.level}, {"inventory_id", gear.inventoryId}
+		{"level", gear.level}, {"id", gear.id}
 	};
 }
 void db::to_json(json& j, const error& error) {
@@ -80,18 +85,62 @@ Database* Database::_instance = new Database();
 Database::Database() {
 	//PlayFab Setup
 	_id = "E44FB";
-	PlayFab::PlayFabSettings::titleId = _id;
-	_url = "https://" + _id + ".playfabapi.com/Client/"; //To encrypt
+	_password = "TemporaryPassword";
 	_logged = false;
+
+	PlayFab::PlayFabSettings::titleId = _id;
 }
 
 Database* Database::Instance() {
 	return _instance;
 }
 
+//Wrappers
+
+std::vector<std::string> Database::split(std::string string, std::string delim) {
+	std::size_t delimIndex = string.find(delim);
+	std::string setting = string.substr(0, delimIndex);
+	std::string value = string.substr(delimIndex + 1);
+
+	std::vector<std::string> data = { setting, value };
+	return data;
+}
+
+std::string Database::createUsername() {
+	std::string name = split(_email, "@")[0];
+	std::string username;
+
+	for (size_t i = 0; i < name.length(); i++)
+	{
+		if (isalpha(name[i])) {
+			username += name[i];
+		}
+	}
+
+	return username;
+}
+
+void Database::setEntityKey(PlayFab::ClientModels::EntityTokenResponse* token) {
+	_token = token;
+
+	PlayFab::PlayFabSettings::entityToken = _token->EntityToken;
+
+	_setObjectsRequest = PlayFab::DataModels::SetObjectsRequest();
+	_setObjectsRequest.Entity.Id = _token->Entity->Id;
+	_setObjectsRequest.Entity.Type = _token->Entity->Type;
+
+	_getObjectsRequest = PlayFab::DataModels::GetObjectsRequest();
+	_getObjectsRequest.Entity.Id = _token->Entity->Id;
+	_getObjectsRequest.Entity.Type = _token->Entity->Type;
+	_getObjectsRequest.EscapeObject = true;
+}
+
+//Pour vérifier les données au lancement du jeu
+
 void Database::init(cocos2d::Scene* scene) {
-	setScene(scene);
 	_gameManager = GameManager::Instance();
+	_scene = scene;
+	setScene(_scene);
 
 	if (!checkSave()) {
 		signup();
@@ -99,16 +148,42 @@ void Database::init(cocos2d::Scene* scene) {
 	else {
 		getUser();
 	}
-	/*else if (getUser()) {
-		cocos2d::Label* label = newOutlinedLabel("Touch the screen to start");
-		label->setPosition(center());
+}
 
-		cocos2d::Label* userLabel = newOutlinedLabel("Logged in as " + _username);
-		userLabel->setPosition(Vec2(centerWidth(), top(userLabel->getLineHeight())));
-	}*/
-	/*else {
-		logout(scene);
-	}*/
+bool Database::checkSave() {
+	_gameManager->loading(true);
+	_hasSave = false;
+	std::ifstream file("user.txt");
+
+	if (file.is_open()) {
+		cocos2d::log("file opened");
+		std::string line;
+		do {
+			if (!line.empty()) {
+				std::vector<std::string> data = split(line, "=");
+
+				if (data[0] == "User") {
+					_email = data[1];
+					cocos2d::log("user data found");
+					_hasSave = true;
+				}
+			}
+		} while (std::getline(file, line));
+	}
+
+	file.close();
+	_gameManager->loading(false);
+	return _hasSave;
+}
+
+void Database::createSave() {
+	std::ofstream file("user.txt");
+	file << "User=" + _email << std::endl;
+	file.close();
+}
+
+void Database::deleteSave() {
+	remove("user.txt");
 }
 
 void Database::signup() {
@@ -168,66 +243,28 @@ void Database::login() {
 	);
 }
 
-void Database::logout(cocos2d::Scene* scene) {
+void Database::logout() {
 	_logged = false;
 	clean();
 	deleteSave();
-	init(scene);
+	init(_scene);
 }
 
-//PlayFab requests
-
-void Database::OnLoginSuccess(const PlayFab::ClientModels::LoginResult& result, void* customData) {
-	cocos2d::log("on login success");
-}
+//PlayFab callbacks - register
 
 void Database::OnRegisterRequestSuccess(const PlayFab::ClientModels::RegisterPlayFabUserResult& result, void*) {
 	cocos2d::log("register success");
-
-	PlayFab::PlayFabSettings::entityToken = result.EntityToken->EntityToken;
-
-	std::list<PlayFab::DataModels::SetObject> objects;
-
-	json data = {
-		{"Energy", 50},
-		{"Cristals", 50},
-		{"Gender", 0},
-		{"Tutorial", 0}
-	};
-
-	_instance->_user = data.get<db::user>();
-
-	PlayFab::DataModels::SetObject object;
-	object.ObjectName = "PlayerData";
-	object.EscapedDataObject = data.dump();
-	objects.push_back(object);
-
-	PlayFab::DataModels::SetObjectsRequest request;
-	request.Entity = PlayFab::DataModels::EntityKey();
-	request.Entity.Id = result.EntityToken->Entity->Id;
-	request.Entity.Type = result.EntityToken->Entity->Type;
-	request.Objects = objects;
-
-	PlayFab::PlayFabDataAPI::SetObjects(request, OnSetObjectsRequestSuccess, OnRequestError, nullptr);
+	_instance->setEntityKey(result.EntityToken);
+	_instance->update();
 }
 
 void Database::OnSetObjectsRequestSuccess(const PlayFab::DataModels::SetObjectsResponse& response, void*) {
 	cocos2d::log("objects set success");
 
-	_instance->createSave();
-	cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-}
-
-void Database::OnLoginRequestSuccess(const PlayFab::ClientModels::LoginResult& result, void*) {
-	cocos2d::log("login success");
-	_instance->_logged = true;
-	//_instance->_username = result.InfoResultPayload->PlayerProfile->DisplayName;
-	//_instance->_user = json::parse(result.text)["data"][0].get<db::user>();
-	cocos2d::Label* label = _instance->newOutlinedLabel("Touch the screen to start");
-	label->setPosition(_instance->center());
-
-	//cocos2d::Label* userLabel = newOutlinedLabel("Logged in as " + _instance->_username);
-	//userLabel->setPosition(Vec2(centerWidth(), top(userLabel->getLineHeight())));
+	if (!_instance->_hasSave) {
+		_instance->createSave();
+		cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+	}
 }
 
 void Database::OnRegisterRequestError(const PlayFab::PlayFabError& error, void* customData) {
@@ -236,55 +273,55 @@ void Database::OnRegisterRequestError(const PlayFab::PlayFabError& error, void* 
 	_instance->signup();
 }
 
+//PlayFab callbacks - login
+
+void Database::OnLoginRequestSuccess(const PlayFab::ClientModels::LoginResult& result, void*) {
+	cocos2d::log("login success");
+	_instance->setEntityKey(result.EntityToken);
+
+	_instance->_logged = true;
+	_instance->_username = result.InfoResultPayload->PlayerProfile->DisplayName;
+
+	PlayFab::PlayFabDataAPI::GetObjects(_instance->_getObjectsRequest, OnGetObjectsRequestSuccess, OnRequestError, nullptr);
+}
+
+void Database::OnGetObjectsRequestSuccess(const PlayFab::DataModels::GetObjectsResponse& response, void*) {
+	cocos2d::log("objects get success");
+	json playerData = json::parse(response.Objects.at("PlayerData").EscapedDataObject);
+	json playerGears = json::parse(response.Objects.at("PlayerGears").EscapedDataObject);
+	_instance->_user = playerData.get<db::user>();
+
+	for (auto& elem : playerGears) {
+		_instance->_gears.push_back(elem.get<db::gear>());
+	}
+
+	db::gear gear = {
+		1, 1, 1, 1, 1, 1
+	};
+
+	_instance->createGear(gear);
+	_instance->setGear(gear);
+
+	cocos2d::Label* label = _instance->newOutlinedLabel("Touch the screen to start");
+	label->setPosition(_instance->center());
+
+	cocos2d::Label* userLabel = _instance->newOutlinedLabel("Logged in as " + _instance->_username);
+	userLabel->setPosition(Vec2(_instance->centerWidth(), _instance->top(userLabel->getLineHeight())));
+}
+
+void Database::OnLoginRequestError(const PlayFab::PlayFabError& error, void* customData) {
+	OnRequestError(error, customData);
+	_instance->logout();
+}
+
+//Playfab callbacks - general
+
 void Database::OnRequestError(const PlayFab::PlayFabError& error, void* customData) {
 	_instance->_error = error.GenerateErrorReport();
 	cocos2d::log(_instance->_error.c_str());
 }
 
-bool Database::checkSave() {
-	_gameManager->loading(true);
-	bool dataFound = false;
-	std::ifstream file("user.txt");
-
-	if (file.is_open()) {
-		cocos2d::log("file opened");
-		std::string line;
-		do {
-			if (!line.empty()) {
-				std::vector<std::string> data = split(line, "=");
-
-				if (data[0] == "User") {
-					_email = data[1];
-					cocos2d::log("user data found");
-					dataFound = true;
-				}
-			}
-		} while (std::getline(file, line));
-	}
-
-	file.close();
-	_gameManager->loading(false);
-	return dataFound;
-}
-
-void Database::createSave() {
-	std::ofstream file("user.txt");
-	file << "User=" + _email << std::endl;
-	file.close();
-}
-
-void Database::deleteSave() {
-	remove("user.txt");
-}
-
-std::vector<std::string> Database::split(std::string string, std::string delim) {
-	std::size_t delimIndex = string.find(delim);
-	std::string setting = string.substr(0, delimIndex);
-	std::string value = string.substr(delimIndex + 1);
-
-	std::vector<std::string> data = { setting, value };
-	return data;
-}
+//Old requests
 
 bool Database::request(std::string url) {
 	_gameManager->loading(true);
@@ -348,30 +385,22 @@ bool Database::handleRequest() {
 	}
 }
 
+//GET requests
+
 void Database::getUser() {
 	PlayFab::ClientModels::LoginWithEmailAddressRequest request;
 	request.Email = _email;
-	request.Password = "TemporaryPassword";
-	//request.InfoRequestParameters(PlayFab::PlayFabClientAPI::GetPlayerCombinedInfo();
-	PlayFab::PlayFabClientAPI::LoginWithEmailAddress(request, OnLoginRequestSuccess, OnRequestError, nullptr);
+	request.Password = _password;
+	request.InfoRequestParameters = new PlayFab::ClientModels::GetPlayerCombinedInfoRequestParams;
+	request.InfoRequestParameters->GetPlayerProfile = true;
+	request.InfoRequestParameters->ProfileConstraints = new PlayFab::ClientModels::PlayerProfileViewConstraints;
+	request.InfoRequestParameters->ProfileConstraints->ShowDisplayName = true;
 
-	/*if (request(url)) {
-		_user = json::parse(_request.text)["data"][0].get<db::user>();
-		if (getCharacter()) {
-			_logged = true;
-			return getInventory();
-		}
-		else {
-			return false;
-		}
-	}
-	else {
-		return false;
-	}*/
+	PlayFab::PlayFabClientAPI::LoginWithEmailAddress(request, OnLoginRequestSuccess, OnLoginRequestError, nullptr);
 }
 
 bool Database::getCharacter() {
-	std::string url = std::string(_url + "/items/characters?filter[user_id][_eq]=" + std::to_string(_user.id));
+	std::string url = std::string("/items/characters?filter[user_id][_eq]=" + std::to_string(_user.id));
 
 	if (request(url)) {
 		_character = json::parse(_request.text)["data"][0].get<db::character>();
@@ -382,7 +411,7 @@ bool Database::getCharacter() {
 			int id = _character.gearsId[i];
 
 			if (id) {
-				url = std::string(_url + "/items/gears/" + std::to_string(id));
+				url = std::string("/items/gears/" + std::to_string(id));
 
 				if (request(url)) {
 					db::gear gear = json::parse(_request.text)["data"][0].get<db::gear>();
@@ -410,13 +439,13 @@ bool Database::getCharacter() {
 }
 
 bool Database::getInventory() {
-	std::string url = std::string(_url + "/items/inventories?filter[user_id][_eq]=" + std::to_string(_user.id));
+	std::string url = std::string("/items/inventories?filter[user_id][_eq]=" + std::to_string(_user.id));
 
 	if (request(url)) {
 		_inventory = json::parse(_request.text)["data"][0].get<db::inventory>();
 
 		//Getting inventory gears
-		url = std::string(_url + "/items/gears?filter[inventory_id][_eq]=" + std::to_string(_inventory.id));
+		url = std::string("/items/gears?filter[inventory_id][_eq]=" + std::to_string(_inventory.id));
 
 		if (request(url)) {
 			json data = json::parse(_request.text)["data"];
@@ -433,6 +462,8 @@ bool Database::getInventory() {
 	}
 }
 
+//POST requests
+
 void Database::createUser() {
 	_username = createUsername();
 
@@ -440,22 +471,8 @@ void Database::createUser() {
 	request.Email = _email;
 	request.Username = _username;
 	request.DisplayName = _username;
-	request.Password = "TemporaryPassword";
-	PlayFab::PlayFabClientAPI::RegisterPlayFabUser(request, OnRegisterRequestSuccess, OnRequestError, nullptr);
-}
-
-std::string Database::createUsername() {
-	std::string name = split(_email, "@")[0];
-	std::string username;
-
-	for (size_t i = 0; i < name.length(); i++)
-	{
-		if (isalpha(name[i])) {
-			username += name[i];
-		}
-	}
-
-	return username;
+	request.Password = _password;
+	PlayFab::PlayFabClientAPI::RegisterPlayFabUser(request, OnRegisterRequestSuccess, OnRegisterRequestError, nullptr);
 }
 
 void Database::createCharacter() {
@@ -484,7 +501,7 @@ void Database::createCharacter() {
 }
 
 bool Database::createInventory() {
-	std::string url = std::string(_url + "/items/inventories");
+	std::string url = std::string("/items/inventories");
 	db::inventory inventory = { _user.id }; //Création de la struct
 	json payload = inventory;
 
@@ -497,76 +514,80 @@ bool Database::createInventory() {
 	}
 }
 
-bool Database::createGear(db::gear gear) {
-	std::string url = std::string(_url + "/items/gears");
-	gear.inventoryId = _inventory.id;
-	json payload = gear;
-
-	if (request(url, payload)) {
-		_inventory.gears.push_back(json::parse(_request.text)["data"].get<db::gear>());
-		return true;
-	}
-	else {
-		return false;
-	}
+void Database::createGear(db::gear gear) {
+	gear.id = std::size(_gears) + 1;
+	_gears.push_back(gear);
+	updateGears();
 }
 
 void Database::createError() {
 	cocos2d::log("creating error");
-	std::string url = std::string(_url + "/items/errors");
+	std::string url = std::string("/items/errors");
 	db::error error = { _request.status_code, _request.text, _user.id ? _user.id : 0 };
 	json payload = error;
 	request(url, payload);
 }
 
-bool Database::update() {
-	if (!updateUser() || !updateCharacter() || !updateInventory()) {
-		return false;
-	}
-	else {
-		return true;
-	}
+void Database::update() {
+	std::list<PlayFab::DataModels::SetObject> objects;
+	objects.push_back(createUserObject());
+	objects.push_back(createGearsObject());
+
+	_setObjectsRequest.Objects = objects;
+
+	PlayFab::PlayFabDataAPI::SetObjects(_setObjectsRequest, OnSetObjectsRequestSuccess, OnRequestError, nullptr);
 }
 
-bool Database::updateUser() {
-	std::string url = std::string(_url + "/items/users/" + std::to_string(_user.id));
-	json payload = _user;
-	return patch(url, payload);
+void Database::updateUser() {
+	std::list<PlayFab::DataModels::SetObject> objects;
+	objects.push_back(createUserObject());
+
+	_setObjectsRequest.Objects = objects;
+
+	PlayFab::PlayFabDataAPI::SetObjects(_setObjectsRequest, OnSetObjectsRequestSuccess, OnRequestError, nullptr);
+}
+
+void Database::updateGears() {
+	std::list<PlayFab::DataModels::SetObject> objects;
+	objects.push_back(createGearsObject());
+
+	_setObjectsRequest.Objects = objects;
+
+	PlayFab::PlayFabDataAPI::SetObjects(_setObjectsRequest, OnSetObjectsRequestSuccess, OnRequestError, nullptr);
 }
 
 bool Database::updateCharacter() {
-	std::string url = std::string(_url + "/items/characters/" + std::to_string(_character.id));
+	std::string url = std::string("/items/characters/" + std::to_string(_character.id));
 	json payload = _character;
 	return patch(url, payload);
 }
 
 bool Database::updateInventory() {
-	std::string url = std::string(_url + "/items/inventories/" + std::to_string(_inventory.id));
+	std::string url = std::string("/items/inventories/" + std::to_string(_inventory.id));
 	json payload = _inventory;
 	return patch(url, payload);
 }
 
 bool Database::updateGear(int index) {
-	std::string url = std::string(_url + "/items/gears/" + std::to_string(_inventory.gears[index].id));
+	std::string url = std::string("/items/gears/" + std::to_string(_inventory.gears[index].id));
 	json payload = _inventory.gears[index];
 	return patch(url, payload);
 }
 
 bool Database::deleteUser() {
-	std::string url = std::string(_url + "/items/users/" + std::to_string(_user.id));
+	std::string url = std::string("/items/users/" + std::to_string(_user.id));
 	return deleteRequest(url);
 }
 
 bool Database::deleteGear(int index) {
-	std::string url = std::string(_url + "/items/gears/" + std::to_string(_inventory.gears[index].id));
+	std::string url = std::string("/items/gears/" + std::to_string(_inventory.gears[index].id));
 	_inventory.gears.erase(_inventory.gears.begin() + index);
 	return deleteRequest(url);
 }
 
 void Database::setGear(db::gear gear) {
-	_character.gears[gear.type] = gear;
-	_character.gearsId[gear.type] = gear.id;
-	updateCharacter();
+	_user.gears[gear.type] = gear.id;
+	updateUser();
 }
 
 void Database::setSupport(db::support support, int index) {
@@ -616,6 +637,38 @@ db::support Database::getSupport(int index) {
   12 = Reduce Damage, 13 = Shield,
   14 = Ignore Defense
   */
+
+//PlayFab Objects
+
+PlayFab::DataModels::SetObject Database::createUserObject() {
+	json data = _hasSave ? _user : json({
+		{"Energy", 50},
+		{ "Cristals", 1000 },
+		{ "Gender", 0 },
+		{ "Tutorial", 1 },
+		{ "Level", 1 },
+		{ "Experience", 0 },
+		{ "Gears", {0, 0, 0, 0, 0, 0, 0, 0} }
+	});
+
+	_user = data.get<db::user>();
+
+	PlayFab::DataModels::SetObject object;
+	object.ObjectName = "PlayerData";
+	object.EscapedDataObject = data.dump();
+	return object;
+}
+
+PlayFab::DataModels::SetObject Database::createGearsObject() {
+	json data = _gears;
+
+	PlayFab::DataModels::SetObject object;
+	object.ObjectName = "PlayerGears";
+	object.EscapedDataObject = data.dump();
+	return object;
+}
+
+//Setters
 
 void Database::setEmail(std::string email) { _email = email; }
 void Database::emptyPull() { _lastPull.clear(); }

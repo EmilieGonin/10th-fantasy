@@ -64,7 +64,7 @@ void TitleScreen::update(float) {
         button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
             {
                 if (type == Widget::TouchEventType::ENDED) {
-                    _database->logout(this);
+                    _database->logout();
                 }
             }
         );
