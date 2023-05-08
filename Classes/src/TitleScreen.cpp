@@ -17,11 +17,12 @@ bool TitleScreen::init()
 {
     if (!Scene::init()) { return false; }
 
+    _logged = false;
     _database->init(this);
     setScene(this);
 
     //Touch screen event
-    if (_database->isLogged()) {
+    /*if (_database->isLogged()) {
         EventListenerTouchOneByOne* touchListener = EventListenerTouchOneByOne::create();
         touchListener->onTouchBegan = CC_CALLBACK_2(TitleScreen::onTouchBegan, this);
         _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
@@ -35,11 +36,13 @@ bool TitleScreen::init()
                 }
             }
         );
-    }
+    }*/
 
     Sprite* sprite = newSprite("Supports/djeamy.png", -1);
     sprite->setPosition(center());
     sprite->setOpacity(120);
+
+    this->scheduleUpdate();
 
     return true;
 }
@@ -47,4 +50,23 @@ bool TitleScreen::init()
 bool TitleScreen::onTouchBegan(Touch* touch, Event* event) {
     _director->replaceScene(MainMenuScene::create());
     return true;
+}
+
+void TitleScreen::update(float) {
+    if (!_logged && _database->isLogged()) {
+        _logged = true;
+        EventListenerTouchOneByOne* touchListener = EventListenerTouchOneByOne::create();
+        touchListener->onTouchBegan = CC_CALLBACK_2(TitleScreen::onTouchBegan, this);
+        _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+
+        Button* button = newButton("Log out");
+        button->setPosition(Vec2(centerWidth(), 50));
+        button->addTouchEventListener([&](cocos2d::Ref* sender, Widget::TouchEventType type)
+            {
+                if (type == Widget::TouchEventType::ENDED) {
+                    _database->logout();
+                }
+            }
+        );
+    }
 }

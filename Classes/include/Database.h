@@ -19,16 +19,13 @@ using namespace cocos2d::ui;
 
 namespace db { //Les structures et fonctions utilisées pour le JSON
 	struct user {
-		std::string mail;
-		std::string name;
 		int energy;
 		int cristals;
-		int leafs;
-		int wishes;
-		int tickets;
-		int timer;
 		int gender; //1 = Male, 2 = Female
 		int tutorial;
+		int level;
+		int exp;
+		std::vector<int> gears;
 		int id;
 		std::vector<int> supports;
 	};
@@ -49,7 +46,6 @@ namespace db { //Les structures et fonctions utilisées pour le JSON
 	};
 
 	struct gear {
-		int inventoryId;
 		int type;
 		int stat;
 		int amount;
@@ -103,10 +99,13 @@ private:
 	static Database* _instance;
 	cocos2d::Scene* _scene;
 	GameManager* _gameManager;
+
+	//Database datas
 	db::user _user;
 	db::character _character;
 	db::inventory _inventory;
-	std::string _url; //Testing only - to encrypt
+	std::vector<db::gear> _gears;
+
 	cpr::Response _request;
 	bool _logged;
 	std::vector<db::support> _lastPull;
@@ -114,12 +113,14 @@ private:
 	//PlayFab
 	std::string _id; //To encrypt
 	std::string _error;
-	std::string _entityKeyId;
-	std::string _entityKeyType;
-	std::string _entityKeyToken;
 	std::string _email;
 	std::string _username;
-	PlayFab::DataModels::SetObjectsRequest _requestSetObjects;
+	std::string _password;
+	PlayFab::DataModels::SetObjectsRequest _setObjectsRequest;
+	PlayFab::DataModels::GetObjectsRequest _getObjectsRequest;
+	PlayFab::ClientModels::EntityTokenResponse* _token;
+
+	bool _hasSave;
 
 public:
 	static Database* Instance();
@@ -131,8 +132,11 @@ public:
 	bool patch(std::string, json); //PATCH
 	bool deleteRequest(std::string); //DELETE
 	bool handleRequest();
+
+	//Wrappers
 	std::vector<std::string> split(std::string, std::string);
-	std::string createUsername();           
+	std::string createUsername();
+	void setEntityKey(PlayFab::ClientModels::EntityTokenResponse*);
 
 	//Pour vérifier les données au lancement du jeu
 	void init(cocos2d::Scene*);
@@ -141,17 +145,23 @@ public:
 	void deleteSave();
 	void signup();
 	void login();
-	void logout(cocos2d::Scene*);
+	void logout();
 
-	//PlayFab requests
-	static void OnLoginSuccess(const PlayFab::ClientModels::LoginResult&, void*);
+	//PlayFab callbacks - register
 	static void OnRegisterRequestSuccess(const PlayFab::ClientModels::RegisterPlayFabUserResult&, void*);
 	static void OnSetObjectsRequestSuccess(const PlayFab::DataModels::SetObjectsResponse&, void*);
 	static void OnRegisterRequestError(const PlayFab::PlayFabError&, void*);
+
+	//PlayFab callbacks - login
+	static void OnLoginRequestSuccess(const PlayFab::ClientModels::LoginResult&, void*);
+	static void OnGetObjectsRequestSuccess(const PlayFab::DataModels::GetObjectsResponse&, void*);
+	static void OnLoginRequestError(const PlayFab::PlayFabError&, void*);
+
+	//PlayFab callbacks - general
 	static void OnRequestError(const PlayFab::PlayFabError&, void*);
 
 	//GET requests
-	bool getUser();
+	void getUser();
 	bool getCharacter();
 	bool getInventory();
 
@@ -159,15 +169,16 @@ public:
 	void createUser();
 	void createCharacter();
 	bool createInventory();
-	bool createGear(db::gear);
+	void createGear(db::gear);
 	void createError();
 
 	//UPDATE requests
-	bool update();
-	bool updateUser();
+	void update();
+	void updateUser();
 	bool updateCharacter();
 	bool updateInventory();
 	bool updateGear(int);
+	void updateGears();
 
 	//DELETE requests
 	bool deleteUser();
@@ -181,11 +192,16 @@ public:
 	std::vector<db::support> getSupports(int);
 	db::support getSupport(int);
 
+	//PlayFab Objects
+	PlayFab::DataModels::SetObject createUserObject();
+	PlayFab::DataModels::SetObject createGearsObject();
+
 	//Setters
 	void setEmail(std::string);
 	void emptyPull();
 
 	//Getters
+	std::string username();
 	db::user* user();
 	db::character* character();
 	db::inventory* inventory();
