@@ -5,18 +5,10 @@ using namespace db;
 
 //Database Structs Functions
 void db::from_json(const json& j, user& user) {
-	j.at("mail").get_to(user.mail);
-	j.at("name").get_to(user.name);
-	j.at("energy").get_to(user.energy);
-	j.at("cristals").get_to(user.cristals);
-	j.at("leafs").get_to(user.leafs);
-	j.at("wishes").get_to(user.wishes);
-	j.at("tickets").get_to(user.tickets);
-	j.at("timer").get_to(user.timer);
-	j.at("id").get_to(user.id);
-	j.at("supports").get_to(user.supports);
-	j.at("gender").get_to(user.gender);
-	j.at("tutorial").get_to(user.tutorial);
+	j.at("Energy").get_to(user.energy);
+	j.at("Cristals").get_to(user.cristals);
+	j.at("Gender").get_to(user.gender);
+	j.at("Tutorial").get_to(user.tutorial);
 }
 void db::from_json(const json& j, character& character) {
 	j.at("user_id").get_to(character.userId);
@@ -52,12 +44,8 @@ void db::from_json(const json& j, gear& gear) {
 }
 void db::to_json(json& j, const user& user) {
 	j = json{
-		{"mail", user.mail}, {"name", user.name},
-		{"energy", user.energy}, {"cristals", user.cristals},
-		{"leafs", user.leafs}, {"wishes", user.wishes},
-		{"tickets", user.tickets}, {"timer", user.timer},
-		{"supports", user.supports}, {"gender", user.gender},
-		{"tutorial", user.tutorial}
+		{"Energy", user.energy}, {"Cristals", user.cristals},
+		{"Gender", user.gender}, {"Tutorial", user.tutorial}
 	};
 }
 void db::to_json(json& j, const character& character) {
@@ -108,16 +96,19 @@ void Database::init(cocos2d::Scene* scene) {
 	if (!checkSave()) {
 		signup();
 	}
-	else if (getUser()) {
+	else {
+		getUser();
+	}
+	/*else if (getUser()) {
 		cocos2d::Label* label = newOutlinedLabel("Touch the screen to start");
 		label->setPosition(center());
 
-		cocos2d::Label* userLabel = newOutlinedLabel("Logged in as " + _user.name);
+		cocos2d::Label* userLabel = newOutlinedLabel("Logged in as " + _username);
 		userLabel->setPosition(Vec2(centerWidth(), top(userLabel->getLineHeight())));
-	}
-	else {
+	}*/
+	/*else {
 		logout(scene);
-	}
+	}*/
 }
 
 void Database::signup() {
@@ -163,14 +154,15 @@ void Database::login() {
 		{
 			if (type == Widget::TouchEventType::ENDED) {
 				_email = _textFields[0]->getString();
-				if (getUser()) {
+				getUser();
+				/*if (getUser()) {
 					createSave();
 					cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 				}
 				else {
 					clean();
 					login();
-				}
+				}*/
 			}
 		}
 	);
@@ -191,22 +183,51 @@ void Database::OnLoginSuccess(const PlayFab::ClientModels::LoginResult& result, 
 
 void Database::OnRegisterRequestSuccess(const PlayFab::ClientModels::RegisterPlayFabUserResult& result, void*) {
 	cocos2d::log("register success");
-	_instance->_entityKeyId = result.EntityToken->Entity->Id;
-	_instance->_entityKeyType = result.EntityToken->Entity->Type;
-	_instance->_entityKeyToken = result.EntityToken->EntityToken;
 
 	PlayFab::PlayFabSettings::entityToken = result.EntityToken->EntityToken;
-	db::user user = { _instance->_email, _instance->_username, 50, 1000 }; //Création de la struct
-	_instance->createCharacter();
 
-	//PlayFab::PlayFabDataAPI::SetObjects(_instance->_requestSetObjects, OnSetObjectsRequestSuccess, OnRequestError, nullptr);
+	std::list<PlayFab::DataModels::SetObject> objects;
+
+	json data = {
+		{"Energy", 50},
+		{"Cristals", 50},
+		{"Gender", 0},
+		{"Tutorial", 0}
+	};
+
+	_instance->_user = data.get<db::user>();
+
+	PlayFab::DataModels::SetObject object;
+	object.ObjectName = "PlayerData";
+	object.EscapedDataObject = data.dump();
+	objects.push_back(object);
+
+	PlayFab::DataModels::SetObjectsRequest request;
+	request.Entity = PlayFab::DataModels::EntityKey();
+	request.Entity.Id = result.EntityToken->Entity->Id;
+	request.Entity.Type = result.EntityToken->Entity->Type;
+	request.Objects = objects;
+
+	PlayFab::PlayFabDataAPI::SetObjects(request, OnSetObjectsRequestSuccess, OnRequestError, nullptr);
 }
 
 void Database::OnSetObjectsRequestSuccess(const PlayFab::DataModels::SetObjectsResponse& response, void*) {
 	cocos2d::log("objects set success");
 
-	//_instance->createSave();
+	_instance->createSave();
 	cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
+}
+
+void Database::OnLoginRequestSuccess(const PlayFab::ClientModels::LoginResult& result, void*) {
+	cocos2d::log("login success");
+	_instance->_logged = true;
+	//_instance->_username = result.InfoResultPayload->PlayerProfile->DisplayName;
+	//_instance->_user = json::parse(result.text)["data"][0].get<db::user>();
+	cocos2d::Label* label = _instance->newOutlinedLabel("Touch the screen to start");
+	label->setPosition(_instance->center());
+
+	//cocos2d::Label* userLabel = newOutlinedLabel("Logged in as " + _instance->_username);
+	//userLabel->setPosition(Vec2(centerWidth(), top(userLabel->getLineHeight())));
 }
 
 void Database::OnRegisterRequestError(const PlayFab::PlayFabError& error, void* customData) {
@@ -327,10 +348,14 @@ bool Database::handleRequest() {
 	}
 }
 
-bool Database::getUser() {
-	std::string url = std::string(_url + "/items/users?filter[mail][_eq]=" + _email);
+void Database::getUser() {
+	PlayFab::ClientModels::LoginWithEmailAddressRequest request;
+	request.Email = _email;
+	request.Password = "TemporaryPassword";
+	//request.InfoRequestParameters(PlayFab::PlayFabClientAPI::GetPlayerCombinedInfo();
+	PlayFab::PlayFabClientAPI::LoginWithEmailAddress(request, OnLoginRequestSuccess, OnRequestError, nullptr);
 
-	if (request(url)) {
+	/*if (request(url)) {
 		_user = json::parse(_request.text)["data"][0].get<db::user>();
 		if (getCharacter()) {
 			_logged = true;
@@ -342,7 +367,7 @@ bool Database::getUser() {
 	}
 	else {
 		return false;
-	}
+	}*/
 }
 
 bool Database::getCharacter() {
@@ -409,7 +434,6 @@ bool Database::getInventory() {
 }
 
 void Database::createUser() {
-	std::string url = std::string(_url + "/RegisterPlayFabUser");
 	_username = createUsername();
 
 	PlayFab::ClientModels::RegisterPlayFabUserRequest request;
@@ -435,28 +459,6 @@ std::string Database::createUsername() {
 }
 
 void Database::createCharacter() {
-	std::list<PlayFab::DataModels::SetObject> objects;
-
-	json data = {
-		{"Energy", 50},
-		{"Cristals", 50},
-		{"Gender", 0},
-		{"Tutorial", 0}
-	};
-
-	PlayFab::DataModels::SetObject object;
-	object.ObjectName = "PlayerData";
-	object.EscapedDataObject = data.dump();
-	objects.push_back(object);
-
-	PlayFab::DataModels::SetObjectsRequest request;
-	request.Entity = PlayFab::DataModels::EntityKey();
-	request.Entity.Id = _entityKeyId;
-	request.Entity.Type = _entityKeyType;
-	request.Objects = objects;
-
-	PlayFab::PlayFabDataAPI::SetObjects(request, OnSetObjectsRequestSuccess, OnRequestError, nullptr);
-
 	/*std::string url = std::string(_url + "/items/characters");
 	db::character character = { _user.id, 1 }; //Création de la struct
 
@@ -618,6 +620,7 @@ db::support Database::getSupport(int index) {
 void Database::setEmail(std::string email) { _email = email; }
 void Database::emptyPull() { _lastPull.clear(); }
 
+std::string Database::username() { return _username; }
 db::user* Database::user() { return &_user; }
 db::character* Database::character() { return &_character; }
 db::inventory* Database::inventory() { return &_inventory; }

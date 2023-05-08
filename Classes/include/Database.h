@@ -19,14 +19,8 @@ using namespace cocos2d::ui;
 
 namespace db { //Les structures et fonctions utilisées pour le JSON
 	struct user {
-		std::string mail;
-		std::string name;
 		int energy;
 		int cristals;
-		int leafs;
-		int wishes;
-		int tickets;
-		int timer;
 		int gender; //1 = Male, 2 = Female
 		int tutorial;
 		int id;
@@ -103,9 +97,12 @@ private:
 	static Database* _instance;
 	cocos2d::Scene* _scene;
 	GameManager* _gameManager;
+
+	//Database datas
 	db::user _user;
 	db::character _character;
 	db::inventory _inventory;
+
 	std::string _url; //Testing only - to encrypt
 	cpr::Response _request;
 	bool _logged;
@@ -114,9 +111,6 @@ private:
 	//PlayFab
 	std::string _id; //To encrypt
 	std::string _error;
-	std::string _entityKeyId;
-	std::string _entityKeyType;
-	std::string _entityKeyToken;
 	std::string _email;
 	std::string _username;
 	PlayFab::DataModels::SetObjectsRequest _requestSetObjects;
@@ -147,11 +141,12 @@ public:
 	static void OnLoginSuccess(const PlayFab::ClientModels::LoginResult&, void*);
 	static void OnRegisterRequestSuccess(const PlayFab::ClientModels::RegisterPlayFabUserResult&, void*);
 	static void OnSetObjectsRequestSuccess(const PlayFab::DataModels::SetObjectsResponse&, void*);
+	static void OnLoginRequestSuccess(const PlayFab::ClientModels::LoginResult&, void*);
 	static void OnRegisterRequestError(const PlayFab::PlayFabError&, void*);
 	static void OnRequestError(const PlayFab::PlayFabError&, void*);
 
 	//GET requests
-	bool getUser();
+	void getUser();
 	bool getCharacter();
 	bool getInventory();
 
@@ -186,6 +181,7 @@ public:
 	void emptyPull();
 
 	//Getters
+	std::string username();
 	db::user* user();
 	db::character* character();
 	db::inventory* inventory();

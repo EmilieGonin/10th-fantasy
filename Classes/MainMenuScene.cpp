@@ -231,7 +231,7 @@ void MainMenuScene::Account()
 
 				BackButton(190, 840, 0.03, 5);
 
-				username = "Username: " + _database->user()->name;
+				username = "Username: " + _database->username();
 
 				cocos2d::Label* user = newLabel(username, 5);
 				user->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);

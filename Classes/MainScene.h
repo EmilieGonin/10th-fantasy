@@ -15,6 +15,7 @@ protected:
 	TextField* _textField; //use interface wrapper instead
 	DrawNode* _loadingRect;
 	Label* _loadingLabel;
+	bool _logged;
 
 public:
 	MainScene();

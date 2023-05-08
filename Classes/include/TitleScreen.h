@@ -9,6 +9,8 @@ public:
     virtual bool init();
     bool onTouchBegan(Touch*, Event*);
 
+    virtual void update(float) override;
+
     // implement the "static create()" method manually
     CREATE_FUNC(TitleScreen);
 };
