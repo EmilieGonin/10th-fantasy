@@ -180,6 +180,8 @@ void Database::createSave() {
 	std::ofstream file("user.txt");
 	file << "User=" + _email << std::endl;
 	file.close();
+
+	cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 }
 
 void Database::deleteSave() {
@@ -263,7 +265,6 @@ void Database::OnSetObjectsRequestSuccess(const PlayFab::DataModels::SetObjectsR
 
 	if (!_instance->_hasSave) {
 		_instance->createSave();
-		cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
 	}
 }
 
@@ -278,8 +279,6 @@ void Database::OnRegisterRequestError(const PlayFab::PlayFabError& error, void* 
 void Database::OnLoginRequestSuccess(const PlayFab::ClientModels::LoginResult& result, void*) {
 	cocos2d::log("login success");
 	_instance->setEntityKey(result.EntityToken);
-
-	_instance->_logged = true;
 	_instance->_username = result.InfoResultPayload->PlayerProfile->DisplayName;
 
 	PlayFab::PlayFabDataAPI::GetObjects(_instance->_getObjectsRequest, OnGetObjectsRequestSuccess, OnRequestError, nullptr);
@@ -295,18 +294,25 @@ void Database::OnGetObjectsRequestSuccess(const PlayFab::DataModels::GetObjectsR
 		_instance->_gears.push_back(elem.get<db::gear>());
 	}
 
-	db::gear gear = {
+	/*db::gear gear = {
 		1, 1, 1, 1, 1, 1
 	};
 
 	_instance->createGear(gear);
-	_instance->setGear(gear);
+	_instance->setGear(gear);*/
 
-	cocos2d::Label* label = _instance->newOutlinedLabel("Touch the screen to start");
-	label->setPosition(_instance->center());
+	_instance->_logged = true;
 
-	cocos2d::Label* userLabel = _instance->newOutlinedLabel("Logged in as " + _instance->_username);
-	userLabel->setPosition(Vec2(_instance->centerWidth(), _instance->top(userLabel->getLineHeight())));
+	if (_instance->_hasSave) {
+		cocos2d::Label* label = _instance->newOutlinedLabel("Touch the screen to start");
+		label->setPosition(_instance->center());
+
+		cocos2d::Label* userLabel = _instance->newOutlinedLabel("Logged in as " + _instance->_username);
+		userLabel->setPosition(Vec2(_instance->centerWidth(), _instance->top(userLabel->getLineHeight())));
+	}
+	else {
+		_instance->createSave();
+	}
 }
 
 void Database::OnLoginRequestError(const PlayFab::PlayFabError& error, void* customData) {
