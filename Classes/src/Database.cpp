@@ -683,5 +683,6 @@ std::string Database::username() { return _username; }
 db::user* Database::user() { return &_user; }
 db::character* Database::character() { return &_character; }
 db::inventory* Database::inventory() { return &_inventory; }
+std::vector<db::gear>* Database::gears() { return &_gears; }
 std::vector<db::support>* Database::lastPull() { return &_lastPull; }
 bool Database::isLogged() { return _logged; }
