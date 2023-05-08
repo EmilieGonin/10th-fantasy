@@ -91,6 +91,81 @@
     <ClCompile Include="..\Classes\src\Database.cpp">
       <Filter>Classes\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\HttpRequest.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\HttpRequesterCURL.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabAuthenticationAPI.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabAuthenticationDataModels.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabBaseModel.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabClientAPI.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabClientDataModels.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabCloudScriptAPI.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabCloudScriptDataModels.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabDataAPI.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabDataDataModels.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabExperimentationAPI.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabExperimentationDataModels.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabGroupsAPI.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabGroupsDataModels.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabInsightsAPI.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabInsightsDataModels.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabLocalizationAPI.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabLocalizationDataModels.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabMultiplayerAPI.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabMultiplayerDataModels.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabProfilesAPI.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabProfilesDataModels.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabResultHandler.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabSettings.cpp">
+      <Filter>Classes\PlayFab</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Z:\proj.win32\main.h" />
@@ -198,6 +273,93 @@
     <ClInclude Include="..\Classes\include\ShopMenu.h">
       <Filter>Classes\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\HttpRequest.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\HttpRequesterCURL.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\IHttpRequester.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabAuthenticationAPI.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabAuthenticationDataModels.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabBaseModel.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabClientAPI.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabClientDataModels.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabCloudScriptAPI.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabCloudScriptDataModels.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabCore.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabDataAPI.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabDataDataModels.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabError.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabExperimentationAPI.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabExperimentationDataModels.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabGroupsAPI.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabGroupsDataModels.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabInsightsAPI.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabInsightsDataModels.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabLocalizationAPI.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabLocalizationDataModels.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabMultiplayerAPI.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabMultiplayerDataModels.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabProfilesAPI.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabProfilesDataModels.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabResultHandler.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabSettings.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabZlib.h">
+      <Filter>Classes\PlayFab</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Z:\CMakeLists.txt" />
@@ -291,6 +453,9 @@
     </Filter>
     <Filter Include="Classes\Managers">
       <UniqueIdentifier>{a7746d58-1f66-47c0-84b6-386486f2af50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\PlayFab">
+      <UniqueIdentifier>{e0a596d6-0b82-4d76-959f-f9980db8e1cc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

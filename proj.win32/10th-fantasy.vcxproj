@@ -85,28 +85,28 @@
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>Z:\libs\include;Z:\Classes\include;$(IncludePath)</IncludePath>
-    <SourcePath>Z:\Classes\src;$(SourcePath)</SourcePath>
+    <IncludePath>Z:\Classes\PlayFabClientSDK;Z:\libs\include;Z:\Classes\include;$(IncludePath)</IncludePath>
+    <SourcePath>Z:\Classes\PlayFabClientSDK;Z:\Classes\src;$(SourcePath)</SourcePath>
     <LibraryPath>Z:\libs\lib-debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
     <IncludePath>Z:\packages\include;Z:\Classes\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>Z:\Classes\src;$(VC_SourcePath);</SourcePath>
+    <SourcePath>Z:\Classes\PlayFabClientSDK;Z:\Classes\src;$(VC_SourcePath);</SourcePath>
     <LibraryPath>Z:\packages\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>Z:\libs\include;Z:\Classes\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <SourcePath>Z:\Classes\src;$(VC_SourcePath);</SourcePath>
+    <IncludePath>Z:\libs\include;Z:\Classes\PlayFabClientSDK;Z:\Classes\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <SourcePath>Z:\Classes\PlayFabClientSDK;Z:\Classes\src;$(VC_SourcePath);</SourcePath>
     <LibraryPath>Z:\libs\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
     <IncludePath>Z:\packages\include;Z:\Classes\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <SourcePath>Z:\Classes\src;$(VC_SourcePath);</SourcePath>
+    <SourcePath>Z:\Classes\PlayFabClientSDK;Z:\Classes\src;$(VC_SourcePath);</SourcePath>
     <LibraryPath>Z:\packages\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>Z:\Classes;Z:\cocos2d\cocos\audio\include;Z:\cocos2d;Z:\cocos2d\cocos;Z:\cocos2d\extensions;Z:\cocos2d\cocos\platform;Z:\cocos2d\cocos\editor-support;Z:\cocos2d\cocos\base;Z:\cocos2d\cocos\platform\win32;Z:\cocos2d\external\recast\..;Z:\cocos2d\external\tinyxml2\.;Z:\cocos2d\external\xxhash\.;Z:\cocos2d\external\xxtea\.;Z:\cocos2d\external\clipper\.;Z:\cocos2d\external\edtaa3func\.;Z:\cocos2d\external\ConvertUTF\.;Z:\cocos2d\external\poly2tri\..;Z:\cocos2d\external\md5\..;Z:\cocos2d\external\unzip\.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Z:\cocos2d\external\curl\include\win32;Z:\cocos2d\external\zlib\include;Z:\Classes;Z:\cocos2d\cocos\audio\include;Z:\cocos2d;Z:\cocos2d\cocos;Z:\cocos2d\extensions;Z:\cocos2d\cocos\platform;Z:\cocos2d\cocos\editor-support;Z:\cocos2d\cocos\base;Z:\cocos2d\cocos\platform\win32;Z:\cocos2d\external\recast\..;Z:\cocos2d\external\tinyxml2\.;Z:\cocos2d\external\xxhash\.;Z:\cocos2d\external\xxtea\.;Z:\cocos2d\external\clipper\.;Z:\cocos2d\external\edtaa3func\.;Z:\cocos2d\external\ConvertUTF\.;Z:\cocos2d\external\poly2tri\..;Z:\cocos2d\external\md5\..;Z:\cocos2d\external\unzip\.</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /external:I "Z:/cocos2d/external/Box2D/include" /external:I "Z:/cocos2d/external/chipmunk/include" /external:I "Z:/cocos2d/external/freetype2/include/win32/freetype2" /external:I "Z:/cocos2d/external/bullet/include" /external:I "Z:/cocos2d/external/bullet/include/bullet" /external:I "Z:/cocos2d/external/jpeg/include/win32" /external:I "Z:/cocos2d/external/openssl/include/win32" /external:I "Z:/cocos2d/external/uv/include" /external:I "Z:/cocos2d/external/webp/include/win32" /external:I "Z:/cocos2d/external/websockets/include/win32" /external:I "Z:/cocos2d/external/curl/include/win32" /external:I "Z:/cocos2d/external/png/include/win32" /external:I "Z:/cocos2d/external/win32-specific/gles/include/OGLES" /external:I "Z:/cocos2d/external/win32-specific/icon/include" /external:I "Z:/cocos2d/external/win32-specific/MP3Decoder/include" /external:I "Z:/cocos2d/external/win32-specific/OggDecoder/include" /external:I "Z:/cocos2d/external/win32-specific/OpenalSoft/include" /external:I "Z:/cocos2d/external/glfw3/include/win32" /external:I "Z:/cocos2d/external/zlib/../win32-specific/zlib/include"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -854,6 +854,35 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\include\Weapon.h" />
     <ClInclude Include="..\Classes\Interface.h" />
     <ClInclude Include="..\Classes\MainMenuScene.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\HttpRequest.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\HttpRequesterCURL.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\IHttpRequester.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabAuthenticationAPI.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabAuthenticationDataModels.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabBaseModel.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabClientAPI.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabClientDataModels.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabCloudScriptAPI.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabCloudScriptDataModels.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabCore.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabDataAPI.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabDataDataModels.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabError.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabExperimentationAPI.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabExperimentationDataModels.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabGroupsAPI.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabGroupsDataModels.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabInsightsAPI.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabInsightsDataModels.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabLocalizationAPI.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabLocalizationDataModels.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabMultiplayerAPI.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabMultiplayerDataModels.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabProfilesAPI.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabProfilesDataModels.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabResultHandler.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabSettings.h" />
+    <ClInclude Include="..\Classes\PlayFabClientSDK\PlayFabZlib.h" />
     <ClInclude Include="..\Classes\RaidBossLootScene.h" />
     <ClInclude Include="..\Classes\SummonMenuScene.h" />
     <ClInclude Include="Z:\Classes\AppDelegate.h" />
@@ -863,6 +892,31 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="Z:\proj.win32\resource.h" />
     <ClCompile Include="..\Classes\Interface.cpp" />
     <ClCompile Include="..\Classes\MainMenuScene.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\HttpRequest.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\HttpRequesterCURL.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabAuthenticationAPI.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabAuthenticationDataModels.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabBaseModel.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabClientAPI.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabClientDataModels.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabCloudScriptAPI.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabCloudScriptDataModels.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabDataAPI.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabDataDataModels.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabExperimentationAPI.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabExperimentationDataModels.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabGroupsAPI.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabGroupsDataModels.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabInsightsAPI.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabInsightsDataModels.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabLocalizationAPI.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabLocalizationDataModels.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabMultiplayerAPI.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabMultiplayerDataModels.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabProfilesAPI.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabProfilesDataModels.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabResultHandler.cpp" />
+    <ClCompile Include="..\Classes\PlayFabClientSDK\PlayFabSettings.cpp" />
     <ClCompile Include="..\Classes\RaidBossLootScene.cpp" />
     <ClCompile Include="..\Classes\src\Battle.cpp" />
     <ClCompile Include="..\Classes\src\Database.cpp" />
