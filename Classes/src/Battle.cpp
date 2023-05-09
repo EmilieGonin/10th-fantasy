@@ -716,7 +716,7 @@ db::gear Battle::createBoots(int* rarity) {
 
 	db::gear Boots;
 	Boots.type = gameManager->BOOT;
-	Boots.stat = gameManager->SPEED;
+	Boots.stat = gameManager->ATK;
 
 	int rd2 = rand() % 100;
 	if (rd2 < rarity[0]) {
