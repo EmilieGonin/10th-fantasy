@@ -3,31 +3,37 @@
 #include "cocos2d.h"
 
 
-Player::Player() {
+Player::Player(db::user* character) {
 	_basehp = _totalHp = 300; // 75hp per lvl
 	_basedef = _totalDef = 76; // 8 def per lvl
 	_baseMagicDef = _totalMagicDef = 76; // 8 def per lvl
 	_baseatk = _totalAtk = 345; // 12 atk per lvl
 	_bonusMagical = _bonusPhysical = 25;
+	_critRate = _totalCritRate = 15;
+	_critDamage = _totalCritDamage = 100;
 	_lvl = 1;// 50 lvl		
 	_dmgType = 0; // 
 	SkillSlash *mySlash = new SkillSlash();
+	mySprite = Sprite::create("Sprite/player.png");
+	mySprite->setPosition(50, 400);
+
+	_character = character;
+		
 
 	_skills.push_back(mySlash);
 
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < _character->level; i++)
 	{
 		levelup();
 	}
 
-	mySprite = cocos2d::Sprite::create("sprite/player.png");
-	mySprite->setPosition(50, 400);
+	update();
 }	
 
 Player::~Player() {};
 
 
-db::character* Player::getCharacter(){ return character; }
+db::user* Player::getCharacter(){ return _character; }
 
 void Player::levelup() {
 	_lvl += 1;
@@ -35,11 +41,12 @@ void Player::levelup() {
 	CCLOG("%d", _totalHp);
 	_totalDef = _totalMagicDef = _basedef = _baseMagicDef += (8 * 100 + (_lvl/20) * 100) / 100;
 	_totalAtk = _baseatk += (8 * 100 +(_lvl/1,5) * 100) / 100; 
-	update();
+
 }
 
-void Player::equip(Gear* gear){
-	_myStuff.push_back(gear);
+void Player::equip(db::gear gear){
+	_character->gears[gear.type] = gear.id;
+	Database::Instance()->updateUser();
 	update();
 }
 
@@ -59,15 +66,27 @@ void Player::equipSupport(Support* support)
 }
 
 void Player::update() {
-	_battleHp = _totalHp;
+	//CCLOG("STUFF SIZE %d", _myStuff.size());
 	CCLOG(" BATTLE HPPPPPP %d", _battleHp);
-	if(_myStuff.size() != 0)
+	_battleHp = _totalHp;
+	for each (int gear in _character->gears)
 	{
-		for (int i = 0; i < _myStuff.size(); i++) {
-			*_finalStats[_myStuff[i]->getGear()->stat] +=  _myStuff[i]->getGear()->amount;
+		if (gear != 0)
+		{
+			CCLOG("Stat added");
+			*_finalStats[Database::Instance()->gears()[0][gear-1].stat] += Database::Instance()->gears()[0][gear-1].amount;
 		}
 	}
 }
 
-std::vector<Support*> Player::getSupport() { return _mySupport; }
 
+void Player::unequip(db::gear gear) {
+	_character->gears[gear.type] = 0;
+	Database::Instance()->updateUser();
+	update();
+}
+
+
+
+
+std::vector<Support*> Player::getSupport() { return _mySupport; }
