@@ -25,10 +25,6 @@ bool MainMenuScene::init()
 
 	if (!Scene::init()) { return false; }
 	_database = Database::Instance();
-	Player* _myplayerr = new Player(_database->user());
-	_database->user()->level = 50;
-	_database->updateUser();
-	PlayerManager::Instance()->setPlayer(_myplayerr);
 
 	openSubMenus = false;
 

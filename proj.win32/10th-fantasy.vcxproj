@@ -838,7 +838,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\include\Gear.h" />
     <ClInclude Include="..\Classes\include\Player.h" />
     <ClInclude Include="..\Classes\include\CharacterMenu.h" />
-    <ClInclude Include="..\Classes\include\PlayerManager.h" />
     <ClInclude Include="..\Classes\include\RaidBoss.h" />
     <ClInclude Include="..\Classes\include\RaidBossBetala.h" />
     <ClInclude Include="..\Classes\include\RaidBossLaiJande.h" />
@@ -886,7 +885,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\Classes\RaidBossLootScene.h" />
     <ClInclude Include="..\Classes\SummonMenuScene.h" />
     <ClInclude Include="Z:\Classes\AppDelegate.h" />
-    <ClInclude Include="Z:\Classes\include\PlayerManager.h" />
     <ClInclude Include="Z:\Classes\MainScene.h" />
     <ClInclude Include="Z:\proj.win32\main.h" />
     <ClInclude Include="Z:\proj.win32\resource.h" />
@@ -926,7 +924,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="..\Classes\src\Gear.cpp" />
     <ClCompile Include="..\Classes\src\Player.cpp" />
     <ClCompile Include="..\Classes\src\CharacterMenu.cpp" />
-    <ClCompile Include="..\Classes\src\PlayerManager.cpp" />
     <ClCompile Include="..\Classes\src\RaidBoss.cpp" />
     <ClCompile Include="..\Classes\src\RaidBossBetala.cpp" />
     <ClCompile Include="..\Classes\src\RaidBossLaiJande.cpp" />
@@ -944,7 +941,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="Z:\Classes\AppDelegate.cpp" />
     <ClCompile Include="Z:\Classes\BattleScene.cpp" />
     <ClCompile Include="Z:\Classes\MainScene.cpp" />
-    <ClCompile Include="Z:\Classes\src\PlayerManager.cpp" />
     <ClCompile Include="Z:\proj.win32\main.cpp" />
     <ResourceCompile Include="Z:\proj.win32\game.rc" />
     <ClInclude Include="Z:\Resources\CloseNormal.png" />

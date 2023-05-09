@@ -177,6 +177,8 @@ bool Database::checkSave() {
 }
 
 void Database::createSave() {
+	_hasSave = true;
+	cocos2d::log("save created");
 	std::ofstream file("user.txt");
 	file << "User=" + _email << std::endl;
 	file.close();
@@ -649,7 +651,7 @@ PlayFab::DataModels::SetObject Database::createUserObject() {
 		{ "Cristals", 1000 },
 		{ "Gender", 0 },
 		{ "Tutorial", 1 },
-		{ "Level", 1 },
+		{ "Level", 50 },
 		{ "Experience", 0 },
 		{ "Gears", {0, 0, 0, 0, 0, 0, 0, 0} }
 	});

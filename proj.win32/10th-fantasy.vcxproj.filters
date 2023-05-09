@@ -78,14 +78,10 @@
     <ClCompile Include="..\Classes\RaidBossLootScene.cpp">
       <Filter>Classes\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Z:\Classes\src\PlayerManager.cpp" />
     <ClCompile Include="..\Classes\src\CharacterMenu.cpp">
       <Filter>Classes\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\src\GameManager.cpp">
-      <Filter>Classes\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\src\PlayerManager.cpp">
       <Filter>Classes\Managers</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\src\Database.cpp">
@@ -257,14 +253,10 @@
     <ClInclude Include="..\Classes\RaidBossLootScene.h">
       <Filter>Classes\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Z:\Classes\include\PlayerManager.h" />
     <ClInclude Include="..\Classes\include\CharacterMenu.h">
       <Filter>Classes\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\GameManager.h">
-      <Filter>Classes\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\include\PlayerManager.h">
       <Filter>Classes\Managers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\Database.h">

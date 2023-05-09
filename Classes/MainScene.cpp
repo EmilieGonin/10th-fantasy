@@ -77,9 +77,9 @@ void MainScene::pull(int num) {
 
 		pulled.convertAmount = amount;
 		_database->lastPull()->push_back(pulled);
-		_database->updateUser();
 		log(pulled.name);
 	}
+	_database->updateUser();
 }
 
 //Lancée au démarrage de l'application pour setup le timer
