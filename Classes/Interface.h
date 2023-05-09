@@ -2,6 +2,8 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "GameManager.h"
+#include "AudioEngine.h"
+
 
 using namespace cocos2d::ui;
 using namespace cocos2d;
@@ -16,10 +18,12 @@ protected:
 	std::vector<Sprite*> _sprites;
 
 	int _nextText;
+	float musicVol;
+	unsigned int audioID;
 
 public:
 	Interface();
-
+	void Sounds();
 	//Création d'éléments automatiquement ajoutés dans la scène définie
 	TextField* newTextField(std::string);
 	Button* newButton(std::string);

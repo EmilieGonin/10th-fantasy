@@ -7,7 +7,7 @@ Player::Player() {
 	_basehp = _totalHp = 300; // 75hp per lvl
 	_basedef = _totalDef = 76; // 8 def per lvl
 	_baseMagicDef = _totalMagicDef = 76; // 8 def per lvl
-	_baseatk = _totalAtk = 75; // 12 atk per lvl
+	_baseatk = _totalAtk = 345; // 12 atk per lvl
 	_bonusMagical = _bonusPhysical = 25;
 	_lvl = 1;// 50 lvl		
 	_dmgType = 0; // 
