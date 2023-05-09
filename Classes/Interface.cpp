@@ -23,6 +23,11 @@ TextField* Interface::newTextField(std::string string) {
 	return textField;
 }
 
+void Interface::Sounds() {
+	musicVol = 0.25f;
+	audioID = AudioEngine::play2d("Audio/Vfx.mp3", false, musicVol);
+}
+
 Button* Interface::newButton(std::string string) {
 	Button* button = Button::create();
 	button->setTitleText(string);
@@ -30,6 +35,7 @@ Button* Interface::newButton(std::string string) {
 
 	if (_scene != nullptr) {
 		_scene->addChild(button);
+		Sounds();
 	}
 
 	return button;
@@ -42,6 +48,7 @@ Button* Interface::newButton(std::string string, std::string sprite) {
 
 	if (_scene != nullptr) {
 		_scene->addChild(button);
+		Sounds();
 	}
 
 	return button;
@@ -54,6 +61,7 @@ Button* Interface::newButton(std::string string, std::string sprite, int layer) 
 
 	if (_scene != nullptr) {
 		_scene->addChild(button, layer);
+		Sounds();
 	}
 
 	return button;

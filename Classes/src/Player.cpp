@@ -7,7 +7,7 @@ Player::Player(db::user* character) {
 	_basehp = _totalHp = 300; // 75hp per lvl
 	_basedef = _totalDef = 76; // 8 def per lvl
 	_baseMagicDef = _totalMagicDef = 76; // 8 def per lvl
-	_baseatk = _totalAtk = 98; // 12 atk per lvl
+	_baseatk = _totalAtk = 345; // 12 atk per lvl
 	_bonusMagical = _bonusPhysical = 25;
 	_critRate = _totalCritRate = 15;
 	_critDamage = _totalCritDamage = 100;
