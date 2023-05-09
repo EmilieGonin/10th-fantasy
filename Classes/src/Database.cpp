@@ -232,14 +232,6 @@ void Database::login() {
 			if (type == Widget::TouchEventType::ENDED) {
 				_email = _textFields[0]->getString();
 				getUser();
-				/*if (getUser()) {
-					createSave();
-					cocos2d::Director::getInstance()->replaceScene(MainMenuScene::create());
-				}
-				else {
-					clean();
-					login();
-				}*/
 			}
 		}
 	);
@@ -247,9 +239,14 @@ void Database::login() {
 
 void Database::logout() {
 	_logged = false;
+	_hasSave = false;
+	_email = "";
+	_username = "";
+	_user = {};
+	_gears.clear();
+
 	clean();
 	deleteSave();
-	init(_scene);
 }
 
 //PlayFab callbacks - register

@@ -16,6 +16,7 @@ public:
     bool onTouchBegan(Touch*, Event*);
 
     virtual void update(float) override;
+    void setBackground();
     void Sounds();
 
     // implement the "static create()" method manually

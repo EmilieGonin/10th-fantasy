@@ -122,30 +122,17 @@ private:
 
 	bool _hasSave;
 
-public:
-	static Database* Instance();
-
-	//Wrapper pour créer les requêtes et gérer les erreurs
-	//Peut être utilisé pour les requêtes GET et POST avec une surcharge
-	bool request(std::string); //GET
-	bool request(std::string, json); //POST
-	bool patch(std::string, json); //PATCH
-	bool deleteRequest(std::string); //DELETE
-	bool handleRequest();
-
 	//Wrappers
 	std::vector<std::string> split(std::string, std::string);
 	std::string createUsername();
 	void setEntityKey(PlayFab::ClientModels::EntityTokenResponse*);
 
 	//Pour vérifier les données au lancement du jeu
-	void init(cocos2d::Scene*);
 	bool checkSave();
 	void createSave();
 	void deleteSave();
 	void signup();
 	void login();
-	void logout();
 
 	//PlayFab callbacks - register
 	static void OnRegisterRequestSuccess(const PlayFab::ClientModels::RegisterPlayFabUserResult&, void*);
@@ -169,8 +156,31 @@ public:
 	void createUser();
 	void createCharacter();
 	bool createInventory();
-	void createGear(db::gear);
 	void createError();
+
+	//DELETE requests
+	bool deleteUser();
+	bool deleteGear(int);
+
+	//PlayFab Objects
+	PlayFab::DataModels::SetObject createUserObject();
+	PlayFab::DataModels::SetObject createGearsObject();
+
+	//Old requests
+	//Wrapper pour créer les requêtes et gérer les erreurs
+	//Peut être utilisé pour les requêtes GET et POST avec une surcharge
+	bool request(std::string); //GET
+	bool request(std::string, json); //POST
+	bool patch(std::string, json); //PATCH
+	bool deleteRequest(std::string); //DELETE
+	bool handleRequest();
+
+public:
+	static Database* Instance();
+
+	//Pour vérifier les données au lancement du jeu
+	void init(cocos2d::Scene*);
+	void logout();
 
 	//UPDATE requests
 	void update();
@@ -180,23 +190,14 @@ public:
 	bool updateGear(int);
 	void updateGears();
 
-	//DELETE requests
-	bool deleteUser();
-	bool deleteGear(int);
-
-	//Setters
-	void setGear(db::gear);
-	void setSupport(db::support, int);
-
 	//Local Json
 	std::vector<db::support> getSupports(int);
 	db::support getSupport(int);
 
-	//PlayFab Objects
-	PlayFab::DataModels::SetObject createUserObject();
-	PlayFab::DataModels::SetObject createGearsObject();
-
 	//Setters
+	void createGear(db::gear);
+	void setGear(db::gear);
+	void setSupport(db::support, int);
 	void setEmail(std::string);
 	void emptyPull();
 
