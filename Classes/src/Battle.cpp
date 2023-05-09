@@ -109,11 +109,11 @@ void Battle::attack(Entity* attacker, Entity* target, Skill* skillUsed) {
 
 	CCLOG("Mdama fzerg LIER %f", damage);
 	target->looseHp(damage);
-	myDamage = newLabel(std::to_string(damage));
-	myDamage->setPosition(Vec2(target->getSprite()->getPosition().x, target->getSprite()->getPosition().y + 200));
+	
 
 	//addChild(mydamagetext);
 	skillUsed->_cooldown = skillUsed->_maxCooldown;
+
 
 	selectedSkill = -1;
 	//skillUsed.additionalEffect(attacker, target, damage);

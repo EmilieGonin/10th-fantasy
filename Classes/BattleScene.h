@@ -6,6 +6,7 @@
 #include "Battle.h"
 #include "Entity.h"
 #include "GameManager.h"
+#include "PlayerManager.h"
 #include "Database.h"
 #include <iostream>
 #include <vector>

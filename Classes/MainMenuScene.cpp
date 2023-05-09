@@ -23,46 +23,50 @@ static void problemLoading(const char* filename)
 bool MainMenuScene::init()
 {
 
-    if (!Scene::init()) { return false; }
+	if (!Scene::init()) { return false; }
 	_database = Database::Instance();
+	Player* _myplayerr = new Player(_database->user());
+	_database->user()->level = 50;
+	_database->updateUser();
+	PlayerManager::Instance()->setPlayer(_myplayerr);
 
-    openSubMenus = false;
+	openSubMenus = false;
 
-    setScene(this);
+	setScene(this);
 
-    Sprites();
-    Labels();
-    Buttons();
-    Sounds();
+	Sprites();
+	Labels();
+	Buttons();
+	Sounds();
 
-	
+
 	if ((bool)!_database->user()->tutorial) { Tuto(); }
 
-    return true;
+	return true;
 }
 
 void MainMenuScene::Tuto() {
-    _gameManager->setTextPhases(1);
-    newTutoNextButton();
-    if (_gameManager->getTextPhases() == 1) {
-       newTextBox("Hello and welcome to our headquarters! I'll help you make yourself at home."); // need to figure out a way to return to next line
-    }
-    else if (_gameManager->getTextPhases() == 2) {
-        newTextBox("At the bottom you will find the raid menu! It is filled with hardships but is very rewarding");
-    }
-    else if (_gameManager->getTextPhases() == 3) {
-        newTextBox("You will also find the shop and summoning book. In order to complete tough tasks you'll need help!");
-    }
-    else if (_gameManager->getTextPhases() == 4) {
-        newTextBox("At the top right you will find a dropdown menu with the settings and your inventory.");
-    }
-    else if (_gameManager->getTextPhases() == 5) {
-        newTextBox("Finally, at the top left you will find your beautiful self, anyways I better get going good luck adventurer!");
-    }
-    if (_gameManager->getTextPhases() == 5) {
+	_gameManager->setTextPhases(1);
+	newTutoNextButton();
+	if (_gameManager->getTextPhases() == 1) {
+		newTextBox("Hello and welcome to our headquarters! I'll help you make yourself at home."); // need to figure out a way to return to next line
+	}
+	else if (_gameManager->getTextPhases() == 2) {
+		newTextBox("At the bottom you will find the raid menu! It is filled with hardships but is very rewarding");
+	}
+	else if (_gameManager->getTextPhases() == 3) {
+		newTextBox("You will also find the shop and summoning book. In order to complete tough tasks you'll need help!");
+	}
+	else if (_gameManager->getTextPhases() == 4) {
+		newTextBox("At the top right you will find a dropdown menu with the settings and your inventory.");
+	}
+	else if (_gameManager->getTextPhases() == 5) {
+		newTextBox("Finally, at the top left you will find your beautiful self, anyways I better get going good luck adventurer!");
+	}
+	if (_gameManager->getTextPhases() == 5) {
 		_database->user()->tutorial = 1;
 		_database->updateUser();
-    }
+	}
 }
 
 void MainMenuScene::Sprites() {
@@ -114,8 +118,8 @@ void MainMenuScene::Labels() {
 	crystal->setScale(0.7);
 	crystal->setPosition(centerWidth(), 920);
 
-	
-	
+
+
 }
 
 void MainMenuScene::Buttons() {
@@ -248,7 +252,7 @@ void MainMenuScene::Account()
 							TextField* name = TextField::create("Enter new pseudo", "fonts/Marker Felt.ttf", 30);
 							name->setPosition(cocos2d::Vec2(315, 750));
 
-							Button * okbtn = newButton("ok", "",5);
+							Button* okbtn = newButton("ok", "", 5);
 							okbtn->setPosition(cocos2d::Vec2(315, 720));
 
 							okbtn->addTouchEventListener([&](Ref* sender, Widget::TouchEventType type)
@@ -258,14 +262,14 @@ void MainMenuScene::Account()
 									}
 								}
 							);
-							this->addChild(name,5);
+							this->addChild(name, 5);
 						}
 					}
 				);
 
 				_background4 = Sprite::create("Button/Rectangle.png");
 				_background4->setPosition(180, 850);
-				_background4->setScale(0.5,0.25);
+				_background4->setScale(0.5, 0.25);
 				_background4->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
 				this->addChild(_background4, 4);
 			}
