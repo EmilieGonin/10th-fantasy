@@ -47,7 +47,13 @@ bool TitleScreen::init()
     return true;
 }
 
+void TitleScreen::Sounds() {
+    musicVol = 0.5f;
+    audioID = AudioEngine::play2d("Audio/GameStart.mp3", false, musicVol);
+}
+
 bool TitleScreen::onTouchBegan(Touch* touch, Event* event) {
+    Sounds();
     _director->replaceScene(MainMenuScene::create());
     return true;
 }
