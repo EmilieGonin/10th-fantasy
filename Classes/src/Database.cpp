@@ -239,9 +239,14 @@ void Database::login() {
 
 void Database::logout() {
 	_logged = false;
+	_hasSave = false;
+	_email = "";
+	_username = "";
+	_user = {};
+	_gears.clear();
+
 	clean();
 	deleteSave();
-	init(_scene);
 }
 
 //PlayFab callbacks - register
