@@ -31,11 +31,14 @@ bool RaidMenuScene::init()
     _gameManager = GameManager::Instance();
     Menu();
     SceneChanger();
-
+    Sprite* background = Sprite::create("Sprite/haha.png");
+    background->setPosition(-800, 0);
+    background->setScale(1.2);
+    background->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
     //auto bg = newButton("BattleScene.png");
     //bg->setPosition(0, 0);
     //bg->setScale(0.5, 0.5);
-    //this->addChild(bg);
+    this->addChild(background);
 
     return true;
 }

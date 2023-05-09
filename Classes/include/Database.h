@@ -206,6 +206,7 @@ public:
 	db::user* user();
 	db::character* character();
 	db::inventory* inventory();
+	std::vector<db::gear>* gears();
 	std::vector<db::support>* lastPull();
 	bool isLogged();
 };

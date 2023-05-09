@@ -113,20 +113,15 @@ bool BattleScene::init()
 	Gear necklace(&Necklace);
 	Gear earrings(&Earrings);
 
-	player = new Player();
+	player = new Player(_database->user());
 	Sword* sword = new Sword(50);
-
+	player->equipWeapon(sword);
 	db::support support = _database->getSupport(10);
 	player->equipSupport(new Support(&support));
 	player->equipSupport(new Support(&support));
-	player->equip(&helmet);
-	player->equip(&chest);
-	player->equip(&rings);
-	player->equip(&necklace);
-	player->equipWeapon(sword);
 
 	gameManager = GameManager::Instance();
-	
+	cocos2d::Sprite* background = Sprite::create(gameManager->getBackground());
 	
 	switch (gameManager->getBossId()){
 	case 0://UwU
@@ -152,9 +147,9 @@ bool BattleScene::init()
 	Battle* raidBattle =  new Battle(player, _enemies, 1);
 	battle = raidBattle;
 
-	cocos2d::Sprite* background = Sprite::create("BattleScene.png");
-	background->setPosition(0, 0);
-	background->setScale(0.5);
+	
+	background->setPosition(-650, 100);
+	background->setScale(1.2);
 	background->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 
 	EventListenerMouse* listener = EventListenerMouse::create();

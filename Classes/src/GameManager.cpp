@@ -15,6 +15,10 @@ GameManager::GameManager()
 	bossSprites[0] = "Sprite/DifficultyBetala.png";
 	bossSprites[1] = "Sprite/DifficultyShado.png";
 	bossSprites[2] = "Sprite/DifficultyLaijande.png";
+
+	backgroundSprites[0] = "Sprite/dark.png";
+	backgroundSprites[1] = "Sprite/red.png";
+	backgroundSprites[2] = "Sprite/white.png";
 }
 
 GameManager* GameManager::Instance() { return _instance; }
@@ -24,6 +28,7 @@ int GameManager::getBossId() { return _bossId; }
 int GameManager::getBossLvl() { return _bossLvl; }
 int GameManager::getDifficulty() { return _difficulty; }
 int GameManager::getTextPhases() { return _phases; }
+std::string GameManager::getBackground() { return backgroundSprites[_bossId-1]; }
 
 std::string GameManager::getSprite()
 {

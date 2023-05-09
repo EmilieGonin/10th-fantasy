@@ -8,6 +8,7 @@ private:
 	GameManager();
 	static GameManager* _instance;
 	std::string bossSprites[3];
+	std::string backgroundSprites[3];
 	int _bossId;
 	int _bossLvl;
 	int _difficulty;
@@ -24,6 +25,7 @@ public:
 	std::string getSprite();
 	int getDifficulty();
 	int getTextPhases();
+	std::string getBackground();
 	bool isLoading();
 	RaidBoss* getBoss();
 
