@@ -2,6 +2,7 @@
 #include "MainScene.h"
 #include "Interface.h"
 #include "BattleScene.h"
+#include "Player.h"
 #include "MainMenuScene.h"
 #include "cocos2d.h"
 #include <iostream>
@@ -12,12 +13,13 @@ protected:
     //Use interface wrapper instead !
     Button* _firstRaid;
     Button* Return;
-
+    Player* player;
     Sprite* bg;
     Sprite* popup;
-    Sprite* Player;
+    Sprite* Playerr;
     Sprite* Gem;
     Sprite* Stats;
+    Sprite* equipp;
 
     Button* Ring;
     Button* Necklace;
@@ -40,8 +42,10 @@ protected:
     Sprite* perso;
     Button* upgrade;
     Button* equip;
-    Button* unequip;
-   
+    Sprite* unequip;
+    db::gear stuffToEquip;
+    Rect equipBounds;
+    Rect desequipBounds;
     std::vector<Sprite*> displayedSprite;
     std::vector<Rect> boundings;
     std::vector< db::gear> allGears;

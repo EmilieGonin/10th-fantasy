@@ -1,11 +1,13 @@
 #pragma once
 #include "MainScene.h"
+#include "Player.h"
 #include <iostream>
 
 class MainMenuScene : public MainScene
 {
 private:
     Database* _database;
+    
 
     bool openSubMenus;
     bool openInventory;
